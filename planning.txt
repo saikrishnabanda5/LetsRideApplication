@@ -1,0 +1,88 @@
+1) How to use fixtures in letsride
+2)Dividing the modules and writing all files
+3)Regarding zeplin,stings,typos,n/w calls
+4)BaseURLin service
+5)Regarding writing stories
+6)API spec
+7)doubt regarding the forms,stores,access token
+
+1 - Writing modules
+2 - writing folder structure
+3 - writing common components
+    - common
+        - Buttons
+            - SignIn/LogIn button
+        - Inputs
+            - Input Tag
+        - Date and Time
+        - CheckBox
+        - can we write select in common
+        - Flexible timings
+        -
+Authentication
+    - components
+        - SignInpage
+            - Stories
+            - Testing
+            - index.js
+            
+        - LoginPage 
+            - Stories
+            - Testing
+            - index.js
+            -Mobx Variable
+                - userName
+                - Password
+                - errorMessage
+            -Methods
+                - OnchangeUserName
+                - OnchangePassword
+                - OnClickSignIn
+                
+    - constants
+    -fixtures
+    -Routes
+        - SignInRoute
+        - LoginRoute
+        
+    -Services
+        -AuthService
+            -PROPS
+                -api
+            -methods
+                -signInAPI
+    -Stories
+        - AuthStore
+            -LoginPage
+                -Props
+                    -getUserSignInAPIStatus
+                    -getUserSignInAPIError
+                    -authAPIService
+                -Methods
+                    - UserSignIn
+                    - UserSignOut
+                    - setUserSignInAPIResponse
+                    - setGetUserSignInAPIError
+                    - setGetUserSignInAPIStatus
+                    -
+        -models
+            -AuthCookie
+    -utils
+        -APIUtils
+        -StorageUtil
+        -
+        
+27th may
+morning session 
+10:30 to 11:15
+1)some corrections regarding signin page
+11:15 to 12:30pm
+2)Ride request
+ -  components
+2:00pm to 4:00pm
+2)afternoon session
+ -  routes
+ -  constants
+3)afternoon session -2
+ - Asset Transport Request
+ -

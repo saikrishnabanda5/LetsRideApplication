@@ -1,0 +1,10 @@
+{
+    "signupHeader":"Hi there,Please sign up",
+    "userName":"USERNAME",
+    "password":"PASSWORD",
+    "confirmPassword":"CONFIRMPASSWORD",
+    "signup":"SIGNUP",
+    "alreadyhaveaccount":"Already have an account?",
+    "dontHaveAccount":"Don’t have an account?  Signup",
+    "login":"Log in"
+}
