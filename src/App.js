@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {Provider} from 'mobx-react';
-import HomePage from "./common/HomePage";
+import HomePage from "./Common/HomePage";
 import Page1 from "./components/Page1";
 import routes from './Authentication/routes';
 // import commenceRoutes from './ECommerce/routes'
@@ -37,4 +37,4 @@ export  class App extends React.Component{
   }
 };
 
-export default App;
+export default App
