@@ -37,7 +37,7 @@ class SignInPage extends React.Component{
           <InputTag type="password" placeholder="Enter Password" onChangeInput={onChangePassword}/>
           <Typo12SteelHKGroteskSemiBold> {data.confirmPassword}</Typo12SteelHKGroteskSemiBold>
           <InputTag type="password" placeholder="Confirm Password" onChangeInput={onChangeConfirmPassword}/>
-          <ButtonComponent text={data.signup} onClickSignIn={onClickSignIn} onEnterKeyPress={onEnterKeyPress}/> 
+          <ButtonComponent text={data.signup} onSubmitForm={onClickSignIn} onEnterKeyPress={onEnterKeyPress}/> 
           {errorMessage !== "" && errorMessage !== undefined ? (
             <span className="text-red-700 mt-2 w-48 text-sm">
               {errorMessage}

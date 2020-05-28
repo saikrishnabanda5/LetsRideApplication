@@ -1,1 +1,1 @@
-export const PRODUCTS_PATH = "/products";
+export const RIDE_APP_PATH = "/ride-app/";

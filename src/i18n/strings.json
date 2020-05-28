@@ -1,10 +1,61 @@
-{
+ {
     "signupHeader":"Hi there,Please sign up",
-    "userName":"USERNAME",
+    "userName":"USER NAME",
     "password":"PASSWORD",
     "confirmPassword":"CONFIRMPASSWORD",
     "signup":"SIGNUP",
     "alreadyhaveaccount":"Already have an account?",
-    "dontHaveAccount":"Don’t have an account?  Signup",
-    "login":"Log in"
+    "dontHaveAccount":"Don’t have an account?",
+    "clickSignUp":"Signup",
+    "login":"LOGIN",
+    "hs":"HS",
+    "requestButton":"REQUEST",
+    "travel":{
+      "source":"Enter Source",
+      "destination":"Enter Destination"
+    },
+        "type":{
+            "text":"text",
+            "checkbox":"checkbox"
+        },
+    
+        "request":{
+            "request":"Request",
+            "ride":"Ride",
+            "assetTransport":"Asset Transport"
+        },
+        "share":{
+            "share":"Share",
+            "ride":"Ride",
+            "travelInfo":"Asset Transport"
+        },
+        "rideRequest":{
+            "rideRequest":"RIDE REQUEST",
+            "from":"FROM",
+            "to":"TO",
+            "dateAndTime":"DATE AND TIME",
+            "flexibleTimings":"FLEXIBLE TIMINGS",
+            "seats":"NO.OF SEATS",
+            "luggageQunatity":"LUGGAGE QUANTITY"
+        },
+        "assetRequest":{
+            "assetTransportRequest":"ASSET TRANSPORT REQUEST",
+            "assets":"NO.OF ASSETS",
+            "assetType":"ASSET TYPE",
+            "others":"OTHERS",
+            "assetSensitivity":"ASSET SENSITIVITY",
+            "whomToDeliver":"WHOM TO DELIVER",
+            "name":"Name-mobile Number"
+        },
+        "assests":{
+            "select":"Select asset",
+            "others":"Others",
+            "parcel":"Parcel",
+            "bag":"Bag"
+        },
+        "sensitivity":{
+            "sensitive":"Sensitive",
+            "highlySensitive":"Highly sensitive",
+            "normal":"Normal"
+        }
 }

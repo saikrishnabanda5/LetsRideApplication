@@ -17,12 +17,8 @@ export function getAccessToken() {
    return getCookie(ACCESS_TOKEN)
 }
 export function setAccessToken(accessToken) {
-<<<<<<< HEAD:src/Authentication/utils/StorageUtils.js
   alert(1)
   setCookie(ACCESS_TOKEN, accessToken)
-=======
-   setCookie(ACCESS_TOKEN, accessToken)
->>>>>>> a3c31a2efba81e86d571285c049fc53aa502a25d:src/utils/StorageUtils.js
 }
 
 export function clearUserSession() {

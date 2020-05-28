@@ -27,8 +27,7 @@ export const Typo14WhiteRubikMedium=styled.span`
   color: var(--white);
 `;
 export const Typo12SteelHKGroteskSemiBold=styled.span`
-width: 66px;
-  height: 16px;
+  height:20px;
   font-family: HKGrotesk;
   font-size: 12px;
   font-weight: 600;
@@ -49,4 +48,52 @@ width: 208px;
   line-height: 1.71;
   letter-spacing: normal;
   color: ${colors.darkBlueGrey};
+`;
+export const Typo18BrightBlueRobotoRegular=styled.span`
+width: 66px;
+  height: 24px;
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color:${colors.brightBlue};
+`;
+
+export const Typo14TurquoiseBlueHKGroteskRegular=styled.span`
+width: 30px;
+  height: 30px;
+  font-family: HKGrotesk;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  color:${colors.turquoiseBlue};
+`;
+export const Typo20DarkBlueGreyHKGrotestBold=styled.h1`
+  height: 30px;
+  font-family: HKGrotesk;
+  font-size: 14px;
+  text-align:center;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  color:${colors.darkBlueGrey};
+`;
+export  const Typo12HKGroteskSemiBoldSteel=styled.span`
+  height: 16px;
+  font-family: HKGrotesk;
+  font-size: 12px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: 0.12px;
+  color: var(--steel);;
 `;

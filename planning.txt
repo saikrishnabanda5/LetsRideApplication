@@ -86,3 +86,21 @@ morning session
 3)afternoon session -2
  - Asset Transport Request
  -
+ 
+ 
+ 1)modifying changes for select tag
+ 2)implementing incr,decr operations in common and stores
+ 3)doing login functionCalling
+ 4) editing changes for signup button 
+ 5)
+ 
+ morning session
+  - some changes related select
+  - selecting asset and selecting share half part
+  - writing flexible timings and checking
+  
+  afternoon
+   - acheiving functionality part of all select items
+        3:30pm
+   - acheiving UI related to My requests
+   - 

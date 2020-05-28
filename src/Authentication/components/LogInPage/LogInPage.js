@@ -1,18 +1,23 @@
 import React from 'react';
 import {observer,inject} from 'mobx-react';
 import {observable} from 'mobx';
-import {ErrorMessage,Header,ClickLogIn,LogInStyle,LogInView,Image,UserName,Password} from '../LogInPage/styledComponent.js';
+import {ErrorMessage,Header,ClickLogIn,LogInStyle,LogInView,Image,UserName,Password,SignUp,Account} from '../LogInPage/styledComponent.js';
 import {getAccessToken} from '../../utils/StorageUtils.js';
 import InputTag from '../../../Common/inputTag'
 import ButtonComponent from '../../../Common/button/button.js'
 import data from '../../../i18n/strings.json'
-import {Typo32DarkBlueGreyRubikRegular,Typo12SteelHKGroteskSemiBold,Typo14DarkBlueGreyHKGroteskRegular} from '../../../Common/styleGuide/Typos'
+import SignInPage from '../SignInPage'
+// import {Typo32DarkBlueGreyRubikRegular,Typo12SteelHKGroteskSemiBold,Typo14DarkBlueGreyHKGroteskRegular} from '../../../Common/styleGuide/Typos'
 
 @observer
 class LogInPage extends React.Component{
+  @observable userPage=false
     usernameRef = React.createRef()
     componentDidMount(){
       this.usernameRef.current.focus();
+    }
+    signInPage=()=>{
+       this.userPage=true;
     }
     render(){
           const {
@@ -34,14 +39,15 @@ class LogInPage extends React.Component{
             <Password>{data.password}</Password>
             <InputTag type="password" placeholder="Enter Password" onChangeInput={onChangePassword}/>
          
-            <ButtonComponent text={data.signup} onClickSignIn={onClickSignIn} onEnterKeyPress={onEnterKeyPress}/> 
+            <ButtonComponent text={data.login} onSubmitForm={onClickSignIn} onEnterKeyPress={onEnterKeyPress}/> 
             {errorMessage !== "" && errorMessage !== undefined ? (
               <span className="text-red-700 mt-2 w-48 text-sm">
                 {errorMessage}
               </span>
             ) : null}
             <ClickLogIn>
-            {data.alreadyhaveaccount}{data.login}
+            <Account>{data.dontHaveAccount}</Account>
+            {this.userPage==false? <SignUp onClick={this.signInPage}>{data.clickSignUp}</SignUp>:<SignInPage userPage={this.userPage}/>}
            </ClickLogIn>
           </LogInStyle>
         </LogInView>

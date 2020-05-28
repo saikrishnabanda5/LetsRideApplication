@@ -1,13 +1,13 @@
 import React from "react";
 import {Route} from "react-router-dom";
 import {
-  PRODUCTS_PATH,
+  RIDE_APP_PATH,
 } from "../constants/RouteConstants";
 
-import ProductPageRoute from   '../routes/ProductPageRoute';
+import RideAppRoute from   '../routes/RideAppRoute';
 
-const productsRoutes = [
-  <Route key={Math.random()}  path={PRODUCTS_PATH} component={ProductPageRoute} />,
+const rideAppRoutes = [
+  <Route key={Math.random()}  path={RIDE_APP_PATH} component={RideAppRoute} />,
 ];
 
-export default productsRoutes;
+export default rideAppRoutes;

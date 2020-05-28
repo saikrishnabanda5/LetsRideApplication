@@ -8,6 +8,7 @@ const Input = styled.input `${tw
   border-radius: 2px;
   border: solid 1px #7e858e;
   background-color: #ffffff;
+  margin-bottom:20px;
 `
 
 export {Input}

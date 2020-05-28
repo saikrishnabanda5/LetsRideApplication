@@ -38,7 +38,6 @@ class SignInRoute extends React.Component {
         if(this.password.length>0&&this.username.length>0&&this.confirmPassword.length>0&&
         this.password===this.confirmPassword){
             this.errorMessage=null;
-            console.log(this.props.authStore)
             this.props.authStore.userSignIn(this.username,this.password,this.confirmPassword);         
             // history.replace('/userpage');
         }
