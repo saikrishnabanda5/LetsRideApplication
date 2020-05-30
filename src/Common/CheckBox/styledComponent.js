@@ -9,9 +9,9 @@ const Input = styled.input `${tw
   border-radius: 2px;
   border: solid 1px #d7dfe9;
   background-color: #ffffff;
-`
+`;
 
-export {Input}
+export {Input};
 
 
 

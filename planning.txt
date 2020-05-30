@@ -104,3 +104,56 @@ morning session
         3:30pm
    - acheiving UI related to My requests
    - 
+   
+   
+   29th may
+   - giving login button
+   - fixing datetime from,to
+   - flexibility
+   - ride request required field error handling
+   - showing loader in button
+   - filling the form
+   - if one change is done then either api or fixtures should be called 
+   - writing dummy fixtures
+   - 
+   
+   29th morning session
+   - acheiving my requests and completing planning
+   - later completing share [part
+   - later acheiving matching rides
+   
+   
+   1)fixing signup-----------------------
+   2)changing username to mobile number and password----------------
+   2)weak,strong in password
+   3)username exists wrror--------------
+   4)login button navigate-------
+  
+  
+  1)showing required field error -----------------
+  2)weak,strong in password
+  3)required error------------------------------
+  4)writing some typos in styledComponent---------------------
+  5)removing classNames for all files---------------
+  6)mandatory fields errorhandling
+  7)writing test cases for login,signup and ride app
+  8)writing date and time validations correctly
+  9)showing loader in button after submitting form
+  10)if one change is done then either api or fixtures should be called 
+  11)writing dummy fixtures
+  
+  afternoon - 3:00pm 1-4
+  next datetime - 3:00pm to 3:30pm
+  
+  
+  CLEAN CODE,ERRORS HANDLING,FIXING BUGS
+  
+  1)request stores testing
+  2)route testing
+  3)components testing
+  
+  
+  day planning
+  - flexible timings not completed
+  - loader in  button
+  - regex for only numbers

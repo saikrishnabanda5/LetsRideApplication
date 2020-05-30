@@ -6,20 +6,19 @@ import SignInPage from '../../components/SignInPage';
 @inject('authStore')
 @observer
 class SignInRoute extends React.Component {
-    @observable username
+    @observable mobileNumber
     @observable password  
     @observable errorMessage
     @observable confirmPassword
-    // signInFormRef = React.createRef()
     constructor(props){
         super(props);
-        this.username="";
+        this.mobileNumber="";
         this.password="";
-        this.confirmPassword=""
+        this.confirmPassword="";
         this.errorMessage="";
     }
-    onChangeUsername=(event)=>{
-        this.username=event.target.value;
+    onChangeMobileNumber=(event)=>{
+        this.mobileNumber=event.target.value;
     }    
     onChangePassword=(event)=>{
         
@@ -35,23 +34,23 @@ class SignInRoute extends React.Component {
     }
     onClickSignIn=()=>{
         const {history}=this.props; 
-        if(this.password.length>0&&this.username.length>0&&this.confirmPassword.length>0&&
+        if(this.password.length>10&&this.mobileNumber.length===10&&this.confirmPassword.length>0&&
         this.password===this.confirmPassword){
-            this.errorMessage=null;
-            this.props.authStore.userSignIn(this.username,this.password,this.confirmPassword);         
-            // history.replace('/userpage');
+            this.errorMessage="";
+            this.props.authStore.userSignIn(this.mobileNumber,this.password,this.confirmPassword);         
+            history.replace('/login/v1');
         }
-        else if(this.username.length==0){
-            this.errorMessage="Please enter username";
+        else if(this.mobileNumber.length===0){
+            this.errorMessage="Required";
+           
         }
         else if(this.password.length==0){
-            this.errorMessage="Please enter password";
+            this.errorMessage="Required";
+    
         }
         else if(this.confirmPassword.length==0){
-            this.errorMessage="Please confirm password";
-        }
-        else if(this.password!==this.confirmPassword){
-            this.errorMessage="Password didnot match";
+            this.errorMessage="Required";
+    
         }
     }
   render() {
@@ -59,11 +58,11 @@ class SignInRoute extends React.Component {
     return (
       <SignInPage
       apiStatus={getUserSignInAPIStatus}
-      username={this.username}
+      mobileNumber={this.mobileNumber}
       password={this.password}
       confirmPassword={this.confirmPassword}
       errorMessage={this.errorMessage}
-      onChangeUsername={this.onChangeUsername}
+      onChangeMobileNumber={this.onChangeMobileNumber}
       onChangePassword={this.onChangePassword}
       onChangeConfirmPassword={this.onChangeConfirmPassword}
       onClickSignIn={this.onClickSignIn}
@@ -74,8 +73,3 @@ class SignInRoute extends React.Component {
 }
 
 export default withRouter(SignInRoute);
-//ref ={this.signInFormRef}
-
-
-// this.password.length==0&&this.username.length==0&&this.confirmPassword.length==0||
-//         this.password===this.confirmPassword

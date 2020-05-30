@@ -1,8 +1,8 @@
 import React from 'react';
-import {observer,inject} from 'mobx-react';
-import {observable} from 'mobx'
-import data from '../../../i18n/strings.json'
-import Select from '../../../Common/Select'
+import {observer} from 'mobx-react';
+import {observable} from 'mobx';
+import data from '../../../i18n/strings.json';
+import Select from '../../../Common/Select';
 @observer
 class RequestComponent extends React.Component{
     @observable listOfRequests

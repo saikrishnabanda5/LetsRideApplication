@@ -1,15 +1,14 @@
 import {observable,action,computed} from 'mobx';
 import {API_INITIAL} from '@ib/api-constants';
 import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
-import RequestService from '../../services/RequestService/RequestAPI.api.js';
-class RequestStore {
-    @observable getRequestAPIStatus
-    @observable getRequestAPIError
+import Moment from 'react-moment'
+class ShareStore {
+    @observable getProductListAPIStatus
+    @observable getProductListAPIError
     @observable selectedValue
     @observable selectedAsset
     @observable seatsAvailable
     @observable otherAssets
-    @observable selectSensitivity
     @observable count
     @observable source
     @observable destination
@@ -19,19 +18,18 @@ class RequestStore {
     @observable assetsCount
     @observable credentials
     @observable personDetails
-    @observable errorMessage
     requestAPIService
     constructor(requestService){
+        console.log("RService",requestService)
         this.requestAPIService=requestService;
         this.init();
     }
     @action
     init(){
-        this.getRequestAPIStatus=API_INITIAL;
-        this.getRequestAPIError=null;
-        this.selectedValue='REQUEST';
+        this.getProductListAPIStatus=API_INITIAL;
+        this.getProductListAPIError=null;
+        this.selectedValue='Share';
         this.selectedAsset="Select asset";
-        this.selectSensitivity="Sensitive";
         this.isChecked=false;
         this.startDate=new Date();
         this.seatsAvailable=0;
@@ -43,20 +41,19 @@ class RequestStore {
         this.otherAssets ="";
         this.personDetails='';
         this.credentials={};
-        this.errorMessage='';
     }
     @action.bound
-    setRequestAPIResponse(response){
+    setProductListResponse(response){
         this.response=response;
     }
     
     @action.bound
-    setRequestAPIStatus(apiStatus){
-        this.getRequestAPIStatus=apiStatus;
+    setGetProductListAPIStatus(apiStatus){
+        this.getProductListAPIStatus=apiStatus;
     }
     @action.bound
-    setRequestAPIError(error){
-        this.getRequestAPIError=error;
+    setGetProductListAPIError(error){
+        this.getProductListAPIError=error;
     }
    @action.bound
    incrementCounter() {
@@ -93,18 +90,14 @@ class RequestStore {
        }
    }
     @action.bound
-    onSelectRequest(event){
+    onSelectShare(event){
+        alert(1)
         this.selectedValue=event.target.value;
     }
     
     @action.bound
     onSelectAsset(event){
         this.selectedAsset=event.target.value;
-    }
-    
-    @action.bound
-    onSelectSensitivity(event){
-        this.selectSensitivity=event.target.value;
     }
     
     onEnterKeyPress=(event)=>{
@@ -135,7 +128,7 @@ class RequestStore {
     onChangeUserValue(event){
         this.otherAssets = event.target.value;   
     }
-    onChangePersonName(event){
+    onChangePersonName(){
         this.personDetails =event.target.value;
     }
     @action.bound
@@ -147,21 +140,8 @@ class RequestStore {
         // this.startDataAndTime=new Date();
     }
     @action.bound
-    validation(source,destination,startDate,isChecked,seatsAvailable,luggageCount){
-        console.log(source,destination,startDate,isChecked,seatsAvailable,luggageCount);
-        if(source.length>0&&destination.length>0&&seatsAvailable.length>=1&&luggageCount.length>=1){
-            this.errorMessage='';
-            this.getCredentials(source,destination,startDate,isChecked,seatsAvailable,luggageCount);
-        }
-        else if(source.length===0){
-             this.errorMessage="Required";
-        }
-        else if(destination.length===0){
-             this.errorMessage="Required";   
-        }
-    }
-    @action.bound
     getCredentials(source,destination,startDate,isChecked,seatsAvailable,luggageCount){
+        alert(9);
         this.credentials={
             "source":source,
             "destination":destination,
@@ -173,17 +153,15 @@ class RequestStore {
     }
     @action.bound
     onClickRequest(source,destination,startDate,isChecked,seatsAvailable,luggageCount){
-        this.validation(source,destination,startDate,isChecked,seatsAvailable,luggageCount);
-        this.source ='';
-        this.destination ='';
+        this.getCredentials(source,destination,startDate,isChecked,seatsAvailable,luggageCount);
         const requestPromise =this.requestAPIService.getRequestAPI(this.credentials);
         return bindPromiseWithOnSuccess(requestPromise)
-                .to(this.setRequestAPIStatus,this.setRequestAPIResponse)
-                .catch(this.setRequestAPIError);
+                .to(this.setGetProductListAPIStatus,this.setProductListResponse)
+                .catch(this.setGetProductListAPIError);
     }
     @action
     clearStore(){
         this.init();
     }
 }
-export default RequestStore;
+export default ShareStore;

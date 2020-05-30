@@ -1,13 +1,12 @@
-import tw from 'tailwind.macro'
-import styled from '@emotion/styled'
+import tw from 'tailwind.macro';
+import styled from '@emotion/styled';
 
 const Button =styled.button `${tw
-`text-white  `};
+`text-white`};
 width: 320px;
-  height: 40px;
-  border-radius: 4px;
-  background-color: #0b69ff;
-  
+height: 40px;
+border-radius: 4px;
+background-color: #0b69ff;
 `;
 
-export {Button}
+export {Button};

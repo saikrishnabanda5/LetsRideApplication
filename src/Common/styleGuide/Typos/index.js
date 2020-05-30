@@ -38,10 +38,10 @@ export const Typo12SteelHKGroteskSemiBold=styled.span`
   color:${colors.steel};
 `;
 export const Typo14DarkBlueGreyHKGroteskRegular=styled.span`
-width: 208px;
+  width: 208px;
   height: 24px;
   font-family: HKGrotesk;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;

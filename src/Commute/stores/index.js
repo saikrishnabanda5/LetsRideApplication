@@ -1,6 +1,9 @@
-import RequestService from '../services/RequestRideService/RequestRideAPI.api';
-import ShareTravelInfoService from '../services/ShareTravelInfoService/ShareTravelInfoAPI.api';
+import RequestService from '../services/RequestService/RequestAPI.api';
+import ShareService from '../services/ShareService/ShareAPI.api';
 import RequestStore from './RequestStore';
-const requestService = new RequestService()
+import ShareStore from './ShareStore'
+const requestService = new RequestService();
+const shareService = new ShareService();
 const requestStore = new RequestStore(requestService);
-export default {requestStore}
+const shareStore = new ShareStore(shareService);
+export default {requestStore,shareStore};

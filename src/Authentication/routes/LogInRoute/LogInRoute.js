@@ -6,18 +6,17 @@ import LogInPage from '../../components/LogInPage';
 @inject('authStore')
 @observer
 class LogInRoute extends React.Component {
-    @observable username
+    @observable mobileNumber
     @observable password  
     @observable errorMessage
-    signInFormRef = React.createRef()
     constructor(props){
         super(props);
-        this.username="";
+        this.mobileNumber="";
         this.password="";
         this.errorMessage="";
     }
-    onChangeUsername=(event)=>{
-        this.username=event.target.value;
+    onChangeMobileNumber=(event)=>{
+        this.mobileNumber=event.target.value;
     }    
     onChangePassword=(event)=>{
         this.password=event.target.value;
@@ -29,15 +28,17 @@ class LogInRoute extends React.Component {
     }
     onClickSignIn=()=>{
         const {history}=this.props;
-        if(this.password.length>0&&this.username.length>0){
+        if(this.password.length>0&&this.mobileNumber.length===10 && this.mobileNumber.search(/^[6-9]{1}[0-9]{9}$/) === 0){
+            alert("done")
+            this.errorMessage="";
             this.props.authStore.userSignIn();         
-            // history.replace('/products');
+            history.replace('/ride-app/');
         }
-        else if(this.username.length==0){
-            this.errorMessage="Please enter username";
+        else if(this.mobileNumber.length===0 || this.mobileNumber.search(/^[6-9]{1}[0-9]{9}$/) === -1){
+            this.errorMessage="Required";
         }
-        else{
-            this.errorMessage="Please enter password";
+        else if(this.password.length==0){
+            this.errorMessage="Required";
         }
     }
   render() {
@@ -45,10 +46,10 @@ class LogInRoute extends React.Component {
     return (
       <LogInPage
       apiStatus={getUserSignInAPIStatus}
-      username={this.username}
+      mobileNumber={this.mobileNumber}
       password={this.password}
       errorMessage={this.errorMessage}
-      onChangeUsername={this.onChangeUsername}
+      onChangeMobileNumber={this.onChangeMobileNumber}
       onChangePassword={this.onChangePassword}
       onClickSignIn={this.onClickSignIn}
       onEnterKeyPress={this.onEnterKeyPress}
@@ -58,4 +59,3 @@ class LogInRoute extends React.Component {
 }
 
 export default withRouter(LogInRoute);
-//ref ={this.signInFormRef}

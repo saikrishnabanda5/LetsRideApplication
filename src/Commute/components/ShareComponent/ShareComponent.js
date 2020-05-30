@@ -1,22 +1,19 @@
 import React from 'react';
-import {observer,inject} from 'mobx-react';
-import {observable} from 'mobx'
-import data from '../../../i18n/strings.json'
+import {observer} from 'mobx-react';
+import {observable} from 'mobx';
+import data from '../../../i18n/strings.json';
+import Select from '../../../Common/Select';
 @observer
 class ShareComponent extends React.Component{
-    onSelectRequest=(event)=>{
-        return this.props.getRequestStore.onSelectRequest(event.target.value)
+    @observable listOfShareItems
+    constructor(props){
+        super(props);
+        this.listOfShareItems=[data.share.share,data.share.ride,data.share.travelInfo];
     }
     render(){
-        console.log(this.props.getRequestStore.selectedValue)
         return(
-            <div>
-            <select onChange={()=>this.onSelectRequest(event)}>  
-                  <option value="REQUEST">{"share"}</option>
-                  <option value="RIDE">{data.request.ride}</option>
-                  <option value="ASSETTRANSPORT">{data.request.assetTransport}t</option>
-             </select>
-            </div>)
+            <Select onSelect={this.props.getShareStore.onSelectShare} listOfItems={this.listOfShareItems}/>
+            );
     }
 }
 export default ShareComponent;

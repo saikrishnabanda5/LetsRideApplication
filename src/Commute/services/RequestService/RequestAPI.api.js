@@ -10,8 +10,8 @@ class RequestService{
             baseURL:"https://9ba0cd3ggi.execute-api.ap-south-1.amazonaws.com/ecommerce/"
      });
  }
- getRequestAPI=()=>{
-   alert("api")
+ getRequestAPI=(credentials)=>{
+   alert("api called")
      return networkCallWithApisauce(
             this.api,
             `products`,

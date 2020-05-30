@@ -1,57 +1,70 @@
 import React from 'react';
 import {observer,inject} from 'mobx-react';
 import {observable} from 'mobx';
-import {ErrorMessage,Header,ClickLogIn,LogInStyle,LogInView,Image,UserName,Password,SignUp,Account} from '../LogInPage/styledComponent.js';
-import {getAccessToken} from '../../utils/StorageUtils.js';
-import InputTag from '../../../Common/inputTag'
-import ButtonComponent from '../../../Common/button/button.js'
-import data from '../../../i18n/strings.json'
-import SignInPage from '../SignInPage'
-// import {Typo32DarkBlueGreyRubikRegular,Typo12SteelHKGroteskSemiBold,Typo14DarkBlueGreyHKGroteskRegular} from '../../../Common/styleGuide/Typos'
-
+import {Header,FromAddress,ToAddress,DateTime,RequestRideStyle,Flexibility,UserFlexibility,Operations,Availability,Counter,PageView,Mandatory,Address} from '../ShareRide/styledComponent'
+import DateAndTime from '../../../../Common/DateAndTime'
+import data from '../../../../i18n/strings.json'
+import InputTag from '../../../../Common/inputTag'
+import CheckBox from '../../../../Common/CheckBox'
+import CounterPage from '../../../../Common/CounterPage'
+import ButtonComponent from '../../../../Common/button/button'
+@inject('requestStore')
 @observer
-class LogInPage extends React.Component{
-  @observable userPage=false
-    usernameRef = React.createRef()
-    componentDidMount(){
-      this.usernameRef.current.focus();
-    }
-    signInPage=()=>{
-       this.userPage=true;
+class ShareRide extends React.Component{
+    onSubmitDetails=()=>{
+        const {getShareStore} =this.props;
+        getShareStore.onClickRequest(getShareStore.source,getShareStore.destination,getShareStore.startDate,
+        getShareStore.isChecked,getShareStore.seatsAvailable,getShareStore.luggageCount);
     }
     render(){
-          const {
-          apiStatus,
-          username,
-          password,
-          errorMessage,
-          onChangeUsername,
-          onChangePassword,
-          onClickSignIn,
-          onEnterKeyPress} = this.props;
+        const {getShareStore} =this.props;
         return(
-        <LogInView>
-          <LogInStyle >
-            <Image alt="iBhubsLogo" src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/ecca87bf-3005-41c9-aa87-d8a5dd3741ff.svg" />
-            <Header >{data.signupHeader}</Header>
-            <UserName>{data.userName}</UserName>
-            <InputTag type="text" placeholder="Enter Username"  refs={this.usernameRef} onChangeInput={onChangeUsername}/>
-            <Password>{data.password}</Password>
-            <InputTag type="password" placeholder="Enter Password" onChangeInput={onChangePassword}/>
-         
-            <ButtonComponent text={data.login} onClickSignIn={onClickSignIn} onEnterKeyPress={onEnterKeyPress}/> 
-            {errorMessage !== "" && errorMessage !== undefined ? (
-              <span className="text-red-700 mt-2 w-48 text-sm">
-                {errorMessage}
-              </span>
-            ) : null}
-            <ClickLogIn>
-            <Account>{data.dontHaveAccount}</Account>
-            {this.userPage==false? <SignUp onClick={this.signInPage}>{data.clickSignUp}</SignUp>:<SignInPage userPage={this.userPage}/>}
-           </ClickLogIn>
-          </LogInStyle>
-        </LogInView>
+        <PageView>
+         <RequestRideStyle>
+           <Header>{data.rideRequest.rideRequest} </Header>
+           <Address>
+               <FromAddress>{data.rideRequest.from}</FromAddress>
+               <Mandatory>*</Mandatory>
+           </Address>
+           <InputTag type={data.type.text} placeholder={data.travel.source}  onChangeInput={getShareStore.onChangeSource} />
+           <Address>
+               <ToAddress>{data.rideRequest.to}</ToAddress>
+               <Mandatory>*</Mandatory>
+           </Address>
+           <InputTag type={data.type.text} placeholder={data.travel.destination} onChangeInput={getShareStore.onChangeDestination} />
+           {getShareStore.isChecked==false?<Address>
+                <DateTime> {data.rideRequest.dateAndTime}</DateTime>
+                <Mandatory>*</Mandatory>
+            </Address>:null}
+             {getShareStore.isChecked==false? <DateAndTime onChangeDateAndTime={getShareStore.onChangeDateAndTime}/>:null}
+          <UserFlexibility>
+            <CheckBox type={data.type.checkbox} isChecked={getShareStore.isChecked} onClickCheckBox={getShareStore.onClickCheckBox}/>
+            <Flexibility> {data.rideRequest.flexibleTimings}</Flexibility>
+          </UserFlexibility>
+          <Operations>
+            <Availability>{data.rideRequest.seats}</Availability>
+            <Mandatory>*</Mandatory>
+            <Counter>
+                <CounterPage incrementCounter={getShareStore.incrementCounter} 
+                decrementCounter={getShareStore.decrementCounter}
+                count={getShareStore.seatsAvailable}/>
+            </Counter>
+          </Operations>
+          <Operations>
+            <Availability>
+            {data.rideRequest.luggageQunatity}
+            </Availability>
+             <Mandatory>*</Mandatory>
+            <Counter>
+                <CounterPage incrementCounter={getShareStore.incrementLuggageCounter} 
+                decrementCounter={getShareStore.decrementLuggageCounter}
+                count={getShareStore.luggageCount}/>
+            </Counter>
+          </Operations>
+          <ButtonComponent text={data.requestButton} onSubmitForm={this.onSubmitDetails}/> 
+         </RequestRideStyle>
+        </PageView>
             );
     }
 }
-export default LogInPage;
+export default ShareRide;

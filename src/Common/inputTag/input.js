@@ -1,13 +1,12 @@
 import  React from 'react';
+import {observer} from 'mobx-react';
 import {Input} from './styledComponent';
-
+@observer
 class InputTag extends React.Component{
     render(){
-        console.log(this.props)
-    const {type,placeholder,onChangeInput,refs} =this.props;
+    const {type,placeholder,onChangeInput,refs,errorMessage,inputValue}=this.props;
         return(
-           
-            <Input type={type} placeholder={placeholder} onChange={onChangeInput} ref={refs}/> 
+            <Input type={type} placeholder={placeholder} inputValue={inputValue} error={errorMessage} onChange={onChangeInput} ref={refs}/> 
              );
     }
 }

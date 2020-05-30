@@ -1,22 +1,29 @@
  {
     "signupHeader":"Hi there,Please sign up",
     "userName":"USER NAME",
+    "mobileNumber":"Enter MobileNumber",
     "password":"PASSWORD",
-    "confirmPassword":"CONFIRMPASSWORD",
+    "enterPassword":"Enter Password",
+    "confirmPassword":"Confirm Password",
     "signup":"SIGNUP",
     "alreadyhaveaccount":"Already have an account?",
     "dontHaveAccount":"Don’t have an account?",
     "clickSignUp":"Signup",
-    "login":"LOGIN",
+    "clickLogIn":"LOGIN",
+    "weak":"Weak",
+    "strong":"Strong",
+    "login":"Log in",
     "hs":"HS",
     "requestButton":"REQUEST",
+    "required":"Required",
     "travel":{
       "source":"Enter Source",
       "destination":"Enter Destination"
     },
         "type":{
             "text":"text",
-            "checkbox":"checkbox"
+            "checkbox":"checkbox",
+            "password":"password"
         },
     
         "request":{
@@ -27,7 +34,7 @@
         "share":{
             "share":"Share",
             "ride":"Ride",
-            "travelInfo":"Asset Transport"
+            "travelInfo":"Travel info"
         },
         "rideRequest":{
             "rideRequest":"RIDE REQUEST",

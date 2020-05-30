@@ -10,13 +10,12 @@ class Select extends React.Component{
     render(){
         const {onSelect,assetTransportRequest}=this.props;
         return(
-            <div>{assetTransportRequest!=="ASSET TRANSPORT REQUEST"?<SelectTag  onChange={onSelect}> {this.selectAValue()} </SelectTag>:
-            <SelectTagDetails  onChange={onSelect} > 
+            <div>{assetTransportRequest!=="ASSET TRANSPORT REQUEST"?<SelectTag id="select" onChange={onSelect}> {this.selectAValue()} </SelectTag>:
+            <SelectTagDetails  onChange={onSelect} id="select" > 
             {this.selectAValue()} </SelectTagDetails>}
             </div>
             );
     }
 }
-
 
 export default Select;

@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
-import {Typo32DarkBlueGreyRubikRegular,Typo12SteelHKGroteskSemiBold,Typo14DarkBlueGreyHKGroteskRegular} from '../../../Common/styleGuide/Typos'
 
 const Header =styled.div `${tw
-`flex justify-between items-center pl-12`};
-  height: 72px;
-  background-color: #ffffff;
+`flex justify-between items-center pl-12 pr-12`};
+height: 72px;
+background-color: #ffffff;
 `;
 
 const HeaderPosition =styled.div `
@@ -13,15 +12,14 @@ position: sticky;
 top: 0;
 `;
 
-
 const Image = styled.img `${tw 
-``
-}`;
+``}`;
 
 const RightComponent =styled.div `${tw
 `flex justify-between items-center `};
 `;
-const HomeScreen =styled.button `
+
+const HomeScreen =styled.button `${tw` ml-4`};
 width: 40px;
 height: 40px;
 border-radius: 100px;

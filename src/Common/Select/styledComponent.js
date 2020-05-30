@@ -3,7 +3,7 @@ import tw from 'tailwind.macro';
 
 const SelectTag = styled.select `${tw 
 ` `};
-  width:100px;
+  width:120px;
 `;
 
 const SelectTagDetails = styled.select `${tw 

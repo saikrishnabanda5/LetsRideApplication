@@ -1,24 +1,23 @@
 import React from 'react';
 import {observer,inject} from 'mobx-react';
-import {observable} from 'mobx';
-import {Header,FromAddress,ToAddress,DateTime,RequestRideStyle,Flexibility,UserFlexibility,Operations,Availability,Counter,PageView,Mandatory,Address} from '../RideRequest/styledComponent'
-import DateAndTime from '../../../../Common/DateAndTime'
-import data from '../../../../i18n/strings.json'
-import InputTag from '../../../../Common/inputTag'
-import CheckBox from '../../../../Common/CheckBox'
-import CounterPage from '../../../../Common/CounterPage'
-import ButtonComponent from '../../../../Common/button/button'
+import {Header,FromAddress,ToAddress,DateTime,RequestRideStyle,
+Flexibility,UserFlexibility,Operations,Availability,Counter,PageView,Mandatory,Address,ErrorMessage,Field,InputField} from '../RideRequest/styledComponent';
+import DateAndTime from '../../../../Common/DateAndTime';
+import data from '../../../../i18n/strings.json';
+import InputTag from '../../../../Common/inputTag';
+import CheckBox from '../../../../Common/CheckBox';
+import CounterPage from '../../../../Common/CounterPage';
+import ButtonComponent from '../../../../Common/button/button';
 @inject('requestStore')
 @observer
 class RideRequest extends React.Component{
-    
     onSubmitDetails=()=>{
         const {getRequestStore} =this.props;
         getRequestStore.onClickRequest(getRequestStore.source,getRequestStore.destination,getRequestStore.startDate,
-        getRequestStore.isChecked,getRequestStore.seatsAvailable,getRequestStore.luggageCount)
+        getRequestStore.isChecked,getRequestStore.seatsAvailable,getRequestStore.luggageCount);
     }
     render(){
-        const {getRequestStore} =this.props
+        const {getRequestStore} =this.props;
         return(
         <PageView>
          <RequestRideStyle>
@@ -27,12 +26,28 @@ class RideRequest extends React.Component{
                <FromAddress>{data.rideRequest.from}</FromAddress>
                <Mandatory>*</Mandatory>
            </Address>
-           <InputTag type={data.type.text} placeholder={data.travel.source}  onChangeInput={getRequestStore.onChangeSource} />
+           
+            <InputField> 
+                <Field>
+                  <InputTag type={data.type.text} placeholder={data.travel.source}  onChangeInput={getRequestStore.onChangeSource}
+                  errorMessage={getRequestStore.errorMessage} inputValue={getRequestStore.source}/>
+                </Field>
+              <ErrorMessage>{getRequestStore.source==""?<div>{getRequestStore.errorMessage}</div>:null}</ErrorMessage>
+            </InputField>
+           
            <Address>
                <ToAddress>{data.rideRequest.to}</ToAddress>
                <Mandatory>*</Mandatory>
            </Address>
-           <InputTag type={data.type.text} placeholder={data.travel.destination} onChangeInput={getRequestStore.onChangeDestination} />
+           
+           <InputField> 
+                <Field>
+                 <InputTag type={data.type.text} placeholder={data.travel.destination} onChangeInput={getRequestStore.onChangeDestination}
+                  errorMessage={getRequestStore.errorMessage} inputValue={getRequestStore.destination}/>
+                </Field>
+              <ErrorMessage>{getRequestStore.destination==""?<div>{getRequestStore.errorMessage}</div>:null}</ErrorMessage>
+            </InputField>
+           
            {getRequestStore.isChecked==false?<Address>
                 <DateTime> {data.rideRequest.dateAndTime}</DateTime>
                 <Mandatory>*</Mandatory>
