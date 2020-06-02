@@ -11,7 +11,6 @@ class RequestService{
      });
  }
  getRequestAPI=(credentials)=>{
-   alert("api called")
      return networkCallWithApisauce(
             this.api,
             `products`,

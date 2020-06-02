@@ -1,17 +1,14 @@
 import React from 'react';
-import {observer,inject} from 'mobx-react';
-import { Pagination } from 'semantic-ui-react';
-import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure';
+import {observer} from 'mobx-react';
 import data from '../../../i18n/strings.json';
-import RideDetailsRoute from '../../routes/RideDetailsRoute';
-import AssetDetailsRoute from '../../routes/AssetDetailsRoute';
+import RideDetails from '../RideDetails';
+import AssetDetails from '../AssetDetails';
 import {Heading,Requests,TypeOfRequest,Button,Tasks,Image,SortAndFilter,NoOfTasks,Header,Details,MyDetails,Add,AddButton} from './styledComponent';
-@inject('requestStore')
 @observer
 class MyRequests extends React.Component{
     
     render(){
-        const {onClickRide,onClickAsset}=this.props;
+        const {onClickRide,onClickAsset,headings,rideRequestData,tasks,onAddRequest}=this.props;
         return(
             <Requests>
                <Heading>{data.myRequests} </Heading>
@@ -19,17 +16,11 @@ class MyRequests extends React.Component{
                  <Button onClick={onClickRide}>{data.ride} </Button>
                  <Button onClick={onClickAsset}> {data.asset}</Button>
                </TypeOfRequest>
-                   {this.props.rideButton?<RideDetailsRoute /> :null}
-                   {this.props.assetButton?<AssetDetailsRoute />:null}
+                   {this.props.rideButton?<RideDetails headings={headings} rideRequestData={rideRequestData}
+                   tasks={tasks} onAddRequest={onAddRequest}/> :null}
+                   {this.props.assetButton?<AssetDetails />:null}
             </Requests>
         );
     }
 }
 export default MyRequests;
-
-{/* <LoadingWrapperWithFailure
-                        apiStatus={getRequestAPIStatus}
-                        apiError={getRequestAPIError}
-                        onRetryClick={doNetworkCalls}
-                        renderSuccessUI={renderMyRequests}
-                    /> */}

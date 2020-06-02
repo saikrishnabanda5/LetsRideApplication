@@ -1,10 +1,12 @@
 import {observable,action} from 'mobx';
 import {API_INITIAL} from '@ib/api-constants';
 import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
+import RequestModel from '../models/RequestModel';
 class RequestStore {
     @observable getRequestAPIStatus
     @observable getRequestAPIError
-    @observable response
+    @observable rideDetails
+    @observable noOfRequests
     requestAPIService
     constructor(requestService){
         this.requestAPIService=requestService;
@@ -14,16 +16,31 @@ class RequestStore {
     init(){
         this.getRequestAPIStatus=API_INITIAL;
         this.getRequestAPIError=null;
-        this.response='';
+        this.rideDetails=[];
+        this.noOfRequests=0;
     }
     @action.bound 
-    setRequestAPIResponse(response){
-        this.response=response;
+    setClickRideAPIResponse(rideResponse){
+        this.rideDetails=[];
+        this.noOfRequests =rideResponse.total_no_of_requests;
+        rideResponse.ride_requests.forEach((object)=>{
+            const requestModel = new RequestModel(object);
+            this.rideDetails.push(requestModel);
+        });
     }
     
     @action.bound
     setRequestAPIStatus(apiStatus){
         this.getRequestAPIStatus=apiStatus;
+    }
+    
+    @action.bound
+    setClickRideAPIStatus(apiStatus){
+        this.getRideAPIStatus=200;
+    }
+    @action.bound
+    setClickRideAPIError(error){
+        this.getRideAPIError=400;
     }
     @action.bound
     setRequestAPIError(error){
@@ -56,11 +73,10 @@ class RequestStore {
     }
     @action.bound
     onClickRide(){
-        alert("ride")
         const ridePromise = this.requestAPIService.getRequestAPI();
         return bindPromiseWithOnSuccess(ridePromise)
-                .to(this.setRequestAPIStatus,this.setRequestAPIResponse)
-                .catch(this.setRequestAPIError);
+                .to(this.setClickRideAPIStatus,this.setClickRideAPIResponse)
+                .catch(this.setClickRideAPIError);
     }
     @action
     clearStore(){

@@ -73,4 +73,13 @@ const Data = styled.button `${tw`
 `}
 `;
 
-export {Data,Heading,Requests,MyDetails,TypeOfRequest,Button,Tasks,Image,SortAndFilter,NoOfTasks,Header,Details,Add,AddButton};
+const PageRange = styled.button `${tw`
+`}
+`;
+
+const Footer = styled.button `${tw`
+flex justify-between items-center border border-red-500 w-64`}
+`;
+
+
+export {Footer,PageRange,Data,Heading,Requests,MyDetails,TypeOfRequest,Button,Tasks,Image,SortAndFilter,NoOfTasks,Header,Details,Add,AddButton};

@@ -6,13 +6,13 @@ import data from '../../../i18n/strings.json';
 import {Heading,Requests,TypeOfRequest,Button,Tasks,Image,SortAndFilter,NoOfTasks,Header,Details,MyDetails,Add,AddButton} from './styledComponents';
 @inject('requestStore')
 @observer
-class MyRequests extends React.Component{
+class AssetDetails extends React.Component{
     
     render(){
         const {rideRequestData,tasks,headings,onAddRequest}=this.props;
         const {getRequestAPIStatus,getRequestAPIError} =this.props.requestStore;
         return(
-            <Requests>
+           <Requests>
                <Tasks> 
                    <NoOfTasks>{tasks} {data.task} </NoOfTasks>
                    <SortAndFilter>
@@ -44,4 +44,4 @@ class MyRequests extends React.Component{
         );
     }
 }
-export default MyRequests;
+export default AssetDetails;

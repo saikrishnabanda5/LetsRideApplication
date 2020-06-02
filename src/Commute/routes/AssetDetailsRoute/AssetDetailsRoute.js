@@ -47,7 +47,7 @@ class AssetDetailsRoute extends React.Component{
       return values;
     }
     render(){
-        
+        alert("asset route")
         return(
             <AssetDetails assetRequestData={this.assetRequestData()} tasks={this.tasks} headings={this.headings()} onAddRequest={this.onAddRequest}/>
         );

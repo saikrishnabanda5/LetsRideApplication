@@ -4,23 +4,28 @@ import {observable} from 'mobx';
 import data from '../../../i18n/strings.json';
 import {withRouter} from "react-router-dom";
 import MyRequests from '../../components/MyRequests';
-import {Header,Heading,Details} from './styledComponent';
+import {Header,Heading,Details,Status} from './styledComponent';
 import assetCredentials from '../../fixtures/getAssetResponse.json';
 @inject('requestStore')
 @observer
 class MyRequestsRoute extends React.Component {
   @observable rideButton
   @observable assetButton
+  @observable tasks
+  @observable listOfHeadings
     constructor(props){
         super(props);
         this.rideButton=false;
         this.assetButton=false;
+        this.tasks = this.props.requestStore.noOfRequests;
+        this.listOfHeadings=[data.rideRequest.from,data.rideRequest.to,data.rideRequest.dateAndTime,
+        data.rideRequest.people,data.rideRequest.luggageQunatity,data.rideRequest.acceptedDetails,data.rideRequest.status];
     }
-    componentDidMount(){
-        this.doNetworkCalls();
-    }
-    doNetworkCalls=()=>{
-        this.props.requestStore.onClickRequest();
+    headings=()=>{
+        const values =this.listOfHeadings.map ((name)=>{
+            return ( <Header> {name}</Header>);
+        });
+        return values;
     }
     
     assetRequestData=()=>{
@@ -42,6 +47,25 @@ class MyRequestsRoute extends React.Component {
         });
       return values;
     }
+    rideRequestData=()=>{
+      const values = this.props.requestStore.rideDetails.map((name)=>{
+            return ( 
+              <Details >
+                    <Heading> {name.source}</Heading>
+                    <Header> {name.destination}</Header> 
+                    <Heading> {name.from_datetime}</Heading>
+                    <Header>{name.no_of_seats}</Header>
+                    <Header>{name.luggage_quantity}</Header>
+                    <div>
+                    <Header>{name.mobile_number}</Header>
+                    <Header>{name.user_name}   </Header>
+                    </div>
+                    <Status status={name.status}>{name.status}</Status>
+              </Details>
+            );
+        });
+      return values;
+    }
     onClickRide=()=>{
       this.rideButton=true;
       this.assetButton=false;
@@ -50,12 +74,16 @@ class MyRequestsRoute extends React.Component {
       this.rideButton=false;
       this.assetButton=true;
     }
+    onAddRequest=()=>{
+      const {history}=this.props;
+      history.replace('/ride-app/request-ride/');
+    }
   render() {
     return (
        <MyRequests 
        assetRequestData={this.assetRequestData()} rideButton={this.rideButton}  assetButton={this.assetButton}
        onAddRequest={this.onAddRequest} onClickRide={this.onClickRide} onClickAsset={this.onClickAsset}
-       doNetworkCalls={this.doNetworkCalls} renderMyRequests={this.obtainedData}
+       headings={this.headings()} rideRequestData={this.rideRequestData()} tasks={this.tasks}
        />
     );
   }

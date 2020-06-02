@@ -10,8 +10,7 @@ class RequestService{
             baseURL:"https://9ba0cd3ggi.execute-api.ap-south-1.amazonaws.com/ecommerce/"
      });
  }
- getRequestAPI=(credentials)=>{
-     alert("fixture service")
+ getRequestAPI=()=>{
      return new Promise((res)=>{
          setTimeout(()=>{res(credentials),1000});
      });
