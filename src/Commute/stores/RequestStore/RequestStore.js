@@ -2,11 +2,21 @@ import {observable,action} from 'mobx';
 import {API_INITIAL} from '@ib/api-constants';
 import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
 import RequestModel from '../models/RequestModel';
+import AssetRequestModel from '../models/AssetRequestModel'
 class RequestStore {
     @observable getRequestAPIStatus
+    @observable getRideAPIStatus
+    @observable getAssetAPIStatus
+    
     @observable getRequestAPIError
+    @observable getRideAPIError
+    @observable getAssetAPIError
+    
     @observable rideDetails
+    @observable assetDetails
     @observable noOfRequests
+    @observable noOfAssetRequests
+    
     requestAPIService
     constructor(requestService){
         this.requestAPIService=requestService;
@@ -15,9 +25,16 @@ class RequestStore {
     @action
     init(){
         this.getRequestAPIStatus=API_INITIAL;
+        this.getRideAPIStatus =API_INITIAL;
+        this.getAssetAPIStatus =API_INITIAL;
+        
         this.getRequestAPIError=null;
+        this.getRideAPIError=null;
+        this.getAssetAPIError=null;
         this.rideDetails=[];
+        this.assetDetails=[];
         this.noOfRequests=0;
+        this.noOfAssetRequests=0;
     }
     @action.bound 
     setClickRideAPIResponse(rideResponse){
@@ -29,6 +46,16 @@ class RequestStore {
         });
     }
     
+    @action.bound 
+    setClickAssetAPIResponse(assetResponse){
+        this.assetDetails=[];
+        this.noOfAssetRequests =assetResponse.total_no_of_requests;
+        assetResponse.asset_requests.forEach((object)=>{
+            const assetModel = new AssetRequestModel(object);
+            this.assetDetails.push(assetModel);
+        });
+    }
+    
     @action.bound
     setRequestAPIStatus(apiStatus){
         this.getRequestAPIStatus=apiStatus;
@@ -36,16 +63,29 @@ class RequestStore {
     
     @action.bound
     setClickRideAPIStatus(apiStatus){
-        this.getRideAPIStatus=200;
+        this.getRideAPIStatus=apiStatus;
     }
+    
     @action.bound
-    setClickRideAPIError(error){
-        this.getRideAPIError=400;
+    setClickAssetAPIStatus(apiStatus){
+        this.getAssetAPIStatus=apiStatus;
     }
+    
     @action.bound
     setRequestAPIError(error){
         this.getRequestAPIError=error;
     }
+    
+    @action.bound
+    setClickRideAPIError(error){
+        this.getRideAPIError=error;
+    }
+    
+    @action.bound
+    setClickAssetAPIError(error){
+        this.getAssetAPIError=error;
+    }
+    
     @action.bound
     getCredentials(source,destination,startDate,isChecked,seatsAvailable,luggageCount){
         this.credentials={
@@ -73,11 +113,20 @@ class RequestStore {
     }
     @action.bound
     onClickRide(){
-        const ridePromise = this.requestAPIService.getRequestAPI();
+        const ridePromise = this.requestAPIService.getRideRequestAPI();
         return bindPromiseWithOnSuccess(ridePromise)
                 .to(this.setClickRideAPIStatus,this.setClickRideAPIResponse)
                 .catch(this.setClickRideAPIError);
     }
+    
+    @action.bound
+    onClickAsset(){
+        const assetPromise = this.requestAPIService.getAssetRequestAPI();
+        return bindPromiseWithOnSuccess(assetPromise)
+                .to(this.setClickAssetAPIStatus,this.setClickAssetAPIResponse)
+                .catch(this.setClickAssetAPIError);
+    }
+    
     @action
     clearStore(){
         this.init();

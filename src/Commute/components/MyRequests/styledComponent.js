@@ -1,28 +1,8 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
-import {Typo32DarkBlueGreyHKGroteskRegular,Typo14SteelHKGroteskRegular} from '../../../Common/styleGuide/Typos';
+import {Typo32DarkBlueGreyHKGroteskRegular} from '../../../Common/styleGuide/Typos';
 
 const Heading = Typo32DarkBlueGreyHKGroteskRegular;
-const Add =Typo14SteelHKGroteskRegular
-const HeaderPosition =styled.div `
-position: sticky;
-top: 0;
-`;
-
-const RightComponent =styled.div `${tw
-`flex justify-between items-center `};
-`;
-
-const HomeScreen =styled.button `${tw` ml-4`};
-width: 40px;
-height: 40px;
-border-radius: 100px;
-background-color: #b3f4e1;
-`;
-
-const Screen = styled.div `${tw 
-`flex justify-center items-center h-screen bg-gray-200 `
-}`;
 
 const Requests = styled.div `${tw 
 ` mb-auto`}
@@ -41,33 +21,4 @@ width: 28px;
 height: 16px;
 `;
 
-const Tasks = styled.div `${tw 
-`flex justify-between pb-4 pl-2`}
-`;
-
-const Image = styled.img `${tw 
-`pr-2 pl-1`}
-`;
-
-const NoOfTasks = styled.div `${tw 
-``}
-`;
-
-const SortAndFilter = styled.div `${tw 
-`flex`}
-`;
-
-const Header = styled.div `${tw ``};
-`;
-const MyDetails= styled.div `${tw `bg-white`};
-border: solid 2px #d7efd9;
-`;
-
-const Details = styled.div `${tw `flex justify-center items-center`};
-border: solid 1px #d7efd9;
-`;
-const AddButton = styled.button `${tw`
-flex`}
-`;
-
-export {Heading,Requests,MyDetails,TypeOfRequest,Button,Tasks,Image,SortAndFilter,NoOfTasks,Header,Details,Add,AddButton};
+export {Heading,Requests,TypeOfRequest,Button};

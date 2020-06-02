@@ -4,44 +4,58 @@ import {observable} from 'mobx';
 import data from '../../../i18n/strings.json';
 import {withRouter} from "react-router-dom";
 import MyRequests from '../../components/MyRequests';
-import {Header,Heading,Details,Status} from './styledComponent';
-import assetCredentials from '../../fixtures/getAssetResponse.json';
+import {Header,Heading,Details,Status,Headings,Headers} from './styledComponent';
 @inject('requestStore')
 @observer
 class MyRequestsRoute extends React.Component {
   @observable rideButton
   @observable assetButton
-  @observable tasks
-  @observable listOfHeadings
-    constructor(props){
+  @observable noOfRideTasks
+  @observable listOfRideHeadings
+  @observable listOfAssetHeadings
+  @observable noOfAssetTasks
+  constructor(props){
         super(props);
         this.rideButton=false;
         this.assetButton=false;
-        this.tasks = this.props.requestStore.noOfRequests;
-        this.listOfHeadings=[data.rideRequest.from,data.rideRequest.to,data.rideRequest.dateAndTime,
+        this.noOfRideTasks = this.props.requestStore.noOfRequests;
+        this.noOfAssetTasks = this.props.requestStore.noOfAssetRequests;
+        this.listOfRideHeadings=[data.rideRequest.from,data.rideRequest.to,data.rideRequest.dateAndTime,
         data.rideRequest.people,data.rideRequest.luggageQunatity,data.rideRequest.acceptedDetails,data.rideRequest.status];
+        
+        this.listOfAssetHeadings=[data.assetRequest.from,data.assetRequest.to,data.assetRequest.dateAndTime,
+        data.assetRequest.assets,data.assetRequest.assetType,data.assetRequest.assetSensitivity,
+        data.assetRequest.whomToDeliver,data.assetRequest.acceptedDetails,data.assetRequest.status];
     }
     headings=()=>{
-        const values =this.listOfHeadings.map ((name)=>{
+        const values =this.listOfRideHeadings.map ((name)=>{
             return ( <Header> {name}</Header>);
         });
         return values;
     }
     
+    assetHeadings=()=>{
+      const values =this.listOfAssetHeadings.map ((name)=>{
+            return ( <Headers> {name}</Headers>);
+        });
+        return values;
+    }
     assetRequestData=()=>{
-      const values = assetCredentials.asset_requests.map((name,index)=>{
+      const values = this.props.requestStore.assetDetails.map((name,index)=>{
             return ( 
               <Details >
-                    <Heading> {name.source}</Heading>
-                    <Header> {name.destination}</Header>
-                    <Heading> {name.from_datetime}</Heading>
-                    <Header>{name.no_of_seats}</Header>
-                    <Header>{name.luggage_quantity}</Header>
-                    <Header>
-                    <Header>{name.accepted_person.mobile_number}</Header>
-                    <Header>{name.accepted_person.user_name}   </Header>
-                    </Header>
-                    <Header>{name.status}</Header>
+                    <Headings> {name.source}</Headings>
+                    <Headers> {name.destination}</Headers>
+                    <Headings> {name.from_datetime}</Headings>
+                    <Headers>{name.no_of_assets}</Headers>
+                    <Headers>{name.asset_type}</Headers>
+                    <Headers>{name.sensitivity}</Headers>
+                    <Headers>{name.deliver_person}</Headers>
+                    <div>
+                    <Headers>{name.mobile_number}</Headers>
+                    <Headers>{name.user_name}   </Headers>
+                    </div>
+                    <Status status={name.status}>{name.status}</Status>
               </Details>
             );
         });
@@ -76,14 +90,23 @@ class MyRequestsRoute extends React.Component {
     }
     onAddRequest=()=>{
       const {history}=this.props;
-      history.replace('/ride-app/request-ride/');
+      history.push('');
     }
   render() {
     return (
        <MyRequests 
-       assetRequestData={this.assetRequestData()} rideButton={this.rideButton}  assetButton={this.assetButton}
-       onAddRequest={this.onAddRequest} onClickRide={this.onClickRide} onClickAsset={this.onClickAsset}
-       headings={this.headings()} rideRequestData={this.rideRequestData()} tasks={this.tasks}
+        rideButton={this.rideButton}
+        headings={this.headings()}
+        onAddRequest={this.onAddRequest}
+        onClickRide={this.onClickRide}
+        rideRequestData={this.rideRequestData()} 
+        tasks={this.tasks}
+       
+       assetButton={this.assetButton}
+       assetHeadings={this.assetHeadings()}
+       assetRequestData={this.assetRequestData()}
+       noOfAssetTasks={this.noOfAssetTasks}
+       onClickAsset={this.onClickAsset}
        />
     );
   }

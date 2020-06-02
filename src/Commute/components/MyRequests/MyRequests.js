@@ -3,12 +3,12 @@ import {observer} from 'mobx-react';
 import data from '../../../i18n/strings.json';
 import RideDetails from '../RideDetails';
 import AssetDetails from '../AssetDetails';
-import {Heading,Requests,TypeOfRequest,Button,Tasks,Image,SortAndFilter,NoOfTasks,Header,Details,MyDetails,Add,AddButton} from './styledComponent';
+import {Heading,Requests,TypeOfRequest,Button} from './styledComponent';
 @observer
 class MyRequests extends React.Component{
     
     render(){
-        const {onClickRide,onClickAsset,headings,rideRequestData,tasks,onAddRequest}=this.props;
+        const {onClickRide,onClickAsset,headings,rideRequestData,tasks,onAddRequest,assetHeadings,assetRequestData,noOfAssetTasks}=this.props;
         return(
             <Requests>
                <Heading>{data.myRequests} </Heading>
@@ -18,7 +18,8 @@ class MyRequests extends React.Component{
                </TypeOfRequest>
                    {this.props.rideButton?<RideDetails headings={headings} rideRequestData={rideRequestData}
                    tasks={tasks} onAddRequest={onAddRequest}/> :null}
-                   {this.props.assetButton?<AssetDetails />:null}
+                   {this.props.assetButton?<AssetDetails assetHeadings={assetHeadings} assetRequestData={assetRequestData}
+                   noOfAssetTasks={noOfAssetTasks} onAddRequest={onAddRequest}/> :null}
             </Requests>
         );
     }

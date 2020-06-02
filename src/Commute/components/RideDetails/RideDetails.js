@@ -1,10 +1,10 @@
 import React from 'react';
 import {observer,inject} from 'mobx-react';
 import { Pagination } from 'semantic-ui-react';
-import {observable,action} from 'mobx'
+import {action} from 'mobx';
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure';
 import data from '../../../i18n/strings.json';
-import {Heading,Requests,TypeOfRequest,Button,Tasks,Image,SortAndFilter,NoOfTasks,Header,Details,MyDetails,Add,AddButton,Data,Footer,PageRange} from './styledComponents';
+import {Requests,Tasks,Image,SortAndFilter,NoOfTasks,Details,MyDetails,Add,AddButton,Footer,PageRange} from './styledComponents';
 @inject('requestStore')
 @observer
 class RideDetails extends React.Component{
