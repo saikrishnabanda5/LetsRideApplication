@@ -8,7 +8,7 @@ background-color:${props=>props.error==="Required"&&props.inputValue===""?"rgba(
 width: 320px;
 outline:none;
 height: 35px;
-border-radius: 2px;
+border-radius: 2px; 
 `;
 
 export {Input};

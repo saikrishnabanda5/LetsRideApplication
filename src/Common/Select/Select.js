@@ -1,9 +1,9 @@
 import React from 'react';
-import {SelectTag,SelectTagDetails} from './styledComponent';
+import {SelectTag,SelectTagDetails,Option} from './styledComponent';
 class Select extends React.Component{
      selectAValue=()=>{
         const selectItem = this.props.listOfItems.map((item)=>{
-          return <option key={item} value={item}> {item}</option>;
+          return <Option key={item} value={item}> {item}</Option>;
         });
         return selectItem;
     }

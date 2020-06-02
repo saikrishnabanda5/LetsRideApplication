@@ -90,7 +90,7 @@ class MyRequestsRoute extends React.Component {
     }
     onAddRequest=()=>{
       const {history}=this.props;
-      history.push('');
+      history.push('/ride-app/request-ride/');
     }
   render() {
     return (
@@ -100,7 +100,7 @@ class MyRequestsRoute extends React.Component {
         onAddRequest={this.onAddRequest}
         onClickRide={this.onClickRide}
         rideRequestData={this.rideRequestData()} 
-        tasks={this.tasks}
+        noOfRideTasks={this.noOfRideTasks}
        
        assetButton={this.assetButton}
        assetHeadings={this.assetHeadings()}

@@ -30,7 +30,7 @@ class RideApp extends React.Component{
                     {this.props.selectedRequestValue===data.request.assetTransport?<RequestAssetTransportRoute />:null}
                     {this.props.selectedValue==="Ride"?<ShareRideRoute />:null}
                     {this.props.selectedValue==="Travel info"?<ShareTravelInfoRoute />:null}
-                    <MyRequestRoute myScreen={this.myScreen}/>
+                    {this.props.homeScreen?<MyRequestRoute myScreen={this.myScreen}/>:null}
                     
              </Screen>
         </div>
@@ -38,4 +38,3 @@ class RideApp extends React.Component{
     }
 }
 export default RideApp;
-//{this.props.homeScreen?<MyRequestRoute myScreen={this.myScreen}/>:null}

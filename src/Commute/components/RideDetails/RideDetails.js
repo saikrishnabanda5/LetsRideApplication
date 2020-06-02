@@ -22,16 +22,19 @@ class RideDetails extends React.Component{
     
     render(){
         const {getRideAPIStatus,getRideAPIError} = this.props.requestStore;
-        const {headings,rideRequestData,tasks,onAddRequest} = this.props;
+        const {headings,rideRequestData,noOfRideTasks,onAddRequest,filterRide} = this.props;
         return(
             <Requests>
                <Tasks> 
-                  <NoOfTasks>{tasks} {data.task} </NoOfTasks>
+                  <NoOfTasks>{noOfRideTasks} {data.task} </NoOfTasks>
                    <SortAndFilter>
+                       
                        <Image src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/dbb6969d-a0d8-4c04-a6e1-749c29dc399a.svg" />
                        {data.sort}
-                       <Image src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/7b1bfd15-1e70-4d41-a538-5bc0840dc69b.svg" />
-                        {data.filter}
+                       <div onClick={filterRide}>
+                           <Image src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/7b1bfd15-1e70-4d41-a538-5bc0840dc69b.svg" />
+                            {data.filter}
+                        </div>
                    </SortAndFilter>
                </Tasks>
                <MyDetails>

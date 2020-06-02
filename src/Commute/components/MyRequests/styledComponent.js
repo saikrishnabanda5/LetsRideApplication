@@ -15,10 +15,13 @@ height: 25px;
 `;
 
 const Button = styled.button `${tw 
-`pr-12`}
+`pr-12 focus:outline-none`}
 font-size: 12px;
+font-weight: 600;
 width: 28px;
 height: 16px;
+color:${props=>props.rideButton?"black":props.assetButton?"black":"gray"};
+// border-bottom:${props=>props.rideButton?"2px solid blue":props.assetButton?"black":"gray"};
 `;
 
 export {Heading,Requests,TypeOfRequest,Button};

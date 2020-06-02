@@ -8,16 +8,17 @@ import {Heading,Requests,TypeOfRequest,Button} from './styledComponent';
 class MyRequests extends React.Component{
     
     render(){
-        const {onClickRide,onClickAsset,headings,rideRequestData,tasks,onAddRequest,assetHeadings,assetRequestData,noOfAssetTasks}=this.props;
+        const {onClickRide,onClickAsset,headings,rideRequestData,tasks,onAddRequest,
+        rideButton,assetButton,assetHeadings,assetRequestData,noOfAssetTasks,noOfRideTasks}=this.props;
         return(
             <Requests>
                <Heading>{data.myRequests} </Heading>
                <TypeOfRequest>
-                 <Button onClick={onClickRide}>{data.ride} </Button>
-                 <Button onClick={onClickAsset}> {data.asset}</Button>
+                 <Button rideButton={rideButton} onClick={onClickRide}>{data.ride} </Button>
+                 <Button assetButton={assetButton}onClick={onClickAsset}> {data.asset}</Button>
                </TypeOfRequest>
                    {this.props.rideButton?<RideDetails headings={headings} rideRequestData={rideRequestData}
-                   tasks={tasks} onAddRequest={onAddRequest}/> :null}
+                   noOfRideTasks={noOfRideTasks} onAddRequest={onAddRequest}/> :null}
                    {this.props.assetButton?<AssetDetails assetHeadings={assetHeadings} assetRequestData={assetRequestData}
                    noOfAssetTasks={noOfAssetTasks} onAddRequest={onAddRequest}/> :null}
             </Requests>

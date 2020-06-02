@@ -19,7 +19,7 @@ const RightComponent =styled.div `${tw
 `flex justify-between items-center `};
 `;
 
-const HomeScreen =styled.button `${tw` ml-4`};
+const HomeScreen =styled.button `${tw` ml-4 focus:outline-none`};
 width: 40px;
 height: 40px;
 border-radius: 100px;

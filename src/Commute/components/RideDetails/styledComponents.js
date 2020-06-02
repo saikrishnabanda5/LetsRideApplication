@@ -34,15 +34,15 @@ border: solid 1px #d7efd9;
 `;
 
 const AddButton = styled.button `${tw`
-flex pt-4`}
+flex pt-4 focus:outline-none`}
 `;
 
 
-const PageRange = styled.button `${tw`
+const PageRange = styled.div `${tw`
 `}
 `;
 
-const Footer = styled.button `${tw`
+const Footer = styled.div `${tw`
 flex justify-between items-center border border-red-500 w-64`}
 `;
 

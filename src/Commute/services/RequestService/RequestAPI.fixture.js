@@ -13,12 +13,12 @@ class RequestService{
  }
  getRideRequestAPI=()=>{
      return new Promise((res)=>{
-         setTimeout(()=>{res(credentials),1000});
+         setTimeout(()=>{res(credentials),5000});
      });
  }
  getAssetRequestAPI=()=>{
      return new Promise((res)=>{
-         setTimeout(()=>{res(assetCredentials),1000});
+         setTimeout(()=>{res(assetCredentials),5000});
      });
  }
 }
