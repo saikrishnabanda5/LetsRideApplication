@@ -12,7 +12,7 @@ class ShareComponent extends React.Component{
     }
     render(){
         return(
-            <Select onSelect={this.props.getShareStore.onSelectShare} listOfItems={this.listOfShareItems}/>
+            <Select onSelect={this.props.onSelectShare} listOfItems={this.listOfShareItems}/>
             );
     }
 }

@@ -157,3 +157,15 @@ morning session
   - flexible timings not completed
   - loader in  button
   - regex for only numbers
+  
+  
+  {
+   "source":
+   "destination"
+   "from_datetime"
+   "flexible"
+   "to_datetime"
+   "datetime"
+   "no_of_seats"
+   "luggage_quantity"
+  }

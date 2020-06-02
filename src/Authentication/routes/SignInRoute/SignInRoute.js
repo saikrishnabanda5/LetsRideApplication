@@ -21,7 +21,6 @@ class SignInRoute extends React.Component {
         this.mobileNumber=event.target.value;
     }    
     onChangePassword=(event)=>{
-        
         this.password=event.target.value;
     }
     onChangeConfirmPassword=(event)=>{
@@ -32,25 +31,24 @@ class SignInRoute extends React.Component {
             this.onClickSignIn();
         }
     }
-    onClickSignIn=()=>{
+    onClickLogIn=()=>{
+      const {history}=this.props;
+      history.replace('/login/v1');
+    }
+    onClickSignUp=()=>{
         const {history}=this.props; 
-        if(this.password.length>10&&this.mobileNumber.length===10&&this.confirmPassword.length>0&&
-        this.password===this.confirmPassword){
+        console.log(this.password,this.mobileNumber,this.confirmPassword);
+        if(this.password.length>0&&this.mobileNumber.length===10&&this.confirmPassword.length>0
+        &&this.password===this.confirmPassword){
             this.errorMessage="";
             this.props.authStore.userSignIn(this.mobileNumber,this.password,this.confirmPassword);         
             history.replace('/login/v1');
         }
-        else if(this.mobileNumber.length===0){
-            this.errorMessage="Required";
-           
+        else if(this.password!==this.confirmPassword){
+            this.errorMessage="Password didn't match";
         }
-        else if(this.password.length==0){
+        else if(this.mobileNumber.length===0||this.password.length==0||this.confirmPassword.length==0){
             this.errorMessage="Required";
-    
-        }
-        else if(this.confirmPassword.length==0){
-            this.errorMessage="Required";
-    
         }
     }
   render() {
@@ -65,8 +63,9 @@ class SignInRoute extends React.Component {
       onChangeMobileNumber={this.onChangeMobileNumber}
       onChangePassword={this.onChangePassword}
       onChangeConfirmPassword={this.onChangeConfirmPassword}
-      onClickSignIn={this.onClickSignIn}
+      onClickLogIn={this.onClickLogIn}
       onEnterKeyPress={this.onEnterKeyPress}
+      onClickSignUp={this.onClickSignUp}
       />
     );
   }

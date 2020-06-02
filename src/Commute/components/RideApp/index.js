@@ -1,2 +1,2 @@
-import RideApp from './RideApp.js'
+import RideApp from './RideApp';
 export default RideApp;

@@ -1,2 +1,2 @@
-import RequestComponent from './RequestComponent.js'
+import RequestComponent from './RequestComponent';
 export default RequestComponent;

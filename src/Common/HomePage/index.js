@@ -13,11 +13,9 @@ class HomePage extends React.Component {
   render(){
     console.log(getCookie(ACCESS_TOKEN))
     if(getCookie(ACCESS_TOKEN)===1){
-      alert(33)
       this.getSignInPage();
     }
     else{
-       alert(44)
       this.getProductsPage();
     }
   return (

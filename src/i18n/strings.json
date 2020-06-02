@@ -14,8 +14,15 @@
     "strong":"Strong",
     "login":"Log in",
     "hs":"HS",
+    "sort":"SORT",
+    "filter":"FILTER",
+    "ride":"RIDE",
+    "task":"Tasks",
+    "asset":"ASSET",
+    "myRequests":"My Requests",
     "requestButton":"REQUEST",
     "required":"Required",
+    "addRequest":"Add Request",
     "travel":{
       "source":"Enter Source",
       "destination":"Enter Destination"
@@ -42,23 +49,56 @@
             "to":"TO",
             "dateAndTime":"DATE AND TIME",
             "flexibleTimings":"FLEXIBLE TIMINGS",
-            "seats":"NO.OF SEATS",
-            "luggageQunatity":"LUGGAGE QUANTITY"
+            "seats":"NO.OF SEATS", 
+            "people":"NO OF PEOPLE",
+            "acceptedDetails":"ACCEPTED PERSON DETAILS",
+            "luggageQunatity":"LUGGAGE QUANTITY",
+            "status":"STATUS"
         },
         "assetRequest":{
             "assetTransportRequest":"ASSET TRANSPORT REQUEST",
             "assets":"NO.OF ASSETS",
             "assetType":"ASSET TYPE",
+            "from":"FROM",
+            "to":"TO",
+            "dateAndTime":"DATE AND TIME",
             "others":"OTHERS",
             "assetSensitivity":"ASSET SENSITIVITY",
+            "acceptedDetails":"ACCEPTED PERSON DETAILS",
             "whomToDeliver":"WHOM TO DELIVER",
-            "name":"Name-mobile Number"
+            "name":"Name-mobile Number",
+            "status":"STATUS"
+        },
+        "rideShare":{
+            "rideShare":"SHARE RIDE",
+            "from":"FROM",
+            "to":"TO",
+            "dateAndTime":"DATE AND TIME",
+            "flexibleTimings":"FLEXIBLE TIMINGS",
+            "seats":"NO.OF SEATS", 
+            "assetsQuantity":"ASSETS QUANTITY",
+            "status":"STATUS"
+        },
+        "shareTravel":{
+            "shareTravel":"SHARE TRAVEL INFO",
+            "from":"FROM",
+            "to":"TO",
+            "dateAndTime":"DATE AND TIME",
+            "flexibleTimings":"FLEXIBLE TIMINGS",
+            "medium":"TRAVEL MEDIUM", 
+            "assetsQuantity":"ASSETS QUANTITY",
+            "status":"STATUS"
         },
         "assests":{
             "select":"Select asset",
             "others":"Others",
             "parcel":"Parcel",
             "bag":"Bag"
+        },
+        "medium":{
+            "bus":"Bus",
+            "car":"Car",
+            "flight":"Flight"
         },
         "sensitivity":{
             "sensitive":"Sensitive",

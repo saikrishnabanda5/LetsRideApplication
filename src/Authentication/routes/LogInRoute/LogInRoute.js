@@ -7,7 +7,7 @@ import LogInPage from '../../components/LogInPage';
 @observer
 class LogInRoute extends React.Component {
     @observable mobileNumber
-    @observable password  
+    @observable password 
     @observable errorMessage
     constructor(props){
         super(props);
@@ -23,13 +23,12 @@ class LogInRoute extends React.Component {
     }
     onEnterKeyPress=(event)=>{
         if(event.key==="Enter"){
-            this.onClickSignIn();
+            this.onClickLogIn();
         }
     }
-    onClickSignIn=()=>{
+    onClickLogIn=()=>{
         const {history}=this.props;
         if(this.password.length>0&&this.mobileNumber.length===10 && this.mobileNumber.search(/^[6-9]{1}[0-9]{9}$/) === 0){
-            alert("done")
             this.errorMessage="";
             this.props.authStore.userSignIn();         
             history.replace('/ride-app/');
@@ -41,18 +40,23 @@ class LogInRoute extends React.Component {
             this.errorMessage="Required";
         }
     }
+    onClickSignUp=()=>{
+        const {history}=this.props;
+        history.replace('/signup/v1');
+    }
   render() {
       const {getUserSignInAPIStatus}=this.props;
     return (
       <LogInPage
-      apiStatus={getUserSignInAPIStatus}
-      mobileNumber={this.mobileNumber}
-      password={this.password}
-      errorMessage={this.errorMessage}
-      onChangeMobileNumber={this.onChangeMobileNumber}
-      onChangePassword={this.onChangePassword}
-      onClickSignIn={this.onClickSignIn}
-      onEnterKeyPress={this.onEnterKeyPress}
+          apiStatus={getUserSignInAPIStatus}
+          mobileNumber={this.mobileNumber}
+          password={this.password}
+          errorMessage={this.errorMessage}
+          onChangeMobileNumber={this.onChangeMobileNumber}
+          onChangePassword={this.onChangePassword}
+          onClickLogIn={this.onClickLogIn}
+          onClickSignUp={this.onClickSignUp}
+          onEnterKeyPress={this.onEnterKeyPress}
       />
     );
   }

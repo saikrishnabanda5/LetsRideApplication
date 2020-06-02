@@ -1,21 +1,16 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {withRouter} from "react-router-dom";
-import {ErrorMessage,Header,ClickLogIn,LogInStyle,LogInView,UserName,
-Password,SignUp,Account,ForSignUp,InputField,Image,Field,Icon,ImageIbhubs} from '../LogInPage/styledComponent.js';
-import InputTag from '../../../Common/inputTag';
-import ButtonComponent from '../../../Common/button/button.js';
+import InputTag from '../../../Common/InputTag';
+import ButtonComponent from '../../../Common/ButtonComponent';
 import data from '../../../i18n/strings.json';
+import {ErrorMessage,Header,ClickLogIn,LogInStyle,LogInView,UserName,
+Password,SignUp,Account,ForSignUp,InputField,Image,Field,Icon,ImageIbhubs} from './styledComponent.js';
 
 @observer
 class LogInPage extends React.Component{
     usernameRef = React.createRef()
     componentDidMount(){
       this.usernameRef.current.focus();
-    }
-    signInPage=()=>{
-       const {history}=this.props;
-       history.replace('/signup/v1');
     }
     render(){
           const {
@@ -24,8 +19,8 @@ class LogInPage extends React.Component{
           errorMessage,
           onChangeMobileNumber,
           onChangePassword,
-          onClickSignIn,
-          onEnterKeyPress} = this.props;
+          onClickLogIn,
+          onEnterKeyPress,onClickSignUp} = this.props;
         return(
         <LogInView>
           <LogInStyle >
@@ -45,17 +40,17 @@ class LogInPage extends React.Component{
              <InputField> 
                 <Field>
                   <InputTag type={data.type.password} placeholder={data.enterPassword} onChangeInput={onChangePassword}
-                  errorMessage={errorMessage} inputValue={password}/>
+                  errorMessage={errorMessage} inputValue={password} onEnterKeyPress={onEnterKeyPress}/>
                   <Icon>{errorMessage==data.required &&password===""?<Image src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a68ce0bc-26a7-4037-94f4-f8461b2efea8.svg"/>:""}</Icon>
                 </Field>
               <ErrorMessage>{password==""?<div>{errorMessage}</div>:null}</ErrorMessage>
             </InputField>
          
-            <ButtonComponent text={data.clickLogIn} onSubmitForm={onClickSignIn} onEnterKeyPress={onEnterKeyPress}/>
+            <ButtonComponent text={data.clickLogIn} onSubmitForm={onClickLogIn} />
             <ClickLogIn>
               <ForSignUp>
                 <Account>{data.dontHaveAccount}</Account>
-               <SignUp onClick={this.signInPage}>{data.clickSignUp}</SignUp>
+               <SignUp onClick={onClickSignUp}>{data.clickSignUp}</SignUp>
               </ForSignUp>
             </ClickLogIn>
             
@@ -64,4 +59,4 @@ class LogInPage extends React.Component{
             );
     }
 }
-export default withRouter(LogInPage);
+export default LogInPage;

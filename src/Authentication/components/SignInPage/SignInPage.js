@@ -1,10 +1,9 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {withRouter} from "react-router-dom";
 import {ErrorMessage,SignInStyle,Header,
 ClickLogIn,Account,Login,ForLogIn,SignUpView,Heading,InputField,Image,Field,Icon,ImageIbhubs} from '../SignInPage/styledComponent.js';
-import InputTag from '../../../Common/inputTag';
-import ButtonComponent from '../../../Common/button/button.js';
+import InputTag from '../../../Common/InputTag';
+import ButtonComponent from '../../../Common/ButtonComponent';
 import data from '../../../i18n/strings.json';
 
 @observer
@@ -12,10 +11,6 @@ class SignInPage extends React.Component{
     mobileNumberRef = React.createRef()
     componentDidMount(){
       this.mobileNumberRef.current.focus();
-    }
-    SignInPage=()=>{
-       const {history}=this.props;
-       history.replace('/login/v1');
     }
     render(){
           const {
@@ -27,7 +22,8 @@ class SignInPage extends React.Component{
           onChangeMobileNumber,
           onChangePassword,
           onChangeConfirmPassword,
-          onClickSignIn,
+          onClickSignUp,
+          onClickLogIn,
           onEnterKeyPress} = this.props;
         return(
         <SignUpView>
@@ -60,17 +56,21 @@ class SignInPage extends React.Component{
             <InputField>
                 <Field>
                    <InputTag type={data.type.password} placeholder={data.confirmPassword} onChangeInput={onChangeConfirmPassword}
-              errorMessage={errorMessage} inputValue={confirmPassword}/>
+                errorMessage={errorMessage} inputValue={confirmPassword} onEnterKeyPress={onEnterKeyPress}/>
                   <Icon>{errorMessage===data.required &&confirmPassword===""?<Image src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a68ce0bc-26a7-4037-94f4-f8461b2efea8.svg"/>:""}</Icon>
                 </Field>
-              <ErrorMessage>{confirmPassword===""?<div>{errorMessage}</div>:null}</ErrorMessage>
+              <ErrorMessage>
+              {confirmPassword===""?
+              <div>{errorMessage}</div>:
+              confirmPassword!==password?<div>{errorMessage}</div>:""}
+              </ErrorMessage>
             </InputField>
           
-          <ButtonComponent text={data.signup} onSubmitForm={onClickSignIn} onEnterKeyPress={onEnterKeyPress}/> 
+          <ButtonComponent text={data.signup} onSubmitForm={onClickSignUp} onEnterKeyPress={onEnterKeyPress}/>
           <ClickLogIn>
              <ForLogIn>
                <Account>{data.alreadyhaveaccount}</Account>
-               <Login onClick={this.SignInPage}>{data.login}</Login>
+               <Login onClick={onClickLogIn}>{data.login}</Login>
              </ForLogIn>
          </ClickLogIn>
          
@@ -79,4 +79,4 @@ class SignInPage extends React.Component{
             );
     }
 }
-export default withRouter(SignInPage);
+export default SignInPage;

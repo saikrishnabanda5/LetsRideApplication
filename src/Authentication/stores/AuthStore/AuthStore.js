@@ -34,9 +34,9 @@ class AuthStore {
     @action.bound
     getApiRequest(userName,password,confirmPassword){
         this.apiRequest=[{
-        username:userName,
-        password:password,
-        confirmPassword:confirmPassword
+            username:userName,
+            password:password,
+            confirmPassword:confirmPassword
         }];
     }
     @action.bound

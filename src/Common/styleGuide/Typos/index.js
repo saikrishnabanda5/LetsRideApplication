@@ -11,9 +11,21 @@ export const Typo32DarkBlueGreyRubikRegular=styled.span`
   font-style: normal;
   line-height: 1.25;
   letter-spacing: normal;
-  color: ${colors.darkBlueGrey};`
-  ;
+  color: ${colors.darkBlueGrey};
+  `;
   
+export const Typo32DarkBlueGreyHKGroteskRegular=styled.span `
+ width: 185px;
+  height: 40px;
+  font-family: HKGrotesk;
+  font-size: 32px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color:${colors.darkBlueGrey};
+`;
 export const Typo14WhiteRubikMedium=styled.span`
   width: 53px;
   height: 24px;
@@ -95,5 +107,16 @@ export  const Typo12HKGroteskSemiBoldSteel=styled.span`
   font-style: normal;
   line-height: 1.33;
   letter-spacing: 0.12px;
-  color: var(--steel);;
+  color:${colors.steel};
+`;
+export const Typo14SteelHKGroteskRegular=styled.span`
+  height: 16px;
+  font-family: HKGrotesk;
+  font-size: 12px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: 0.12px;
+  color:${colors.steel};
 `;

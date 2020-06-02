@@ -8,7 +8,7 @@ class CounterPage extends Component {
        const {incrementCounter,decrementCounter,count}=this.props;
       return (
          <Operations>
-             <Button onClick={decrementCounter}></Button>
+             <Button onClick={decrementCounter}>-</Button>
                 <Value>{count} </Value>
              <Button onClick={incrementCounter}>+</Button>
          </Operations>

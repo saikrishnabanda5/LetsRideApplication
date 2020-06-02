@@ -13,9 +13,6 @@ import { observable } from 'mobx'
 import RideApp from './Commute/components/RideApp'
 @observer
 class App extends React.Component {
-   constructor(props) {
-      super(props)
-   }
    render() {
       return (
          //{...CommuteStore}

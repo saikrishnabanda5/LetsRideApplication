@@ -12,7 +12,7 @@ class RequestComponent extends React.Component{
     }
     render(){
         return(
-            <Select onSelect={this.props.getRequestStore.onSelectRequest} listOfItems={this.listOfRequests}/>
+            <Select onSelect={this.props.onSelectRequest} listOfItems={this.listOfRequests} />
             );
     }
 }

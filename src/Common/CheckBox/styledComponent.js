@@ -7,6 +7,7 @@ const Input = styled.input `${tw
   height: 16px;
   margin-right:16px;
   border-radius: 2px;
+  outline:none;
   border: solid 1px #d7dfe9;
   background-color: #ffffff;
 `;

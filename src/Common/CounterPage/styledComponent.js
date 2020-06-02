@@ -6,7 +6,7 @@ const Operations = styled.div `${tw
 `;
 
 const Button = styled.button `${tw 
-` `};
+`focus:outline-none `};
 width: 40px;
 height: 40px;
 border: solid 1px #d7dfe9;
