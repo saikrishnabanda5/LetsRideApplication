@@ -2,7 +2,7 @@ import {observable,action} from 'mobx';
 import {API_INITIAL} from '@ib/api-constants';
 import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
 import RequestModel from '../models/RequestModel';
-import AssetRequestModel from '../models/AssetRequestModel'
+import AssetRequestModel from '../models/AssetRequestModel';
 class RequestStore {
     @observable getRideRequestAPIStatus
     @observable getAssetRequestAPIStatus
@@ -18,6 +18,9 @@ class RequestStore {
     @observable assetDetails
     @observable noOfRequests
     @observable noOfAssetRequests
+    
+    @observable rideLimit
+    @observable rideOffset
     
     requestAPIService
     constructor(requestService){
@@ -39,6 +42,8 @@ class RequestStore {
         this.assetDetails=[];
         this.noOfRequests=0;
         this.noOfAssetRequests=0;
+        this.rideLimit = null;
+        this.rideOffset =null; 
     }
     @action.bound
     setRideRequestAPIResponse(rideRequestResponse){
@@ -52,8 +57,11 @@ class RequestStore {
     
     @action.bound 
     setMyRideRequestAPIResponse(rideResponse){
+        // this.rideLimit = rideResponse.limit;
+        // this.rideOffset = rideResponse.offset;
+        console.log("my - request - ride ",rideResponse)
         this.rideDetails=[];
-        this.noOfRequests =rideResponse.total_no_of_requests;
+        this.noOfRequests = rideResponse.total_no_of_requests;
         rideResponse.ride_requests.forEach((object)=>{
             const requestModel = new RequestModel(object);
             this.rideDetails.push(requestModel);
@@ -62,7 +70,7 @@ class RequestStore {
     
     @action.bound 
     setClickAssetAPIResponse(assetResponse){
-        this.assetDetails=[];
+        this.assetDetails=[]; 
         this.noOfAssetRequests =assetResponse.total_no_of_requests;
         assetResponse.asset_requests.forEach((object)=>{
             const assetModel = new AssetRequestModel(object);
@@ -83,6 +91,7 @@ class RequestStore {
     
     @action.bound
     setMyRideRequestAPIStatus(apiStatus){
+        console.log("my - request - ride - apiStatus",apiStatus);
         this.getMyRideRequestAPIStatus=apiStatus;
     }
     
@@ -99,6 +108,7 @@ class RequestStore {
     
     @action.bound
     setAssetRequestAPIError(error){
+         console.log("setAssetRequestAPIError-error",error);
         this.getAssetRequestAPIError=error;
     }
     @action.bound
@@ -126,8 +136,8 @@ class RequestStore {
     
     @action.bound
     onRideRequest(apiRequest){
-        alert("onRideRequest")
-        const requestPromise =this.requestAPIService.getRequestARideAPI(apiRequest);
+        alert("ride request")
+        const requestPromise =this.requestAPIService.postRequestARideAPI(apiRequest);
         return bindPromiseWithOnSuccess(requestPromise)
                 .to(this.setRideRequestAPIStatus,this.setRideRequestAPIResponse)
                 .catch(this.setRideRequestAPIError);
@@ -142,7 +152,7 @@ class RequestStore {
     }
     @action.bound
     onMyRideRequests(){
-        const ridePromise = this.requestAPIService.getMyRideRequestAPI();
+        const ridePromise = this.requestAPIService.getMyRideRequestAPI(this.rideLimit,this.rideOffset);
         return bindPromiseWithOnSuccess(ridePromise)
                 .to(this.setMyRideRequestAPIStatus,this.setMyRideRequestAPIResponse)
                 .catch(this.setMyRideRequestAPIError);
@@ -150,6 +160,7 @@ class RequestStore {
     
     @action.bound
     onClickAsset(){
+        alert("assert request hh")
         const assetPromise = this.requestAPIService.getAssetRequestAPI();
         return bindPromiseWithOnSuccess(assetPromise)
                 .to(this.setClickAssetAPIStatus,this.setClickAssetAPIResponse)

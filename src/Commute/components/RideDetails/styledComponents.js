@@ -10,7 +10,7 @@ const Requests = styled.div `${tw
 `;
 
 const Tasks = styled.div `${tw 
-`flex justify-between pb-4 pl-2 bg-gray-200`}
+`flex justify-between pb-4 pl-2 pt-8 bg-gray-200`}
 `;
 
 const Image = styled.img `${tw 
@@ -35,7 +35,7 @@ flex pt-4 focus:outline-none`}
 `;
 
 const Footer = styled.div `${tw`
-flex justify-between items-center border border-red-500 w-64`}
+flex justify-between items-center  w-64`}
 `;
 
 

@@ -222,3 +222,6 @@ crud
  3 - how to send our data format to backend
  4 - writing corrections in Services files
  5 - placing loader in button
+ 
+ 
+ 1- protected route

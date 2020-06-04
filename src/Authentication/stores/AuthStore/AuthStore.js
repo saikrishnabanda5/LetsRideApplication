@@ -1,13 +1,12 @@
 import {observable,action} from 'mobx';
 import {API_INITIAL} from '@ib/api-constants';
-import {setAccessToken,clearUserSession} from '../../utils/StorageUtils.js';
+import {setAccessToken,clearUserSession,getAccessToken} from '../../../Common/utils/StorageUtils.js';
 import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
 class AuthStore {
     @observable getUserLogInAPIStatus       
     @observable getUserLogInAPIError
     @observable errorMessage
     @observable accessToken
-    authAPIService
     constructor(authService){
         this.authAPIService=authService;
         this.init();
@@ -21,12 +20,13 @@ class AuthStore {
     }
     @action.bound
     setUserLogInAPIResponse(authResponse){
-        console.log("authResponse",authResponse)
-        this.accessToken = setAccessToken(authResponse.access_token);
+        console.log("auth-----Response",authResponse.access_token)
+      setAccessToken(authResponse.access_token);
+      this.accessToken=getAccessToken();
     } 
     @action.bound
     setGetUserLogInAPIStatus(apiStatus){
-        console.log("apiStatus",apiStatus)
+        console.log("login-apiStatus",apiStatus)
         this.getUserLogInAPIStatus=apiStatus;
     }
     @action.bound

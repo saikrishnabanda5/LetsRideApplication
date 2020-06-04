@@ -1,3 +1,3 @@
 export const authServiceEndpoint = {
-  endpoint: "login/v1",
+  endpoint: "login/v1/",
 };

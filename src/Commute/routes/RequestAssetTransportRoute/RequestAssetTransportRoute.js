@@ -89,7 +89,7 @@ class RequestAssetTransportRoute extends React.Component {
                       source: this.source,
                       destination: this.destination,
                       from_datetime: this.fromDate,
-                      flexible: this.isChecked,
+                      is_flexible: this.isChecked,
                       to_datetime: this.toDate,
                       datetime: this.dateAndTime,
                       no_of_assets: this.assetsCount,
@@ -97,6 +97,7 @@ class RequestAssetTransportRoute extends React.Component {
                       sensitivity:this.selectSensitivity,
                       deliver_person:this.personDetails
                     };
+                
             this.props.requestStore.onClickAssetRequest(assetDetails);
         }
         else if(this.source.length===0||this.destination.length===0||this.personDetails.length===0){

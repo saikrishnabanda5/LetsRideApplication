@@ -1,106 +1,111 @@
 import React from 'react';
 import {observer,inject} from 'mobx-react';
-import {observable} from 'mobx'
-import {Header,FromAddress,ToAddress,DateTime,RequestRideStyle,Flexibility,UserFlexibility,DateStyle,
-Operations,Availability,Counter,PageView,Mandatory,Address,
-Assets,Heading,Others,ErrorMessage,Field,InputField} from '../ShareTravelInfo/styledComponent';
-import DateAndTime from '../../../Common/DateAndTime'
-import data from '../../../i18n/strings.json'
-import InputTag from '../../../Common/InputTag'
-import CheckBox from '../../../Common/CheckBox'
-import CounterPage from '../../../Common/CounterPage'
-import ButtonComponent from '../../../Common/ButtonComponent';
-import Select from '../../../Common/Select';
-@inject('shareStore')
+import {observable} from 'mobx';
+import {Requests,TypeOfRequest,Button,Details,Header,Heading,Status} from './styledComponent';
+import data from '../../../i18n/strings.json';
+import RideDetails from '../RideDetails';
+import AssetDetails from '../AssetDetails';
+@inject('requestStore')
 @observer
 class MatchingResults extends React.Component{
-    @observable listOfMediums
+    @observable rideButton
+  @observable assetButton
+  @observable noOfRideTasks
+  @observable listOfRideHeadings
+  @observable listOfAssetHeadings
+  @observable noOfAssetTasks
     constructor(props){
         super(props);
-        this.listOfMediums=[data.medium.bus,data.medium.car,data.medium.flight];
+        this.rideButton=false;
+        this.assetButton=false;
+        this.noOfRideTasks = this.props.requestStore.noOfRequests;
+        this.noOfAssetTasks = this.props.requestStore.noOfAssetRequests;
+        this.listOfRideHeadings=[data.rideRequest.from,data.rideRequest.to,data.rideRequest.dateAndTime,
+        data.rideRequest.people,data.rideRequest.luggageQunatity,data.rideRequest.acceptedDetails,data.rideRequest.status];
+        this.listOfAssetHeadings=[data.assetRequest.from,data.assetRequest.to,data.assetRequest.dateAndTime,
+        data.assetRequest.assets,data.assetRequest.assetType,data.assetRequest.assetSensitivity,
+        data.assetRequest.whomToDeliver,data.assetRequest.acceptedDetails,data.assetRequest.status];
+    }
+    componentDidMount(){
+      this.props.requestStore.onMyRideRequests()
+    }
+    onClickRide=()=>{
+      this.rideButton=true;
+      this.assetButton=false;
+    }
+    onClickAsset=()=>{
+      this.rideButton=false;
+      this.assetButton=true;
+    }
+    onAddRequest=()=>{
+      const {history}=this.props;
+      history.push('/ride-app/request-ride/');
+    }
+    headings=()=>{
+        const values =this.listOfRideHeadings.map ((name)=>{
+            return ( <Header> {name}</Header>);
+        });
+        return values;
+    }
+    
+    assetHeadings=()=>{
+      const values =this.listOfAssetHeadings.map ((name)=>{
+            return ( <Headers> {name}</Headers>);
+        });
+        return values;
+    }
+    assetRequestData=()=>{
+      const values = this.props.requestStore.assetDetails.map((name,index)=>{
+            return ( 
+              <Details >
+                    <Headings> {name.source}</Headings>
+                    <Headers> {name.destination}</Headers>
+                    <Headings> {name.from_datetime}</Headings>
+                    <Headers>{name.no_of_assets}</Headers>
+                    <Headers>{name.asset_type}</Headers>
+                    <Headers>{name.sensitivity}</Headers>
+                    <Headers>{name.deliver_person}</Headers>
+                    <div>
+                    <Headers>{name.mobile_number}</Headers>
+                    <Headers>{name.user_name}   </Headers>
+                    </div>
+                    <Status status={name.status}>{name.status}</Status>
+              </Details>
+            );
+        });
+      return values;
+    }
+    rideRequestData=()=>{
+      const values = this.props.requestStore.rideDetails.map((name)=>{
+            return ( 
+              <Details >
+                    <Heading> {name.source}</Heading>
+                    <Header> {name.destination}</Header> 
+                    <Heading> {name.from_datetime}</Heading>
+                    <Header>{name.no_of_seats}</Header>
+                    <Header>{name.luggage_quantity}</Header>
+                    <div>
+                    <Header>{name.mobile_number}</Header>
+                    <Header>{name.user_name}   </Header>
+                    </div>
+                    <Status status={name.status}>{name.status}</Status>
+              </Details>
+            );
+        });
+      return values;
     }
     render(){
-        const {source,destination,errorMessage,isChecked,onClickCheckBox,onSubmitDetails,
-        assetsCount,onChangeSource,onChangeDestination,onIncrementAssetsCount,onSelectMedium,
-        onChangeDateAndTime,onChangeFromDate,onChangeToDate,dateAndTime,fromDate,toDate
-        ,onDecrementAssetsCount}=this.props;
         return(
-        <PageView>
-         <RequestRideStyle>
-           <Header>{data.shareTravel.shareTravel} </Header>
-           <Address>
-               <FromAddress>{data.rideRequest.from}</FromAddress>
-               <Mandatory>*</Mandatory>
-           </Address>
-           
-           <InputField> 
-                <Field>
-                 <InputTag type={data.type.text} placeholder={data.travel.source}  onChangeInput={onChangeSource}
-                  errorMessage={errorMessage} inputValue={source}/>
-                </Field>
-              <ErrorMessage>{source===""?<div>{errorMessage}</div>:null}</ErrorMessage>
-            </InputField>
-          
-           <Address>
-               <ToAddress>{data.rideRequest.to}</ToAddress>
-               <Mandatory>*</Mandatory>
-           </Address>
-           
-           <InputField> 
-                <Field>
-                 <InputTag type={data.type.text} placeholder={data.travel.destination} onChangeInput={onChangeDestination}
-                  errorMessage={errorMessage} inputValue={destination}/>
-                </Field>
-              <ErrorMessage>{destination===""?<div>{errorMessage}</div>:null}</ErrorMessage>
-            </InputField>
-           {isChecked==false?<div><Address>
-                            <DateTime> {data.rideRequest.dateAndTime}</DateTime>
-                            <Mandatory>*</Mandatory>
-                            </Address>
-                <DateAndTime onChangeDateAndTime={onChangeDateAndTime} dateAndTime={dateAndTime} isChecked={isChecked}/> 
-                <ErrorMessage>{dateAndTime===null?<div>{errorMessage}</div>:null}</ErrorMessage></div>:
-                <DateStyle>
-                            <div><Address>
-                                <DateTime> {data.rideRequest.from}</DateTime>
-                                <Mandatory>*</Mandatory>
-                            </Address>
-                            <DateAndTime onChangeDate={onChangeFromDate} Date={fromDate} isChecked={isChecked}/>
-                            </div>
-                            <div>
-                            <Address>
-                                <DateTime> {data.rideRequest.to}</DateTime>
-                                <Mandatory>*</Mandatory>
-                            </Address>
-                            <DateAndTime onChangeDate={onChangeToDate} Date={toDate} isChecked={isChecked}/>
-                            </div>
-                </DateStyle>
-           }
-          <UserFlexibility>
-            <CheckBox type={data.type.checkbox} isChecked={isChecked} onClickCheckBox={onClickCheckBox}/>
-            <Flexibility> {data.rideRequest.flexibleTimings}</Flexibility>
-          </UserFlexibility>
-          
-               <Address>
-                   <Heading>{data.shareTravel.medium}</Heading>
-                   <Mandatory>*</Mandatory>
-               </Address>
-               <Select onSelect={onSelectMedium} listOfItems={this.listOfMediums}
-               assetTransportRequest ={data.assetRequest.assetTransportRequest}/>
-          
-          <Operations>
-            <Availability>
-            {data.shareTravel.assetsQuantity}
-            </Availability>
-             <Mandatory>*</Mandatory>
-            <Counter>
-                <CounterPage incrementCounter={onIncrementAssetsCount} 
-                decrementCounter={onDecrementAssetsCount}
-                count={assetsCount}/>
-            </Counter>
-          </Operations>
-          <ButtonComponent text={data.requestButton} onSubmitForm={onSubmitDetails}/> 
-         </RequestRideStyle>
-        </PageView>
+            <Requests>
+               <TypeOfRequest>
+                 <Button rideButton={this.rideButton} onClick={this.onClickRide}>{data.ride} </Button>
+                 <Button assetButton={this.assetButton}onClick={this.onClickAsset}> {data.asset}</Button>
+               </TypeOfRequest>
+                   {this.rideButton?<RideDetails headings={this.headings} rideRequestData={this.rideRequestData}
+                   noOfRideTasks={this.noOfRideTasks} onAddRequest={this.onAddRequest}/> :null}
+                   {this.assetButton?<AssetDetails assetHeadings={this.assetHeadings} assetRequestData={this.assetRequestData}
+                   noOfAssetTasks={this.noOfAssetTasks} onAddRequest={this.onAddRequest}/> :null}
+            </Requests>
             );
     }
 }

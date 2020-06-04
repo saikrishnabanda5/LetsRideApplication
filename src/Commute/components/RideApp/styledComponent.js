@@ -27,8 +27,12 @@ background-color: #b3f4e1;
 `;
 
 const Screen = styled.div `${tw 
-`flex justify-center items-center h-screen bg-gray-200 border-red-700`
+`flex justify-center items-center h-screen bg-gray-200`
+}`;
+
+const HomePage = styled.div `${tw 
+`mb-auto mt-24`
 }`;
 
 
-export {Header,HeaderPosition,Image,RightComponent,HomeScreen,Screen};
+export {Header,HeaderPosition,Image,RightComponent,HomeScreen,Screen,HomePage};

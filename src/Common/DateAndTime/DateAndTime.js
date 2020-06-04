@@ -16,7 +16,7 @@ import "react-datepicker/dist/react-datepicker.css";
           selected={this.props.dateAndTime}
           onChange={this.props.onChangeDateAndTime}
           showTimeSelect
-          timeFormat="HH:mm"
+          timeFormat="HH:mm:"
           timeIntervals={15}
           timeCaption="time"
           dateFormat="MMMM d, yyyy h:mm aa"

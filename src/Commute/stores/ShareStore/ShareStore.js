@@ -31,7 +31,7 @@ class ShareStore {
     }
     @action.bound
     setShareRideAPIStatus(apiStatus){
-        console.log("apiStatus",apiStatus)
+        console.log("setShareRideAPIStatus---apiStatus",apiStatus)
         this.getShareRideAPIStatus=apiStatus;
     }
     @action.bound
@@ -41,6 +41,7 @@ class ShareStore {
     }
     @action.bound
     setShareRidetAPIError(error){
+        console.log("setShareRideAPIStatus---error",error)
         this.getShareRideAPIError=error;
     }
     @action.bound
@@ -57,6 +58,7 @@ class ShareStore {
     }
     @action.bound
     onShareRide(shareRideDetails){
+        alert("share-ride")
         const rideSharePromise =this.requestAPIService.getShareRideAPI(shareRideDetails);
         return bindPromiseWithOnSuccess(rideSharePromise)
                 .to(this.setShareRideAPIStatus,this.setShareAPIResponse)

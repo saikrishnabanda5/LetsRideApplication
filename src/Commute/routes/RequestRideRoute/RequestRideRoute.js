@@ -3,6 +3,10 @@ import {observer,inject} from 'mobx-react';
 import {observable} from 'mobx';
 import {withRouter} from "react-router-dom";
 import RequestRide from '../../components/RequestRide';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import format from 'date-fns/format';
+import moment from 'moment';
 @inject('requestStore')
 @observer
 class RequestRideRoute extends React.Component {
@@ -17,6 +21,9 @@ class RequestRideRoute extends React.Component {
     @observable toDate
     constructor(props){
         super(props);
+        this.init();
+    }
+    init=()=>{
         this.source="";
         this.destination="";
         this.dateAndTime="";
@@ -75,22 +82,45 @@ class RequestRideRoute extends React.Component {
                       source: this.source,
                       destination: this.destination,
                       from_datetime: this.fromDate,
-                      flexible: this.isChecked,
+                      is_flexible: this.isChecked,
                       to_datetime: this.toDate,
-                      datetime: this.dateAndTime,
+                      datetime: moment(this.dateAndTime).format("YYYY-MM-DD HH:mm:ss"),
                       no_of_seats: this.seatsAvailable,
                       luggage_quantity: this.luggageQuantity
-                    }
+                    };
             this.props.requestStore.onRideRequest(rideDetails);
         }
         else if(this.source.length===0||this.destination.length===0){
             this.errorMessage="Required";
         }
     }
+    notify = () =>{
+        toast.success("Your Request has been accepted",{
+            className: {
+      color: '#343a40',
+      minHeight: '60px',
+      borderRadius: '8px',
+      background: '#2FEDAD',
+      boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3)'
+    },
+   position:toast.POSITION.BOTTOM_CENTER,
+            type:toast.TYPE.WARNING
+        });
+    };
+
   render() {
-      
+     console.log(console.log(moment(this.dateAndTime).format("YYYY-MM-DD HH:mm:ss:ms")));
+    //   var result = format(
+    //           this.dateAndTime,
+    //           'yyyy-mm-dd hh:mm:ss'
+    //                     )
+    //         console.log("date - format",result)
+    //   console.log("ride request app status",this.props.requestStore.getRideRequestAPIStatus)
+      if(this.props.requestStore.getRideRequestAPIStatus===200){
+           this.notify();
+      }
       const {getUserSignInAPIStatus}=this.props;
-    return (
+    return (<div>
       <RequestRide
           apiStatus={getUserSignInAPIStatus}
           source={this.source}
@@ -114,6 +144,8 @@ class RequestRideRoute extends React.Component {
           onDecrementSeatsCount={this.onDecrementSeatsCount}
           onSubmitDetails={this.onSubmitDetails}
       />
+      <ToastContainer />
+      </div>
     );
   }
 }

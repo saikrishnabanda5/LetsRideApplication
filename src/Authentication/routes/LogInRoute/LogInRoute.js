@@ -3,6 +3,7 @@ import {observer,inject} from 'mobx-react';
 import {observable} from 'mobx';
 import {withRouter} from "react-router-dom";
 import LogInPage from '../../components/LogInPage';
+import { Redirect } from "react-router-dom";
 @inject('authStore')
 @observer
 class LogInRoute extends React.Component {
@@ -30,9 +31,21 @@ class LogInRoute extends React.Component {
             this.onClickLogIn();
         }
     }
-    onClickLogIn=()=>{
+    // getSignInPage=()=>{
+    //     alert("login again")
+    //   return(<Redirect to={{ pathname:"/login/v1/" }}/>)
+    //   }
+    //   getLetsRidePage=()=>{
+    //       alert("lets_ride")
+    //       const {history}=this.props;
+    //       window.setTimeout(() => {
+    //               history.replace('/ride-app/'); 
+    //             }, 2000);
+    //     // return(<Redirect to={{ pathname:"/ride-app/" }}/>)
+    //   }
+    onClickLogIn= async ()=>{
         const {history}=this.props;
-        if(this.password.length>0&&this.mobileNumber.length===10 && this.mobileNumber.search(/^[6-9]{1}[0-9]{9}$/) === 0){
+        if(this.password.length>0&&this.mobileNumber.length>0 ){
             this.errorMessage="";
             this.isValid = true;
             
@@ -40,18 +53,20 @@ class LogInRoute extends React.Component {
               mobile_number: this.mobileNumber,
               password: this.password
             };
-            
-            this.props.authStore.userLogIn(apiRequest);
-            if(this.props.authStore.accessToken){
-                window.setTimeout(() => {
+             await this.props.authStore.userLogIn(apiRequest);
+             if(this.props.authStore.accessToken){
+                const {history}=this.props;
+                  window.setTimeout(() => {
                   history.replace('/ride-app/'); 
                 }, 2000);
             }
-            if(this.props.authStore.getUserLogInAPIStatus===400){
-                this.status=this.props.authStore.getUserLogInAPIStatus;
+            else{
+                 const {history}=this.props;
+                history.replace('/login/v1/'); 
             }
+            
         }
-        else if(this.mobileNumber.length===0 || this.mobileNumber.search(/^[6-9]{1}[0-9]{9}$/) === -1){
+        else if(this.mobileNumber.length===0 || this.mobileNumber.length==0){
             this.errorMessage="Required";
         }
         else if(this.password.length==0){
@@ -62,8 +77,9 @@ class LogInRoute extends React.Component {
         const {history}=this.props;
         history.replace('/signup/v1');
     }
-  render() {
-      console.log("token",this.props.authStore.accessToken);
+    
+
+  render(){
       const {getUserSignInAPIStatus}=this.props;
     return (
       <LogInPage
@@ -84,3 +100,6 @@ class LogInRoute extends React.Component {
 }
 
 export default withRouter(LogInRoute);
+//search(/^[0-9]{1}[0-9]{9}$/) === -1)
+
+///uer login = && this.mobileNumber.search(/^[5-9]{1}[0-9]{9}$/) === 0

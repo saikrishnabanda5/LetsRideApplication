@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer,inject} from 'mobx-react';
-// import { Pagination } from 'semantic-ui-react';
+import { Pagination } from 'semantic-ui-react';
 import {action} from 'mobx';
 import SimpleMenu from '../material.js';
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure';
@@ -22,7 +22,7 @@ class RideDetails extends React.Component{
     })
     
     render(){
-        const {getRideAPIStatus,getRideAPIError} = this.props.requestStore;
+        const {getMyRideRequestAPIStatus,getMyRideRequestAPIError} = this.props.requestStore;
         const {headings,rideRequestData,noOfRideTasks,onAddRequest,filterRide} = this.props;
         return(
             <Requests>
@@ -32,18 +32,18 @@ class RideDetails extends React.Component{
                        
                        <Image src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/dbb6969d-a0d8-4c04-a6e1-749c29dc399a.svg" />
                        {data.sort}
-                       <div onClick={filterRide}>
+                      {/* <div onClick={filterRide}>*/}
                            <Image src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/7b1bfd15-1e70-4d41-a538-5bc0840dc69b.svg" />
                             {data.filter}
-                            <SimpleMenu />
-                        </div>
+                            {/*<SimpleMenu />*/}
+                        {/*</div>*/}
                    </SortAndFilter>
                </Tasks>
                <MyDetails>
                    <Details>{headings} </Details>
                     <LoadingWrapperWithFailure
-                        apiStatus={getRideAPIStatus}
-                        apiError={getRideAPIError}
+                        apiStatus={getMyRideRequestAPIStatus}
+                        apiError={getMyRideRequestAPIError}
                         onRetryClick={this.doNetworkCalls}
                         renderSuccessUI={this.renderMyRequests}
                     /> 
@@ -55,7 +55,7 @@ class RideDetails extends React.Component{
                        <Add> {data.addRequest}</Add>
                     </AddButton>
                     <PageRange>PAGE 1 OF 5 </PageRange>
-                    <div
+                    <Pagination
                         boundaryRange={0}
                         defaultActivePage={1}
                         ellipsisItem={null}

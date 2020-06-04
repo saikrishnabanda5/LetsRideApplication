@@ -1,23 +1,16 @@
 import React from "react";
-import { Link,Redirect } from "react-router-dom";
 import logo from "../../logo.svg";
-import {getCookie,ACCESS_TOKEN} from '../../Authentication/utils/StorageUtils'
+import { Link,Redirect } from "react-router-dom";
 class HomePage extends React.Component {
   getSignInPage=()=>{
-      return(<Redirect to={{ pathname:"/signin" }}/>)
+      return(<Redirect to={{ pathname:"/login/v1" }}/>)
   }
-  getProductsPage=()=>{
-    return(<Redirect to={{ pathname:"/products" }}/>)
+  getLetsRidePage=()=>{
+    return(<Redirect to={{ pathname:"/ride-app/" }}/>)
   }
 
   render(){
-    console.log(getCookie(ACCESS_TOKEN))
-    if(getCookie(ACCESS_TOKEN)===1){
-      this.getSignInPage();
-    }
-    else{
-      this.getProductsPage();
-    }
+  
   return (
     <div className="App">
       <header className="App-header">

@@ -5,7 +5,11 @@ import {Typo32DarkBlueGreyHKGroteskRegular} from '../../../Common/styleGuide/Typ
 const Heading = Typo32DarkBlueGreyHKGroteskRegular;
 
 const Requests = styled.div `${tw 
-` mb-auto border border-red-500`}
+` mb-auto border `}
+`;
+
+const Navigation = styled.div `${tw 
+`   `}
 `;
 
 const Results = styled.button `${tw`focus:outline-none p-2`}
@@ -26,17 +30,15 @@ color:${props=>props.sharedDetails?"#ffffff":"#171f46"};
 border:1px solid #d7dfe9;
 `;
 
-const MainPage = styled.div `${tw` `}`;
+const MainPage = styled.div `${tw` flex flex-col items-stretch justify-between`}`;
 
-const HomePage = styled.div `${tw` flex justify-center items-center mt-auto `}
-position:fixed;
-top:20%;
+const HomePage = styled.div `${tw` flex justify-center items-center mb-12`}
 left:30%;
 right:30%;
 `;
 
 const TypeOfRequest = styled.div `${tw 
-`flex mb-10 border-b-2 border-gray-600`}
+`flex mb-10 border-b-2 `}
 width: 1128px;
 height: 25px;
 `;
@@ -51,4 +53,4 @@ color:${props=>props.rideButton?"black":props.assetButton?"black":"gray"};
 // border-bottom:${props=>props.rideButton?"2px solid blue":props.assetButton?"black":"gray"};
 `;
 
-export {Heading,Requests,TypeOfRequest,Button,HomePage,Results,Request,Details,MainPage};
+export {Heading,Requests,TypeOfRequest,Button,HomePage,Results,Request,Details,MainPage,Navigation};

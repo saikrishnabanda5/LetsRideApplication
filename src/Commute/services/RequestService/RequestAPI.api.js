@@ -1,43 +1,49 @@
 import {create} from 'apisauce';
-import {networkCallWithApisauce} from '../../utils/APIUtils';
+import {networkCallWithApisauce} from '../../../Common/utils/APIUtils';
 import {apiMethods} from '../../constants/APIConstants';
-import {assetRequestEndPoint,rideRequestEndPoint,assetRequestAPIEndPoint} from '../endpoints';
+import {assetRequestEndPoint,rideRequestEndPoint,myRideRequestEndPoint,assetRequestAPIEndPoint} from '../endpoints';
 
 class RequestService{
   api
   constructor(){
      this.api=create({
-            baseURL:"https://virtserver.swaggerhub.com/IB-HUBS2/lets_ride/1.0.0/"
+            baseURL:"https://15bb3c5bb8b6.ngrok.io/api/lets_ride/"
      });
  }
- getRequestARideAPI=(apiRequest)=>{
-   alert("getRequestARideAPI")
-   console.log(apiRequest)
+ postRequestARideAPI=(apiRequest)=>{
+   console.log("postRequestARideAPI",apiRequest);
    return networkCallWithApisauce(
             this.api,
             rideRequestEndPoint.endpoint,
-            {apiRequest},
+            apiRequest,
             apiMethods.post
         );
      }
   getRequestAssetAPI=(assetDetails)=>{
-    alert("getRequestAssetAPI")
-   console.log(assetDetails)
+    alert("getRequestAssetAPI");
+   console.log(assetDetails);
    return networkCallWithApisauce(
             this.api,
             assetRequestAPIEndPoint.endpoint,
-            {assetDetails},
+            assetDetails,
             apiMethods.post
         );
   }
- getMyRideRequestAPI=(credentials)=>{
+ getMyRideRequestAPI=(limit,offset)=>{
+   console.log(limit,offset);
      return networkCallWithApisauce(
             this.api,
-            assetRequestEndPoint.endpoint,
-            {credentials},
-            apiMethods.post
+            `${myRideRequestEndPoint.endpoint}?limit=${limit}&offset=${offset}`,
+            {},
+            apiMethods.get
         );
      }
 }
 
 export default RequestService;
+//https://virtserver.swaggerhub.com/IB-HUBS2/lets_ride/1.0.0/
+// https://352d764d4207.ngrok.io/
+//      my_requests/ride/v1
+// /?limit=${limit}&offset=${offset}
+//myRideRequestEndPoint.endpoint
+//`products?limit=${limit}&offset=${offset}`,
