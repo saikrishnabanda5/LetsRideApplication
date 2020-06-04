@@ -1,23 +1,22 @@
 import {create} from 'apisauce';
 import {networkCallWithApisauce} from '../../utils/APIUtils';
 import {apiMethods} from '../../constants/APIConstants';
-import {AuthServiceEndpoint} from '../endpoint';
+import {authServiceEndpoint} from '../endpoints';
 class AuthService{
   api
   constructor(){
      this.api=create({
-            baseURL:"https://5ea1a14db9f5ca00166c1f27.mockapi.io/api/"
+            baseURL:"https://virtserver.swaggerhub.com/IB-HUBS2/lets_ride/1.0.0/"
      });
  }
- signInAPI(apiRequest){
-  // console.log(JSON.stringify(apiRequest))
+ LogInAPI(apiRequest){
      return networkCallWithApisauce(
             this.api,
-            AuthServiceEndpoint.endpoint,
+            authServiceEndpoint.endpoint,
             {apiRequest},
-            apiMethods.get
+            apiMethods.post
         );
- }
+     }
 }
 
 export default AuthService;

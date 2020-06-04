@@ -11,13 +11,20 @@ class MyRequestsRoute extends React.Component {
   @observable rideButton
   @observable assetButton
   @observable noOfRideTasks
+  @observable matchingResults
+  @observable myRequests
+  @observable sharedDetails
   @observable listOfRideHeadings
   @observable listOfAssetHeadings
   @observable noOfAssetTasks
+  
   constructor(props){
         super(props);
         this.rideButton=false;
         this.assetButton=false;
+        this.matchingResults=true;
+        this.myRequests = false;
+        this.sharedDetails = false;
         this.noOfRideTasks = this.props.requestStore.noOfRequests;
         this.noOfAssetTasks = this.props.requestStore.noOfAssetRequests;
         this.listOfRideHeadings=[data.rideRequest.from,data.rideRequest.to,data.rideRequest.dateAndTime,
@@ -26,6 +33,21 @@ class MyRequestsRoute extends React.Component {
         this.listOfAssetHeadings=[data.assetRequest.from,data.assetRequest.to,data.assetRequest.dateAndTime,
         data.assetRequest.assets,data.assetRequest.assetType,data.assetRequest.assetSensitivity,
         data.assetRequest.whomToDeliver,data.assetRequest.acceptedDetails,data.assetRequest.status];
+    }
+    OnMatchingResults=()=>{
+      this.matchingResults=true;
+      this.myRequests = false;
+      this.sharedDetails = false;
+    }
+    OnMyRequests=()=>{
+      this.matchingResults=false;
+      this.myRequests = true;
+      this.sharedDetails = false;
+    }
+    onSharedDetails=()=>{
+      this.matchingResults=false;
+      this.myRequests = false;
+      this.sharedDetails = true;
     }
     headings=()=>{
         const values =this.listOfRideHeadings.map ((name)=>{
@@ -107,6 +129,12 @@ class MyRequestsRoute extends React.Component {
        assetRequestData={this.assetRequestData()}
        noOfAssetTasks={this.noOfAssetTasks}
        onClickAsset={this.onClickAsset}
+       OnMatchingResults={this.OnMatchingResults}
+       OnMyRequests={this.OnMyRequests}
+       onSharedDetails={this.onSharedDetails}
+       matchingResults={this.matchingResults}
+       myRequests={this.myRequests}
+       sharedDetails = {this.sharedDetails}
        />
     );
   }

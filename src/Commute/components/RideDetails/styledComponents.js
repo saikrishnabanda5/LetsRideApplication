@@ -3,7 +3,8 @@ import tw from 'tailwind.macro';
 import {Typo14SteelHKGroteskRegular} from '../../../Common/styleGuide/Typos';
 
 const Add =Typo14SteelHKGroteskRegular;
-
+const PageRange = styled.div `${tw``}`;
+const NoOfTasks = styled.div `${tw ``}`;
 const Requests = styled.div `${tw 
 ` mb-auto`}
 `;
@@ -14,10 +15,6 @@ const Tasks = styled.div `${tw
 
 const Image = styled.img `${tw 
 `pr-2 pl-1`}
-`;
-
-const NoOfTasks = styled.div `${tw 
-``}
 `;
 
 const SortAndFilter = styled.div `${tw 
@@ -35,11 +32,6 @@ border: solid 1px #d7efd9;
 
 const AddButton = styled.button `${tw`
 flex pt-4 focus:outline-none`}
-`;
-
-
-const PageRange = styled.div `${tw`
-`}
 `;
 
 const Footer = styled.div `${tw`

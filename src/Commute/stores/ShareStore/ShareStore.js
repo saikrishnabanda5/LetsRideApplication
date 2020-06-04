@@ -1,9 +1,11 @@
 import {observable,action} from 'mobx';
 import {API_INITIAL} from '@ib/api-constants';
 import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
-class RequestStore {
-    @observable getRequestAPIStatus
-    @observable getRequestAPIError
+class ShareStore {
+    @observable getShareRideAPIStatus
+    @observable getShareTravelInfoAPIStatus
+    @observable getShareRideAPIError
+    @observable getShareTravelInfoAPIError
     @observable response
     requestAPIService
     constructor(requestService){
@@ -12,55 +14,57 @@ class RequestStore {
     }
     @action
     init(){
-        this.getRequestAPIStatus=API_INITIAL;
-        this.getRequestAPIError=null;
+        this.getShareRideAPIStatus=API_INITIAL;
+        this.getShareTravelInfoAPIStatus=API_INITIAL;
+        this.getShareRideAPIError=null;
+        this.getShareTravelInfoAPIError=null;
         this.response='';
     }
     @action.bound
-    setRequestAPIResponse(response){
-        this.response=response;
+    setShareAPIResponse(shareRideresponse){
+        console.log("shareRideresponse",shareRideresponse)
+        this.response=shareRideresponse;
+    }
+    @action.bound
+    setShareTravelInfoAPIResponse(travelInfoResponse){
+         console.log("shareRideresponse",travelInfoResponse)
+    }
+    @action.bound
+    setShareRideAPIStatus(apiStatus){
+        console.log("apiStatus",apiStatus)
+        this.getShareRideAPIStatus=apiStatus;
+    }
+    @action.bound
+    setShareTravelInfoAPIStatus(apiStatus){
+        console.log("setShareTravelInfo----APIStatus",apiStatus)
+         this.getShareTravelInfoAPIStatus=apiStatus;
+    }
+    @action.bound
+    setShareRidetAPIError(error){
+        this.getShareRideAPIError=error;
+    }
+    @action.bound
+    setShareTravelInfotAPIError(error){
+        this.getShareTravelInfoAPIError =error;
     }
     
     @action.bound
-    setRequestAPIStatus(apiStatus){
-        this.getRequestAPIStatus=apiStatus;
+    onShareTravelInfo(shareTravelDetails){
+        const travelInfoPromise =this.requestAPIService.getShareTravelInfoAPI(shareTravelDetails);
+        return bindPromiseWithOnSuccess(travelInfoPromise)
+                .to(this.setShareTravelInfoAPIStatus,this.setShareTravelInfoAPIResponse)
+                .catch(this.setShareTravelInfotAPIError);
     }
     @action.bound
-    setRequestAPIError(error){
-        this.getRequestAPIError=error;
-    }
-    @action.bound
-    getCredentials(source,destination,startDate,isChecked,seatsAvailable,luggageCount){
-        this.credentials={
-            "source":source,
-            "destination":destination,
-            "dateAndTime":startDate,
-            "isChecked":  isChecked,
-            "seatsAvailability":seatsAvailable,
-            "luggageCount":luggageCount
-            };
-    }
-    
-    @action.bound
-    onClickAssetRequest(){
-        alert("assetRequest")
-    }
-    @action.bound
-    onShareTravelInfo(){
-        alert("shar info")
-    }
-    @action.bound
-    onClickRideShare(source,destination,startDate,isChecked,seatsAvailable,luggageCount){
-        alert("cluck")
-        this.validation(source,destination,startDate,isChecked,seatsAvailable,luggageCount);
-        const requestPromise =this.requestAPIService.getRequestAPI(this.credentials);
-        return bindPromiseWithOnSuccess(requestPromise)
-                .to(this.setRequestAPIStatus,this.setRequestAPIResponse)
-                .catch(this.setRequestAPIError);
+    onShareRide(shareRideDetails){
+        const rideSharePromise =this.requestAPIService.getShareRideAPI(shareRideDetails);
+        return bindPromiseWithOnSuccess(rideSharePromise)
+                .to(this.setShareRideAPIStatus,this.setShareAPIResponse)
+                .catch(this.setShareRidetAPIError);
     }
     @action
     clearStore(){
         this.init();
     }
 }
-export default RequestStore;
+export default ShareStore;

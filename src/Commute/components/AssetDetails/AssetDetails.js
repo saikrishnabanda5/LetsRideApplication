@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer,inject} from 'mobx-react';
-import { Pagination } from 'semantic-ui-react';
+// import { Pagination } from 'semantic-ui-react';
 import {action} from 'mobx';
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure';
 import data from '../../../i18n/strings.json';
@@ -50,7 +50,7 @@ class AssetDetails extends React.Component{
                        <Add> {data.addRequest}</Add>
                     </AddButton>
                     <PageRange>PAGE 1 OF 5 </PageRange>
-                    <Pagination
+                    <div
                         boundaryRange={0}
                         defaultActivePage={1}
                         ellipsisItem={null}

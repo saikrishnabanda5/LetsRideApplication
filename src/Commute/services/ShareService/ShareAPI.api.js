@@ -1,13 +1,13 @@
 import {create} from 'apisauce';
 import {networkCallWithApisauce} from '../../utils/APIUtils';
 import {apiMethods} from '../../constants/APIConstants';
-import {ShareRideServiceEndpoint} from '../endpoints';
+import {shareRideEndPoint,shareTravelEndPoint} from '../endpoints';
 
 class ShareRideService{
   api
   constructor(){
      this.api=create({
-            baseURL:"https://9ba0cd3ggi.execute-api.ap-south-1.amazonaws.com/ecommerce/"
+            baseURL:"https://virtserver.swaggerhub.com/IB-HUBS2/lets_ride/1.0.0/"
      });
  }
  getRequestRideAPI(limit,offset){
@@ -18,9 +18,24 @@ class ShareRideService{
             apiMethods.get
         );
  }
+ getShareRideAPI(shareRideDetails){
+   console.log("service",shareRideDetails)
+   return networkCallWithApisauce(
+            this.api,
+            shareRideEndPoint.endpoint,
+            {shareRideDetails},
+            apiMethods.post
+        );
+ }
+ getShareTravelInfoAPI(sharedInfo){
+   console.log("indo",sharedInfo)
+   return networkCallWithApisauce(
+            this.api,
+            shareTravelEndPoint.endpoint,
+            {sharedInfo},
+            apiMethods.post
+        );
+ }
 }
 
 export default ShareRideService;
-
-// - https://5ea1a14db9f5ca00166c1f27.mockapi.io/api/
-//- v1/products/

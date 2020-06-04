@@ -2,16 +2,16 @@ import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
 
 const SelectTag = styled.select `${tw 
-` focus:outline-none`};
+` `};
   width:120px;
 `;
 
 const Option = styled.option `${tw 
-` focus:outline-none`};
+` `};
 `;
 
 const SelectTagDetails = styled.select `${tw 
-` focus:outline-none`};
+` `};
   width: 320px;
   height: 35px;
   border-radius: 2px;

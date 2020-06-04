@@ -8,26 +8,25 @@ import ShareTravelInfo from '../../components/ShareTravelInfo';
 class ShareTravelInfoRoute extends React.Component {
     @observable source
     @observable destination
-    @observable startDate
     @observable isChecked
     @observable assetsCount
-    @observable selectedValue
+    @observable selectMedium
     @observable errorMessage
     @observable dateAndTime
     @observable fromDate
     @observable toDate
+    @observable shareTravelDetails
     constructor(props){
         super(props);
         this.source="";
         this.destination="";
-        this.startDate="";
         this.errorMessage="";
         this.isChecked=false;
         this.assetsCount=0;
-        this.selectedValue="Share";
-        this.dateAndTime=new Date();
-        this.fromDate=new Date();
-        this.toDate=new Date();
+        this.selectMedium="Select medium";
+        this.dateAndTime=null;
+        this.fromDate=null;
+        this.toDate=null;
     }
     onChangeDateAndTime=(date)=>{
         this.dateAndTime=date;
@@ -53,7 +52,6 @@ class ShareTravelInfoRoute extends React.Component {
         }
     }
     onIncrementAssetsCount=()=> {
-        alert()
       this.assetsCount = this.assetsCount + 1;
     }
     onDecrementAssetsCount=()=> {
@@ -61,19 +59,43 @@ class ShareTravelInfoRoute extends React.Component {
         this.assetsCount = this.assetsCount - 1;
        }
     }
+    onSelectMedium=(event)=>{
+        this.selectMedium=event.target.value;
+    }
     
     onSubmitDetails=(event)=>{
         event.preventDefault();
         if(this.source.length>0&&this.destination.length>0&&this.assetsCount>=1){
-            alert("success")
-            this.props.shareStore.onShareTravelInfo();
+            const shareTravelDetails ={
+                      source: this.source,
+                      destination: this.destination,
+                      from_datetime: this.fromDate,
+                      flexible: this.isChecked,
+                      to_datetime: this.toDate,
+                      datetime: this.dateAndTime,
+                      assets_quantity: this.assetsCount,
+                      medium: this.selectMedium
+                     };
+            if(this.isChecked){
+                this.dateAndTime = "None";
+                if(this.fromDate!==null&&this.toDate!==null){
+                    this.props.shareStore.onShareTravelInfo(shareTravelDetails);
+                }
+            }
+            else{
+                this.fromDate = "None";
+                this.toDate = "None";
+                if(this.dateAndTime!==null){
+                         this.props.shareStore.onShareTravelInfo(shareTravelDetails);
+                }
+            }
+            
         }
-        else if(this.source.length===0||this.destination.length===0||this.personDetails.length===0){
+        else if(this.source.length===0||this.destination.length===0||this.dateAndTime===null){
             this.errorMessage="Required";
         }
     }
   render() {
-      
       const {getUserSignInAPIStatus}=this.props;
     return (
       <ShareTravelInfo
@@ -94,6 +116,7 @@ class ShareTravelInfoRoute extends React.Component {
           onChangeToDate={this.onChangeToDate}
           onIncrementAssetsCount={this.onIncrementAssetsCount}
           onDecrementAssetsCount={this.onDecrementAssetsCount}
+          onSelectMedium={this.onSelectMedium}
           onSubmitDetails={this.onSubmitDetails}
       />
     );

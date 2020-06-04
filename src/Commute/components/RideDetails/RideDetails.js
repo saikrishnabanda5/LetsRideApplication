@@ -1,7 +1,8 @@
 import React from 'react';
 import {observer,inject} from 'mobx-react';
-import { Pagination } from 'semantic-ui-react';
+// import { Pagination } from 'semantic-ui-react';
 import {action} from 'mobx';
+import SimpleMenu from '../material.js';
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure';
 import data from '../../../i18n/strings.json';
 import {Requests,Tasks,Image,SortAndFilter,NoOfTasks,Details,MyDetails,Add,AddButton,Footer,PageRange} from './styledComponents';
@@ -13,7 +14,7 @@ class RideDetails extends React.Component{
      }
      @action.bound
      doNetworkCalls(){
-         this.props.requestStore.onClickRide();
+         this.props.requestStore.onMyRideRequests();
      }
     
     renderMyRequests=observer(()=>{
@@ -34,6 +35,7 @@ class RideDetails extends React.Component{
                        <div onClick={filterRide}>
                            <Image src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/7b1bfd15-1e70-4d41-a538-5bc0840dc69b.svg" />
                             {data.filter}
+                            <SimpleMenu />
                         </div>
                    </SortAndFilter>
                </Tasks>
@@ -53,7 +55,7 @@ class RideDetails extends React.Component{
                        <Add> {data.addRequest}</Add>
                     </AddButton>
                     <PageRange>PAGE 1 OF 5 </PageRange>
-                    <Pagination
+                    <div
                         boundaryRange={0}
                         defaultActivePage={1}
                         ellipsisItem={null}

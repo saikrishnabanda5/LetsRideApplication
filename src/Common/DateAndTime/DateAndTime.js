@@ -25,6 +25,7 @@ import "react-datepicker/dist/react-datepicker.css";
           <div>
           <DatePicker 
           className="border border-gray-400 outline-none border-gray-500 w-40 p-1"
+          placeholderText={'Select'}
           selected={this.props.Date}
           onChange={this.props.onChangeDate}
           showTimeSelect

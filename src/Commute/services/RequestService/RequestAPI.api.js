@@ -1,23 +1,43 @@
 import {create} from 'apisauce';
 import {networkCallWithApisauce} from '../../utils/APIUtils';
 import {apiMethods} from '../../constants/APIConstants';
-import {RequestAssetServiceEndpoint} from '../endpoints';
+import {assetRequestEndPoint,rideRequestEndPoint,assetRequestAPIEndPoint} from '../endpoints';
 
 class RequestService{
   api
   constructor(){
      this.api=create({
-            baseURL:"https://9ba0cd3ggi.execute-api.ap-south-1.amazonaws.com/ecommerce/"
+            baseURL:"https://virtserver.swaggerhub.com/IB-HUBS2/lets_ride/1.0.0/"
      });
  }
- getRequestAPI=(credentials)=>{
-     return networkCallWithApisauce(
+ getRequestARideAPI=(apiRequest)=>{
+   alert("getRequestARideAPI")
+   console.log(apiRequest)
+   return networkCallWithApisauce(
             this.api,
-            `products`,
-            {},       
+            rideRequestEndPoint.endpoint,
+            {apiRequest},
             apiMethods.post
         );
- }
+     }
+  getRequestAssetAPI=(assetDetails)=>{
+    alert("getRequestAssetAPI")
+   console.log(assetDetails)
+   return networkCallWithApisauce(
+            this.api,
+            assetRequestAPIEndPoint.endpoint,
+            {assetDetails},
+            apiMethods.post
+        );
+  }
+ getMyRideRequestAPI=(credentials)=>{
+     return networkCallWithApisauce(
+            this.api,
+            assetRequestEndPoint.endpoint,
+            {credentials},
+            apiMethods.post
+        );
+     }
 }
 
 export default RequestService;

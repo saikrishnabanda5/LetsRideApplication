@@ -13,6 +13,7 @@ import ShareTravelInfoRoute from '../../routes/ShareTravelInfoRoute';
 @observer
 class RideApp extends React.Component{
     render(){
+        console.log("request",this.props.selectedRequestValue,"share",this.props.selectedValue);
         return(
             <div>
             <HeaderPosition>
@@ -26,11 +27,11 @@ class RideApp extends React.Component{
                 </Header>
             </HeaderPosition>
             <Screen>
-                    {this.props.selectedRequestValue==="Ride"?<RequestRideRoute />:null}
+                    {this.props.selectedRequestValue==="Ride"?<RequestRideRoute />: null}
                     {this.props.selectedRequestValue===data.request.assetTransport?<RequestAssetTransportRoute />:null}
                     {this.props.selectedValue==="Ride"?<ShareRideRoute />:null}
                     {this.props.selectedValue==="Travel info"?<ShareTravelInfoRoute />:null}
-                    {this.props.homeScreen?<MyRequestRoute myScreen={this.myScreen}/>:null}
+                    <MyRequestRoute myScreen={this.myScreen}/>
                     
              </Screen>
         </div>
@@ -38,3 +39,4 @@ class RideApp extends React.Component{
     }
 }
 export default RideApp;
+// {this.props.homeScreen?<MyRequestRoute myScreen={this.myScreen}/>:null}

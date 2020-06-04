@@ -25,9 +25,9 @@ class RequestAssetTransportRoute extends React.Component {
         this.errorMessage="";
         this.isChecked=false;
         this.assetsCount=0;
-        this.dateAndTime=new Date();
-        this.fromDate=new Date();
-        this.toDate=new Date();
+        this.dateAndTime=null;
+        this.fromDate=null;
+        this.toDate=null;
         this.selectedAsset="Select asset";
         this.selectSensitivity="Sensitive";
         this.otherAssets ="";
@@ -82,11 +82,22 @@ class RequestAssetTransportRoute extends React.Component {
         }
     }
     onSubmitDetails=(event)=>{
-        event.preventDefault();
-        
+        alert("requsey -asset ")
         if(this.source.length>0&&this.destination.length>0&&this.assetsCount>=1&&this.personDetails.length>0){
             alert("success");
-            this.props.requestStore.onClickAssetRequest();
+            const assetDetails ={
+                      source: this.source,
+                      destination: this.destination,
+                      from_datetime: this.fromDate,
+                      flexible: this.isChecked,
+                      to_datetime: this.toDate,
+                      datetime: this.dateAndTime,
+                      no_of_assets: this.assetsCount,
+                      asset_type: this.selectedAsset,
+                      sensitivity:this.selectSensitivity,
+                      deliver_person:this.personDetails
+                    };
+            this.props.requestStore.onClickAssetRequest(assetDetails);
         }
         else if(this.source.length===0||this.destination.length===0||this.personDetails.length===0){
             this.errorMessage="Required";

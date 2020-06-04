@@ -20,9 +20,9 @@ class ShareRideRoute extends React.Component {
         this.source="";
         this.destination="";
         this.errorMessage="";
-        this.dateAndTime=new Date();
-        this.fromDate=new Date();
-        this.toDate=new Date();
+        this.dateAndTime=null;
+        this.fromDate=null;
+        this.toDate=null;
         this.isChecked=false;
         this.seatsAvailable=0;
         this.assetsCount=0;
@@ -70,7 +70,17 @@ class ShareRideRoute extends React.Component {
         event.preventDefault();
         if(this.source.length>0&&this.destination.length>0&&this.seatsAvailable>=1&&this.assetsCount>=1){
             alert("success")
-            this.props.shareStore.onClickRideShare();
+            const shareRideDetails ={
+                      source: this.source,
+                      destination: this.destination,
+                      from_datetime: this.fromDate,
+                      flexible: this.isChecked,
+                      to_datetime: this.toDate,
+                      datetime: this.dateAndTime,
+                      assets_quantity: this.assetsCount,
+                      no_of_seats_available: this.seatsAvailable
+                    };
+            this.props.shareStore.onShareRide(shareRideDetails);
         }
         else if(this.source.length===0||this.destination.length===0){
             this.errorMessage="Required";

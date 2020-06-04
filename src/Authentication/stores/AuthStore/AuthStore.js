@@ -3,10 +3,10 @@ import {API_INITIAL} from '@ib/api-constants';
 import {setAccessToken,clearUserSession} from '../../utils/StorageUtils.js';
 import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
 class AuthStore {
-    @observable getUserSignInAPIStatus       
-    @observable getUserSignInAPIError
+    @observable getUserLogInAPIStatus       
+    @observable getUserLogInAPIError
     @observable errorMessage
-    @observable apiRequest = []
+    @observable accessToken
     authAPIService
     constructor(authService){
         this.authAPIService=authService;
@@ -14,43 +14,36 @@ class AuthStore {
     }
     @action
     init(){
-        this.getUserSignInAPIStatus=API_INITIAL;
-        this.getUserSignInAPIError=null;
+        this.getUserLogInAPIStatus=API_INITIAL;
+        this.getUserLogInAPIError=null;
         this.errorMessage="";
+        this.accessToken = null;
     }
     @action.bound
-    setUserSignInAPIResponse(authResponse){
-      setAccessToken(1);
-      
+    setUserLogInAPIResponse(authResponse){
+        console.log("authResponse",authResponse)
+        this.accessToken = setAccessToken(authResponse.access_token);
     } 
     @action.bound
-    setGetUserSignInAPIStatus(apiStatus){
-        this.getUserSignInAPIStatus=apiStatus;
+    setGetUserLogInAPIStatus(apiStatus){
+        console.log("apiStatus",apiStatus)
+        this.getUserLogInAPIStatus=apiStatus;
     }
     @action.bound
-    setGetUserSignInAPIError(error){
-        this.getUserSignInAPIError=error;
+    setGetUserLogInAPIError(error){
+        console.log("error",error)
+        this.getUserLogInAPIError=error;
     }
     @action.bound
-    getApiRequest(userName,password,confirmPassword){
-        this.apiRequest=[{
-            username:userName,
-            password:password,
-            confirmPassword:confirmPassword
-        }];
-    }
-    @action.bound
-    userSignIn(userName,password,confirmPassword){
-        console.log(userName,password,confirmPassword);
-        this.getApiRequest(userName,password,confirmPassword);
-        const authenticationPromise =this.authAPIService.signInAPI(this.apiRequest);
+    userLogIn(apiRequest){
+        const authenticationPromise =this.authAPIService.LogInAPI(apiRequest);
         return bindPromiseWithOnSuccess(authenticationPromise)
-                .to(this.setGetUserSignInAPIStatus,this.setUserSignInAPIResponse)
-                .catch(this.setGetUserSignInAPIError);
+                .to(this.setGetUserLogInAPIStatus,this.setUserLogInAPIResponse)
+                .catch(this.setGetUserLogInAPIError);
     }
     @action.bound
     userSignOut(){
-        clearUserSession();
+        this.clearStore();
     }
     @action
     clearStore(){

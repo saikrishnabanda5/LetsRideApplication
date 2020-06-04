@@ -158,7 +158,6 @@ morning session
   - loader in  button
   - regex for only numbers
   
-  
   {
    "source":
    "destination"
@@ -172,3 +171,54 @@ morning session
   
   1)loading in button
   2)
+  
+  1)module structure-dont depend on screen
+app.js	
+component -responsibility
+resent comp
+func comp
+routes
+
+
+2)login form
+props - 
+    - onlogin
+    - loginapi status
+ - loginapi error
+
+routes -linking store and component linking
+       - navigations
+       - mostly n/w calls in route
+       - inject in routes
+where loading wrapper? - routes
+  n/w call trigger
+  loading
+
+
+3)list of items
+todo -delete
+
+
+doubt in loadingWrapper tabs exchange
+4)fixture importance - for test cases
+5)api usecase thought process  - discuss with backend when to give api click and go to new page and do api
+user can go to url directly
+if we reload page can we handle things or not
+crud
+
+6)mobx modelling thought processing
+ - form modelling example
+
+7)zeplin use case
+ - no width  height for text in zeplin use case - remove in typos
+ - margins exact
+ - 
+//git commit - m "Message" --no-verify
+
+
+3/6
+ 1 - using APIUtils for authentication
+ 2 - changing routes doubts
+ 3 - how to send our data format to backend
+ 4 - writing corrections in Services files
+ 5 - placing loader in button

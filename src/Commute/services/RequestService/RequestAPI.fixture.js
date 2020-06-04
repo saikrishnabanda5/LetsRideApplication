@@ -3,12 +3,19 @@ import {networkCallWithApisauce} from '../../utils/APIUtils';
 import {apiMethods} from '../../constants/APIConstants';
 import credentials from '../../fixtures/getRideResponse.json';
 import assetCredentials from '../../fixtures/getAssetResponse.json';
+import rideRequestCredentials from '../../fixtures/getRideRequestCredentials.json'
 
 class RequestService{
   api
   constructor(){
      this.api=create({
-            baseURL:"https://9ba0cd3ggi.execute-api.ap-south-1.amazonaws.com/ecommerce/"
+            baseURL:"https://virtserver.swaggerhub.com/IB-HUBS2/lets_ride/1.0.0/"
+     });
+ }
+ getRequestARideAPI=()=>{
+     alert("onRideRequest -fixture")
+    return new Promise((res)=>{
+         setTimeout(()=>{res(rideRequestCredentials),5000});
      });
  }
  getRideRequestAPI=()=>{
@@ -22,5 +29,4 @@ class RequestService{
      });
  }
 }
-
 export default RequestService;

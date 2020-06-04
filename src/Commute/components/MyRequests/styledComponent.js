@@ -5,7 +5,34 @@ import {Typo32DarkBlueGreyHKGroteskRegular} from '../../../Common/styleGuide/Typ
 const Heading = Typo32DarkBlueGreyHKGroteskRegular;
 
 const Requests = styled.div `${tw 
-` mb-auto`}
+` mb-auto border border-red-500`}
+`;
+
+const Results = styled.button `${tw`focus:outline-none p-2`}
+background-color:${props=>props.matchingResults?"#0b69ff":"#ffffff"};
+color:${props=>props.matchingResults?"#ffffff":"#171f46"};
+border:1px solid #d7dfe9;
+`;
+
+const Request = styled.button `${tw`focus:outline-none p-2`}
+border:1px solid #d7dfe9;
+background-color:${props=>props.myRequests?"#0b69ff":"#ffffff"};
+color:${props=>props.myRequests?"#ffffff":"#171f46"};
+`;
+
+const Details = styled.button `${tw`focus:outline-none p-2`}
+background-color:${props=>props.sharedDetails?"#0b69ff":"#ffffff"};
+color:${props=>props.sharedDetails?"#ffffff":"#171f46"};
+border:1px solid #d7dfe9;
+`;
+
+const MainPage = styled.div `${tw` `}`;
+
+const HomePage = styled.div `${tw` flex justify-center items-center mt-auto `}
+position:fixed;
+top:20%;
+left:30%;
+right:30%;
 `;
 
 const TypeOfRequest = styled.div `${tw 
@@ -24,4 +51,4 @@ color:${props=>props.rideButton?"black":props.assetButton?"black":"gray"};
 // border-bottom:${props=>props.rideButton?"2px solid blue":props.assetButton?"black":"gray"};
 `;
 
-export {Heading,Requests,TypeOfRequest,Button};
+export {Heading,Requests,TypeOfRequest,Button,HomePage,Results,Request,Details,MainPage};

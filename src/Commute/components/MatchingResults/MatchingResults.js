@@ -1,40 +1,46 @@
 import React from 'react';
 import {observer,inject} from 'mobx-react';
-import {Header,FromAddress,ToAddress,DateTime,RequestRideStyle,DateStyle,
-Flexibility,UserFlexibility,Operations,Availability,Counter,PageView,Mandatory,Address,ErrorMessage,Field,InputField} from '../RequestRide/styledComponents';
-import DateAndTime from '../../../Common/DateAndTime';
-import data from '../../../i18n/strings.json';
-import InputTag from '../../../Common/InputTag';
-import CheckBox from '../../../Common/CheckBox';
-import CounterPage from '../../../Common/CounterPage';
+import {observable} from 'mobx'
+import {Header,FromAddress,ToAddress,DateTime,RequestRideStyle,Flexibility,UserFlexibility,DateStyle,
+Operations,Availability,Counter,PageView,Mandatory,Address,
+Assets,Heading,Others,ErrorMessage,Field,InputField} from '../ShareTravelInfo/styledComponent';
+import DateAndTime from '../../../Common/DateAndTime'
+import data from '../../../i18n/strings.json'
+import InputTag from '../../../Common/InputTag'
+import CheckBox from '../../../Common/CheckBox'
+import CounterPage from '../../../Common/CounterPage'
 import ButtonComponent from '../../../Common/ButtonComponent';
-@inject('requestStore')
+import Select from '../../../Common/Select';
+@inject('shareStore')
 @observer
-class RequestRide extends React.Component{
-    
+class MatchingResults extends React.Component{
+    @observable listOfMediums
+    constructor(props){
+        super(props);
+        this.listOfMediums=[data.medium.bus,data.medium.car,data.medium.flight];
+    }
     render(){
-    const {source,destination,errorMessage,isChecked,seatsAvailable,onChangeDateAndTime,dateAndTime,fromDate,
-        luggageQuantity,onClickCheckBox,onChangeSource,onChangeDestination,onIncrementLuggageCount,onChangeFromDate
-        ,onDecrementLuggageCount,onIncrementSeatsCount,onDecrementSeatsCount,onSubmitDetails,
-        onChangeToDate,toDate}=this.props;
-        
-    return(
-        <PageView >
+        const {source,destination,errorMessage,isChecked,onClickCheckBox,onSubmitDetails,
+        assetsCount,onChangeSource,onChangeDestination,onIncrementAssetsCount,onSelectMedium,
+        onChangeDateAndTime,onChangeFromDate,onChangeToDate,dateAndTime,fromDate,toDate
+        ,onDecrementAssetsCount}=this.props;
+        return(
+        <PageView>
          <RequestRideStyle>
-           <Header>{data.rideRequest.rideRequest} </Header>
+           <Header>{data.shareTravel.shareTravel} </Header>
            <Address>
                <FromAddress>{data.rideRequest.from}</FromAddress>
                <Mandatory>*</Mandatory>
            </Address>
            
-            <InputField> 
+           <InputField> 
                 <Field>
-                  <InputTag type={data.type.text} placeholder={data.travel.source}  onChangeInput={onChangeSource}
+                 <InputTag type={data.type.text} placeholder={data.travel.source}  onChangeInput={onChangeSource}
                   errorMessage={errorMessage} inputValue={source}/>
                 </Field>
-              <ErrorMessage>{source==""?<div>{errorMessage}</div>:null}</ErrorMessage>
+              <ErrorMessage>{source===""?<div>{errorMessage}</div>:null}</ErrorMessage>
             </InputField>
-           
+          
            <Address>
                <ToAddress>{data.rideRequest.to}</ToAddress>
                <Mandatory>*</Mandatory>
@@ -47,12 +53,12 @@ class RequestRide extends React.Component{
                 </Field>
               <ErrorMessage>{destination===""?<div>{errorMessage}</div>:null}</ErrorMessage>
             </InputField>
-           
            {isChecked==false?<div><Address>
                             <DateTime> {data.rideRequest.dateAndTime}</DateTime>
                             <Mandatory>*</Mandatory>
                             </Address>
-                <DateAndTime onChangeDateAndTime={onChangeDateAndTime} dateAndTime={dateAndTime} isChecked={isChecked}/> </div>:
+                <DateAndTime onChangeDateAndTime={onChangeDateAndTime} dateAndTime={dateAndTime} isChecked={isChecked}/> 
+                <ErrorMessage>{dateAndTime===null?<div>{errorMessage}</div>:null}</ErrorMessage></div>:
                 <DateStyle>
                             <div><Address>
                                 <DateTime> {data.rideRequest.from}</DateTime>
@@ -67,37 +73,35 @@ class RequestRide extends React.Component{
                             </Address>
                             <DateAndTime onChangeDate={onChangeToDate} Date={toDate} isChecked={isChecked}/>
                             </div>
-                </DateStyle>}
-             
+                </DateStyle>
+           }
           <UserFlexibility>
             <CheckBox type={data.type.checkbox} isChecked={isChecked} onClickCheckBox={onClickCheckBox}/>
             <Flexibility> {data.rideRequest.flexibleTimings}</Flexibility>
           </UserFlexibility>
-          <Operations>
-            <Availability>{data.rideRequest.seats}</Availability>
-            <Mandatory>*</Mandatory>
-            <Counter>
-                <CounterPage incrementCounter={onIncrementSeatsCount} 
-                decrementCounter={onDecrementLuggageCount}
-                count={seatsAvailable}/>
-            </Counter>
-          </Operations>
+          
+               <Address>
+                   <Heading>{data.shareTravel.medium}</Heading>
+                   <Mandatory>*</Mandatory>
+               </Address>
+               <Select onSelect={onSelectMedium} listOfItems={this.listOfMediums}
+               assetTransportRequest ={data.assetRequest.assetTransportRequest}/>
+          
           <Operations>
             <Availability>
-            {data.rideRequest.luggageQunatity}
+            {data.shareTravel.assetsQuantity}
             </Availability>
              <Mandatory>*</Mandatory>
             <Counter>
-                <CounterPage incrementCounter={onIncrementLuggageCount} 
-                decrementCounter={onDecrementSeatsCount}
-                count={luggageQuantity}/>
+                <CounterPage incrementCounter={onIncrementAssetsCount} 
+                decrementCounter={onDecrementAssetsCount}
+                count={assetsCount}/>
             </Counter>
           </Operations>
           <ButtonComponent text={data.requestButton} onSubmitForm={onSubmitDetails}/> 
          </RequestRideStyle>
         </PageView>
-        
             );
     }
 }
-export default RequestRide;
+export default MatchingResults;

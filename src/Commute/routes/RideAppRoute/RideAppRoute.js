@@ -3,6 +3,7 @@ import {observer} from 'mobx-react';
 import {observable} from 'mobx';
 import {withRouter} from "react-router-dom";
 import RideApp from '../../components/RideApp';
+import RequestRideRoute from '../../components/RequestRide';
 @observer
 class RideAppRoute extends React.Component {
   @observable selectedValue
@@ -21,10 +22,10 @@ class RideAppRoute extends React.Component {
         this.homeScreen=false;
         this.selectedValue=event.target.value;
         if(this.selectedValue=="Ride"){
-          history.replace('/ride-app/share-ride/');
+          history.push('/ride-app/share-ride/');
         }
         if(this.selectedValue==="Travel info"){
-            history.replace('/ride-app/share-info/');
+            history.push('/ride-app/share-info/');
         }
     }
     onSelectRequest=(event)=>{
@@ -33,19 +34,19 @@ class RideAppRoute extends React.Component {
         this.homeScreen=false;
         this.selectedRequestValue=event.target.value;
         if(this.selectedRequestValue==="Ride"){
-         history.replace('/ride-app/request-ride/');
+         history.push('/ride-app/request-ride/');
         }
         if(this.selectedRequestValue==="Asset Transport"){
-            history.replace('/ride-app/request-asset/');
+            history.push('/ride-app/request-asset/');
         }
     }
-    onSelectHomeScreen=()=>{
-      const {history}=this.props;
-        this.homeScreen=true;
-        this.selectedValue="";
-        this.selectedRequestValue="";
-        history.replace('/ride-app/home-page/');
-    }
+      onSelectHomeScreen=()=>{
+        const {history}=this.props;
+          this.homeScreen=true;
+          this.selectedValue="";
+          this.selectedRequestValue="";
+          history.push('/ride-app/home-page/');
+      }
   render() {
     return (
       <RideApp onSelectShare={this.onSelectShare} onSelectRequest={this.onSelectRequest}

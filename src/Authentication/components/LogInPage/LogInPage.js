@@ -20,7 +20,7 @@ class LogInPage extends React.Component{
           onChangeMobileNumber,
           onChangePassword,
           onClickLogIn,
-          onEnterKeyPress,onClickSignUp} = this.props;
+          onEnterKeyPress,onClickSignUp,isValid,status} = this.props;
         return(
         <LogInView>
           <LogInStyle >
@@ -46,7 +46,7 @@ class LogInPage extends React.Component{
               <ErrorMessage>{password==""?<div>{errorMessage}</div>:null}</ErrorMessage>
             </InputField>
          
-            <ButtonComponent text={data.clickLogIn} onSubmitForm={onClickLogIn} />
+            <ButtonComponent text={data.clickLogIn} onSubmitForm={onClickLogIn} isValid={isValid} status={status}/>
             <ClickLogIn>
               <ForSignUp>
                 <Account>{data.dontHaveAccount}</Account>

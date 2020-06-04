@@ -9,11 +9,15 @@ class LogInRoute extends React.Component {
     @observable mobileNumber
     @observable password 
     @observable errorMessage
+    @observable isValid
+    @observable status
     constructor(props){
         super(props);
         this.mobileNumber="";
         this.password="";
         this.errorMessage="";
+        this.isValid = false;
+        this.status = null;
     }
     onChangeMobileNumber=(event)=>{
         this.mobileNumber=event.target.value;
@@ -30,8 +34,22 @@ class LogInRoute extends React.Component {
         const {history}=this.props;
         if(this.password.length>0&&this.mobileNumber.length===10 && this.mobileNumber.search(/^[6-9]{1}[0-9]{9}$/) === 0){
             this.errorMessage="";
-            this.props.authStore.userSignIn();         
-            history.replace('/ride-app/');
+            this.isValid = true;
+            
+            const apiRequest={
+              mobile_number: this.mobileNumber,
+              password: this.password
+            };
+            
+            this.props.authStore.userLogIn(apiRequest);
+            if(this.props.authStore.accessToken){
+                window.setTimeout(() => {
+                  history.replace('/ride-app/'); 
+                }, 2000);
+            }
+            if(this.props.authStore.getUserLogInAPIStatus===400){
+                this.status=this.props.authStore.getUserLogInAPIStatus;
+            }
         }
         else if(this.mobileNumber.length===0 || this.mobileNumber.search(/^[6-9]{1}[0-9]{9}$/) === -1){
             this.errorMessage="Required";
@@ -45,6 +63,7 @@ class LogInRoute extends React.Component {
         history.replace('/signup/v1');
     }
   render() {
+      console.log("token",this.props.authStore.accessToken);
       const {getUserSignInAPIStatus}=this.props;
     return (
       <LogInPage
@@ -57,6 +76,8 @@ class LogInRoute extends React.Component {
           onClickLogIn={this.onClickLogIn}
           onClickSignUp={this.onClickSignUp}
           onEnterKeyPress={this.onEnterKeyPress}
+          status={this.status}
+          isValid ={this.isValid}
       />
     );
   }

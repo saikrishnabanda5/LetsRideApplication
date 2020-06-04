@@ -1,2 +1,2 @@
-import RequestStore from './RequestStore.js';
+import RequestStore from './RequestStore';
 export default RequestStore;
