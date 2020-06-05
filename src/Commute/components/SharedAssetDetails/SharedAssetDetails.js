@@ -7,7 +7,7 @@ import data from '../../../i18n/strings.json';
 import {Requests,Tasks,Image,SortAndFilter,NoOfTasks,Details,MyDetails,Add,AddButton,Footer,PageRange} from './styledComponents';
 @inject('requestStore')
 @observer
-class AssetDetails extends React.Component{
+class SharedAssetDetails extends React.Component{
     componentDidMount(){
         this.doNetworkCalls();
      }
@@ -65,4 +65,4 @@ class AssetDetails extends React.Component{
         );
     }
 }
-export default AssetDetails;
+export default SharedAssetDetails;

@@ -18,7 +18,7 @@ class RideDetails extends React.Component{
      }
     
     renderMyRequests=observer(()=>{
-        return this.props.rideRequestData;
+        return this.props.rideRequestData; 
     })
     
     render(){

@@ -5,7 +5,6 @@ import {withRouter} from "react-router-dom";
 import RequestRide from '../../components/RequestRide';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import format from 'date-fns/format';
 import moment from 'moment';
 @inject('requestStore')
 @observer
@@ -26,22 +25,22 @@ class RequestRideRoute extends React.Component {
     init=()=>{
         this.source="";
         this.destination="";
-        this.dateAndTime="";
-        this.fromDate="";
-        this.toDate="";
+        this.dateAndTime=null;
+        this.fromDate=null;
+        this.toDate=null;
         this.errorMessage="";
         this.isChecked=false;
         this.seatsAvailable=0;
         this.luggageQuantity=0;
     }
     onChangeDateAndTime=(date)=>{
-        this.dateAndTime=date;
+        this.dateAndTime = moment(date).format("YYYY-MM-DD HH:mm:ss");
     }
     onChangeFromDate=(date)=>{
-        this.fromDate=date;
+        this.fromDate= moment(date).format("YYYY-MM-DD HH:mm:ss");
     }
     onChangeToDate=(date)=>{
-        this.toDate=date;
+        this.toDate=  moment(date).format("YYYY-MM-DD HH:mm:ss");
     }
     onChangeSource=(event)=>{
         this.source=event.target.value;
@@ -60,8 +59,6 @@ class RequestRideRoute extends React.Component {
     onClickCheckBox=(event)=>{
         if(this.isChecked){
             this.isChecked = false;
-            this.fromDate = null;
-            this.toDate = null;
         }
         else{
             this.isChecked =true;
@@ -75,7 +72,7 @@ class RequestRideRoute extends React.Component {
         this.seatsAvailable = this.seatsAvailable - 1;
        }
     }
-    onSubmitDetails=(event)=>{
+    onSubmitDetails=async(event)=>{
         event.preventDefault();
         if(this.source.length>0&&this.destination.length>0&&this.seatsAvailable>=1&&this.luggageQuantity>=1){
             const rideDetails ={
@@ -84,11 +81,12 @@ class RequestRideRoute extends React.Component {
                       from_datetime: this.fromDate,
                       is_flexible: this.isChecked,
                       to_datetime: this.toDate,
-                      datetime: moment(this.dateAndTime).format("YYYY-MM-DD HH:mm:ss"),
+                      datetime:this.dateAndTime,
                       no_of_seats: this.seatsAvailable,
                       luggage_quantity: this.luggageQuantity
                     };
-            this.props.requestStore.onRideRequest(rideDetails);
+            await this.props.requestStore.onRideRequest(rideDetails);
+            // this.init();
         }
         else if(this.source.length===0||this.destination.length===0){
             this.errorMessage="Required";
@@ -97,25 +95,18 @@ class RequestRideRoute extends React.Component {
     notify = () =>{
         toast.success("Your Request has been accepted",{
             className: {
-      color: '#343a40',
-      minHeight: '60px',
-      borderRadius: '8px',
-      background: '#2FEDAD',
-      boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3)'
-    },
-   position:toast.POSITION.BOTTOM_CENTER,
-            type:toast.TYPE.WARNING
-        });
-    };
+              color: '#343a40',
+              minHeight: '60px',
+              borderRadius: '8px',
+              background: '#2FEDAD',
+              boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3)'
+            },
+           position:toast.POSITION.BOTTOM_CENTER,
+                    type:toast.TYPE.WARNING
+                });
+            };
 
   render() {
-     console.log(console.log(moment(this.dateAndTime).format("YYYY-MM-DD HH:mm:ss:ms")));
-    //   var result = format(
-    //           this.dateAndTime,
-    //           'yyyy-mm-dd hh:mm:ss'
-    //                     )
-    //         console.log("date - format",result)
-    //   console.log("ride request app status",this.props.requestStore.getRideRequestAPIStatus)
       if(this.props.requestStore.getRideRequestAPIStatus===200){
            this.notify();
       }

@@ -1,11 +1,9 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
-import {Typo32DarkBlueGreyHKGroteskRegular} from '../../../Common/styleGuide/Typos';
-
-// const Heading = Typo32DarkBlueGreyHKGroteskRegular;
 
 const Requests = styled.div `${tw 
-` mb-auto `}
+` mb-auto `};
+width:80vw;
 `;
 
 const MainPage = styled.div `${tw` `}`;
@@ -18,7 +16,7 @@ right:30%;
 
 const TypeOfRequest = styled.div `${tw 
 `flex border-b-2`}
-width: 1128px;
+width:80vw;
 height: 25px;
 `;
 
@@ -26,18 +24,19 @@ const Button = styled.button `${tw
 `pr-12 focus:outline-none`}
 font-size: 12px;
 font-weight: 600;
-width: 28px;
 height: 16px;
 color:${props=>props.rideButton?"black":props.assetButton?"black":"gray"};
-// border-bottom:${props=>props.rideButton?"2px solid blue":props.assetButton?"black":"gray"};
+// border-bottom:${props=>props.rideButton?"2px solid blue":props.assetButton?"2px solid blue":"gray"};
 `;
 
 const Header = styled.div `${tw 
-`w-40 text-center`};
+` text-center`};
+width:10vw;
 `;
 
 const Heading = styled.div `${tw 
-`w-40 text-center `}
+` text-center `};
+width:10vw;
 `;
 
 const Headers = styled.div `${tw 
@@ -45,7 +44,7 @@ const Headers = styled.div `${tw
 `;
 
 const Headings = styled.div `${tw 
-`w-40 text-left`}
+`w-40 text-left`};
 `;
 
 const Details = styled.div `${tw `flex justify-center items-center `};
@@ -57,8 +56,8 @@ const Status = styled.div `${tw
 width: 80px;
 border-radius: 100px;
 color:white;
-background-color:${props=>props.status==="confirm"?"#2dca73":props.status==="pending"?"#ffb800":"#d7dfe9"};
+background-color:${props=>props.status==="Confirmed"?"#2dca73":props.status==="Pending"?"#ffb800":"#d7dfe9"};
 `;
 
 
-export {Requests,TypeOfRequest,Button,HomePage,Details,MainPage,Header,Heading,Status};
+export {Headers,Headings,Requests,TypeOfRequest,Button,HomePage,Details,MainPage,Header,Heading,Status};

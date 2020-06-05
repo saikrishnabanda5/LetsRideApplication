@@ -1,4 +1,4 @@
-import RequestService from '../services/RequestService/RequestAPI.fixture';
+import RequestService from '../services/RequestService/RequestAPI.api';
 import ShareService from '../services/ShareService/ShareAPI.api';
 import RequestStore from './RequestStore';
 import ShareStore from './ShareStore';

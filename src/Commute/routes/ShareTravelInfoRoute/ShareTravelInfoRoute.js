@@ -3,6 +3,9 @@ import {observer,inject} from 'mobx-react';
 import {observable} from 'mobx';
 import {withRouter} from "react-router-dom";
 import ShareTravelInfo from '../../components/ShareTravelInfo';
+import moment from 'moment';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 @inject('shareStore')
 @observer
 class ShareTravelInfoRoute extends React.Component {
@@ -23,19 +26,19 @@ class ShareTravelInfoRoute extends React.Component {
         this.errorMessage="";
         this.isChecked=false;
         this.assetsCount=0;
-        this.selectMedium="Select medium";
+        this.selectMedium="Bus";
         this.dateAndTime=null;
         this.fromDate=null;
         this.toDate=null;
     }
     onChangeDateAndTime=(date)=>{
-        this.dateAndTime=date;
+        this.dateAndTime=moment(date).format("YYYY-MM-DD HH:mm:ss");
     }
     onChangeFromDate=(date)=>{
-        this.fromDate=date;
+        this.fromDate=moment(date).format("YYYY-MM-DD HH:mm:ss");
     }
     onChangeToDate=(date)=>{
-        this.toDate=date;
+        this.toDate=moment(date).format("YYYY-MM-DD HH:mm:ss");
     }
     onChangeSource=(event)=>{
         this.source=event.target.value;
@@ -70,7 +73,7 @@ class ShareTravelInfoRoute extends React.Component {
                       source: this.source,
                       destination: this.destination,
                       from_datetime: this.fromDate,
-                      flexible: this.isChecked,
+                      is_flexible: this.isChecked,
                       to_datetime: this.toDate,
                       datetime: this.dateAndTime,
                       assets_quantity: this.assetsCount,
@@ -95,11 +98,25 @@ class ShareTravelInfoRoute extends React.Component {
             this.errorMessage="Required";
         }
     }
+    notify = () =>{
+        toast.success("Your Request has been accepted",{
+            className: {
+              color: '#343a40',
+              minHeight: '60px',
+              borderRadius: '8px',
+              background: '#2FEDAD',
+              boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3)'
+            },
+           position:toast.POSITION.BOTTOM_CENTER,
+                    type:toast.TYPE.WARNING
+                });
+            };
   render() {
-      const {getUserSignInAPIStatus}=this.props;
-    return (
+      if(this.props.shareStore.getShareTravelInfoAPIStatus===200){
+           this.notify();
+      }
+    return (<div>
       <ShareTravelInfo
-          apiStatus={getUserSignInAPIStatus}
           source={this.source}
           destination={this.destination}
           errorMessage={this.errorMessage}
@@ -119,6 +136,8 @@ class ShareTravelInfoRoute extends React.Component {
           onSelectMedium={this.onSelectMedium}
           onSubmitDetails={this.onSubmitDetails}
       />
+      <ToastContainer />
+      </div>
     );
   }
 }

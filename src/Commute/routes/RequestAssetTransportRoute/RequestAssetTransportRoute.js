@@ -3,6 +3,9 @@ import {observer,inject} from 'mobx-react';
 import {observable} from 'mobx';
 import {withRouter} from "react-router-dom";
 import RequestAssetTransport from '../../components/RequestAssetTransport';
+import moment from 'moment';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 @inject('requestStore')
 @observer
 class RequestAssetTransportRoute extends React.Component {
@@ -34,13 +37,13 @@ class RequestAssetTransportRoute extends React.Component {
         this.personDetails='';
     }
     onChangeDateAndTime=(date)=>{
-        this.dateAndTime=date;
+        this.dateAndTime=moment(date).format("YYYY-MM-DD HH:mm:ss");
     }
     onChangeFromDate=(date)=>{
-        this.fromDate=date;
+        this.fromDate=moment(date).format("YYYY-MM-DD HH:mm:ss");
     }
     onChangeToDate=(date)=>{
-        this.toDate=date;
+        this.toDate=moment(date).format("YYYY-MM-DD HH:mm:ss");
     }
     onChangeSource=(event)=>{
         this.source=event.target.value;
@@ -82,9 +85,7 @@ class RequestAssetTransportRoute extends React.Component {
         }
     }
     onSubmitDetails=(event)=>{
-        alert("requsey -asset ")
         if(this.source.length>0&&this.destination.length>0&&this.assetsCount>=1&&this.personDetails.length>0){
-            alert("success");
             const assetDetails ={
                       source: this.source,
                       destination: this.destination,
@@ -104,11 +105,26 @@ class RequestAssetTransportRoute extends React.Component {
             this.errorMessage="Required";
         }
     }
+    notify = () =>{
+        toast.success("Your Request has been accepted",{
+            className: {
+              color: '#343a40',
+              minHeight: '60px',
+              borderRadius: '8px',
+              background: '#2FEDAD',
+              boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3)'
+            },
+           position:toast.POSITION.BOTTOM_CENTER,
+                    type:toast.TYPE.WARNING
+                });
+            };
   render() {
-      const {getUserSignInAPIStatus}=this.props;
+      if(this.props.requestStore.getAssetRequestAPIStatus===200){
+           this.notify();
+      }
     return (
+        <div>
       <RequestAssetTransport
-          apiStatus={getUserSignInAPIStatus}
           source={this.source}
           destination={this.destination}
           errorMessage={this.errorMessage}
@@ -135,6 +151,8 @@ class RequestAssetTransportRoute extends React.Component {
           onEnterKeyPress={this.onEnterKeyPress}
           onSubmitDetails={this.onSubmitDetails}
       />
+      <ToastContainer />
+      </div>
     );
   }
 }

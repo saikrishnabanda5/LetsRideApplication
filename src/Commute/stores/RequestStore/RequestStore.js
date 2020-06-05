@@ -21,6 +21,7 @@ class RequestStore {
     
     @observable rideLimit
     @observable rideOffset
+    @observable rideStatus
     
     requestAPIService
     constructor(requestService){
@@ -40,10 +41,12 @@ class RequestStore {
         this.getAssetAPIError=null;
         this.rideDetails=[];
         this.assetDetails=[];
+        
         this.noOfRequests=0;
         this.noOfAssetRequests=0;
-        this.rideLimit = null;
-        this.rideOffset =null; 
+        this.rideLimit = 2;
+        this.rideOffset =1; 
+        this.rideStatus = "";
     }
     @action.bound
     setRideRequestAPIResponse(rideRequestResponse){
@@ -57,8 +60,6 @@ class RequestStore {
     
     @action.bound 
     setMyRideRequestAPIResponse(rideResponse){
-        // this.rideLimit = rideResponse.limit;
-        // this.rideOffset = rideResponse.offset;
         console.log("my - request - ride ",rideResponse)
         this.rideDetails=[];
         this.noOfRequests = rideResponse.total_no_of_requests;
@@ -69,7 +70,8 @@ class RequestStore {
     }
     
     @action.bound 
-    setClickAssetAPIResponse(assetResponse){
+    setMyAssetAPIResponse(assetResponse){
+        console.log("my - asset - ride ",assetResponse)
         this.assetDetails=[]; 
         this.noOfAssetRequests =assetResponse.total_no_of_requests;
         assetResponse.asset_requests.forEach((object)=>{
@@ -96,7 +98,7 @@ class RequestStore {
     }
     
     @action.bound
-    setClickAssetAPIStatus(apiStatus){
+    setMyAssetAPIStatus(apiStatus){
         this.getAssetAPIStatus=apiStatus;
     }
     
@@ -117,26 +119,13 @@ class RequestStore {
     }
     
     @action.bound
-    setClickAssetAPIError(error){
+    setMyAssetAPIError(error){
         this.getAssetAPIError=error;
-    }
-    
-    @action.bound
-    getCredentials(source,destination,startDate,isChecked,seatsAvailable,luggageCount){
-        this.credentials={
-            "source":source,
-            "destination":destination,
-            "dateAndTime":startDate,
-            "isChecked":  isChecked,
-            "seatsAvailability":seatsAvailable,
-            "luggageCount":luggageCount
-            };
     }
     
     
     @action.bound
     onRideRequest(apiRequest){
-        alert("ride request")
         const requestPromise =this.requestAPIService.postRequestARideAPI(apiRequest);
         return bindPromiseWithOnSuccess(requestPromise)
                 .to(this.setRideRequestAPIStatus,this.setRideRequestAPIResponse)
@@ -144,27 +133,25 @@ class RequestStore {
     }
     @action.bound
     onClickAssetRequest(assetDetails){
-        console.log("assetDetails",assetDetails)
-        const assetRequestPromise =this.requestAPIService.getRequestAssetAPI(assetDetails);
+        const assetRequestPromise =this.requestAPIService.postRequestAssetAPI(assetDetails);
         return bindPromiseWithOnSuccess(assetRequestPromise)
                 .to(this.setAssetRequestAPIStatus,this.setAssetRequestAPIResponse)
                 .catch(this.setAssetRequestAPIError);
     }
     @action.bound
     onMyRideRequests(){
-        const ridePromise = this.requestAPIService.getMyRideRequestAPI(this.rideLimit,this.rideOffset);
+        const ridePromise = this.requestAPIService.getMyRideRequestAPI(this.rideLimit,this.rideOffset,this.rideStatus);
         return bindPromiseWithOnSuccess(ridePromise)
                 .to(this.setMyRideRequestAPIStatus,this.setMyRideRequestAPIResponse)
                 .catch(this.setMyRideRequestAPIError);
     }
     
     @action.bound
-    onClickAsset(){
-        alert("assert request hh")
-        const assetPromise = this.requestAPIService.getAssetRequestAPI();
+    onMyAssetRequests(){
+        const assetPromise = this.requestAPIService.getMyAssetRequestAPI(this.rideLimit,this.rideOffset);
         return bindPromiseWithOnSuccess(assetPromise)
-                .to(this.setClickAssetAPIStatus,this.setClickAssetAPIResponse)
-                .catch(this.setClickAssetAPIError);
+                .to(this.setMyAssetAPIStatus,this.setMyAssetAPIResponse)
+                .catch(this.setMyAssetAPIError);
     }
     
     @action

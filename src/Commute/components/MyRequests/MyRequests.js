@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 import data from '../../../i18n/strings.json';
 import MatchingResults from '../MatchingResults';
 import MyRequestDetails from '../MyRequestDetails';
-import SharedDetails from '../SharedDetails';
+// import SharedDetails from '../SharedDetails';
 import {Navigation,HomePage,Results,Request,Details,MainPage} from './styledComponent';
 @observer
 class MyRequests extends React.Component{
@@ -18,9 +18,9 @@ class MyRequests extends React.Component{
                    <Details onClick={onSharedDetails} sharedDetails={sharedDetails}>Shared Details</Details>
                 </HomePage>
             <Navigation>
-                <div>{matchingResults?<MatchingResults />:null}</div>
+                <div>{matchingResults?<MatchingResults onAddRequest={this.props.onAddRequest}/>:null}</div>
                 {myRequests?<MyRequestDetails onAddRequest={this.props.onAddRequest}/>:null}
-                {sharedDetails?<SharedDetails />:null}
+                {/*{sharedDetails?<SharedDetails onAddRequest={this.props.onAddRequest}/>:null}*/}
             </Navigation>
             </MainPage>
         );

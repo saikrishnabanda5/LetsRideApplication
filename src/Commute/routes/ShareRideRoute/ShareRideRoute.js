@@ -3,6 +3,9 @@ import {observer,inject} from 'mobx-react';
 import {observable} from 'mobx';
 import {withRouter} from "react-router-dom";
 import ShareRide from '../../components/ShareRide';
+import moment from 'moment';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 @inject('shareStore')
 @observer
 class ShareRideRoute extends React.Component {
@@ -28,13 +31,13 @@ class ShareRideRoute extends React.Component {
         this.assetsCount=0;
     }
      onChangeDateAndTime=(date)=>{
-        this.dateAndTime=date;
+        this.dateAndTime=moment(date).format("YYYY-MM-DD HH:mm:ss");
     }
     onChangeFromDate=(date)=>{
-        this.fromDate=date;
+        this.fromDate=moment(date).format("YYYY-MM-DD HH:mm:ss");
     }
     onChangeToDate=(date)=>{
-        this.toDate=date;
+        this.toDate=moment(date).format("YYYY-MM-DD HH:mm:ss");
     }
     onChangeSource=(event)=>{
         this.source=event.target.value;
@@ -69,12 +72,11 @@ class ShareRideRoute extends React.Component {
     onSubmitDetails=(event)=>{
         event.preventDefault();
         if(this.source.length>0&&this.destination.length>0&&this.seatsAvailable>=1&&this.assetsCount>=1){
-            alert("success")
             const shareRideDetails ={
                       source: this.source,
                       destination: this.destination,
                       from_datetime: this.fromDate,
-                      flexible: this.isChecked,
+                      is_flexible: this.isChecked,
                       to_datetime: this.toDate,
                       datetime: this.dateAndTime,
                       assets_quantity: this.assetsCount,
@@ -86,11 +88,25 @@ class ShareRideRoute extends React.Component {
             this.errorMessage="Required";
         }
     }
+    notify = () =>{
+        toast.success("Your Request has been accepted",{
+            className: {
+              color: '#343a40',
+              minHeight: '60px',
+              borderRadius: '8px',
+              background: '#2FEDAD',
+              boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3)'
+            },
+           position:toast.POSITION.BOTTOM_CENTER,
+                    type:toast.TYPE.WARNING
+                });
+            };
   render() {
-      const {getUserSignInAPIStatus}=this.props;
-    return (
+      if(this.props.shareStore.getShareRideAPIStatus===200){
+           this.notify();
+      }
+    return (<div>
       <ShareRide
-          apiStatus={getUserSignInAPIStatus}
           source={this.source}
           destination={this.destination}
           errorMessage={this.errorMessage}
@@ -112,6 +128,8 @@ class ShareRideRoute extends React.Component {
           onDecrementSeatsCount={this.onDecrementSeatsCount}
           onSubmitDetails={this.onSubmitDetails}
       />
+      <ToastContainer />
+      </div>
     );
   }
 }

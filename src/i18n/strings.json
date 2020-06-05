@@ -84,20 +84,22 @@
             "from":"FROM",
             "to":"TO",
             "dateAndTime":"DATE AND TIME",
+            "seats":"NO.OF SEATS", 
             "flexibleTimings":"FLEXIBLE TIMINGS",
             "medium":"TRAVEL MEDIUM", 
             "assetsQuantity":"ASSETS QUANTITY",
-            "status":"STATUS"
+            "status":"STATUS",
+            "ride":"RIDE",
+            "travelInfo":"TRAVEL INFO"
         },
         "assests":{
-            "select":"Select asset",
-            "others":"Others",
-            "parcel":"Parcel",
-            "bag":"Bag"
+            "others":"others",
+            "parcel":"parcel",
+            "bag":"bags"
         },
         "medium":{
             "bus":"Bus",
-            "car":"Car",
+            "car":"Train",
             "flight":"Flight"
         },
         "sensitivity":{

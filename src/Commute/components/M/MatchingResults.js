@@ -7,7 +7,7 @@ import RideDetails from '../RideDetails';
 import AssetDetails from '../AssetDetails';
 @inject('requestStore')
 @observer
-class MyRequestDetails extends React.Component{
+class MatchingResults extends React.Component{
  @observable rideButton
   @observable assetButton
   @observable noOfRideTasks
@@ -110,4 +110,4 @@ class MyRequestDetails extends React.Component{
             );
     }
 }
-export default MyRequestDetails;
+export default MatchingResults;

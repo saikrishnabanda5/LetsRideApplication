@@ -1,14 +1,14 @@
 import React from 'react';
 import {observer,inject} from 'mobx-react';
 import {observable} from 'mobx';
-import {Requests,TypeOfRequest,Button,Details,Header,Heading,Status} from './styledComponent';
+import {Requests,TypeOfRequest,Button,Details,Header,Heading,Headings,Status,Headers} from './styledComponent';
 import data from '../../../i18n/strings.json';
 import RideDetails from '../RideDetails';
 import AssetDetails from '../AssetDetails';
 @inject('requestStore')
 @observer
 class MatchingResults extends React.Component{
-    @observable rideButton
+  @observable rideButton
   @observable assetButton
   @observable noOfRideTasks
   @observable listOfRideHeadings
@@ -22,12 +22,10 @@ class MatchingResults extends React.Component{
         this.noOfAssetTasks = this.props.requestStore.noOfAssetRequests;
         this.listOfRideHeadings=[data.rideRequest.from,data.rideRequest.to,data.rideRequest.dateAndTime,
         data.rideRequest.people,data.rideRequest.luggageQunatity,data.rideRequest.acceptedDetails,data.rideRequest.status];
+        
         this.listOfAssetHeadings=[data.assetRequest.from,data.assetRequest.to,data.assetRequest.dateAndTime,
         data.assetRequest.assets,data.assetRequest.assetType,data.assetRequest.assetSensitivity,
         data.assetRequest.whomToDeliver,data.assetRequest.acceptedDetails,data.assetRequest.status];
-    }
-    componentDidMount(){
-      this.props.requestStore.onMyRideRequests()
     }
     onClickRide=()=>{
       this.rideButton=true;
@@ -36,10 +34,6 @@ class MatchingResults extends React.Component{
     onClickAsset=()=>{
       this.rideButton=false;
       this.assetButton=true;
-    }
-    onAddRequest=()=>{
-      const {history}=this.props;
-      history.push('/ride-app/request-ride/');
     }
     headings=()=>{
         const values =this.listOfRideHeadings.map ((name)=>{
@@ -57,10 +51,14 @@ class MatchingResults extends React.Component{
     assetRequestData=()=>{
       const values = this.props.requestStore.assetDetails.map((name,index)=>{
             return ( 
-              <Details >
+              <Details key={Math.random()}>
+              
                     <Headings> {name.source}</Headings>
                     <Headers> {name.destination}</Headers>
+                    {name.is_flexible?<div>
                     <Headings> {name.from_datetime}</Headings>
+                    <Headings>{name.to_datetime}</Headings>
+                    </div>:<Headings>{name.datetime}</Headings>}
                     <Headers>{name.no_of_assets}</Headers>
                     <Headers>{name.asset_type}</Headers>
                     <Headers>{name.sensitivity}</Headers>
@@ -78,10 +76,13 @@ class MatchingResults extends React.Component{
     rideRequestData=()=>{
       const values = this.props.requestStore.rideDetails.map((name)=>{
             return ( 
-              <Details >
+              <Details key={Math.random()}>
                     <Heading> {name.source}</Heading>
                     <Header> {name.destination}</Header> 
-                    <Heading> {name.from_datetime}</Heading>
+                    {name.is_flexible?<div>
+                    <Headings> {name.from_datetime}</Headings>
+                    <Headings>{name.to_datetime}</Headings>
+                    </div>:<Headings>{name.datetime}</Headings>}
                     <Header>{name.no_of_seats}</Header>
                     <Header>{name.luggage_quantity}</Header>
                     <div>
@@ -95,16 +96,17 @@ class MatchingResults extends React.Component{
       return values;
     }
     render(){
+
         return(
             <Requests>
                <TypeOfRequest>
                  <Button rideButton={this.rideButton} onClick={this.onClickRide}>{data.ride} </Button>
                  <Button assetButton={this.assetButton}onClick={this.onClickAsset}> {data.asset}</Button>
                </TypeOfRequest>
-                   {this.rideButton?<RideDetails headings={this.headings} rideRequestData={this.rideRequestData}
-                   noOfRideTasks={this.noOfRideTasks} onAddRequest={this.onAddRequest}/> :null}
-                   {this.assetButton?<AssetDetails assetHeadings={this.assetHeadings} assetRequestData={this.assetRequestData}
-                   noOfAssetTasks={this.noOfAssetTasks} onAddRequest={this.onAddRequest}/> :null}
+                   {this.rideButton?<MatchingRideDetails headings={this.headings()} rideRequestData={this.rideRequestData()}
+                   noOfRideTasks={this.noOfRideTasks} onAddRequest={this.props.onAddRequest}/> :null}
+                   {this.assetButton?<MatchingAssetDetails assetHeadings={this.assetHeadings()} assetRequestData={this.assetRequestData()}
+                   noOfAssetTasks={this.noOfAssetTasks} onAddRequest={this.props.onAddRequest}/> :null}
             </Requests>
             );
     }
