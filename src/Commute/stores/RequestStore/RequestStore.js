@@ -23,6 +23,11 @@ class RequestStore {
     @observable rideOffset
     @observable rideStatus
     
+    @observable assetLimit
+    @observable assetOffset
+    @observable assetStatus
+    @observable pageNumber
+    
     requestAPIService
     constructor(requestService){
         this.requestAPIService=requestService;
@@ -44,10 +49,51 @@ class RequestStore {
         
         this.noOfRequests=0;
         this.noOfAssetRequests=0;
-        this.rideLimit = 2;
-        this.rideOffset =1; 
-        this.rideStatus = "";
+        this.rideLimit = 4;
+        this.rideOffset = 0; 
+        this.rideStatus = "Confirmed";
+        
+        this.assetLimit = 2;
+        this.assetOffset =1; 
+        this.assetStatus = "Confirmed";
+        this.sortBy = "ASC";
+        this.orderBy = "DESC";
+        this.pageNumber=1;
     }
+    @action.bound
+    onClickLeftArrow(){
+        if(this.pageNumber>1){
+            this.pageNumber-=1;
+            this.rideOffset =this.rideOffset-this.rideLimit;
+            this.onMyRideRequests();
+        }
+    }
+    @action.bound 
+    onClickRightArrow(){
+        if(this.pageNumber<Math.ceil(this.noOfRequests/this.rideLimit)){
+            this.pageNumber+=1;
+            this.rideOffset =this.rideLimit+this.rideOffset;
+             this.onMyRideRequests();
+        } 
+    } 
+    
+    @action.bound
+    onClickAssetLeftArrow(){
+        if(this.pageNumber>1){
+            this.pageNumber-=1;
+            this.assetOffset =this.assetOffset-this.assetLimit;
+            this.onMyAssetRequests();
+        }
+    }
+    @action.bound 
+    onClickAssetRightArrow(){
+        if(this.pageNumber<Math.ceil(this.noOfAssetRequests/this.assetLimit)){
+            this.pageNumber+=1;
+            this.assetOffset =this.assetLimit+this.assetOffset;
+             this.onMyAssetRequests();
+        }
+    }
+    
     @action.bound
     setRideRequestAPIResponse(rideRequestResponse){
         console.log("rideRequestResponse",rideRequestResponse);
@@ -99,6 +145,7 @@ class RequestStore {
     
     @action.bound
     setMyAssetAPIStatus(apiStatus){
+        console.log("setMyAssetAPIStatus",apiStatus);
         this.getAssetAPIStatus=apiStatus;
     }
     
@@ -120,6 +167,7 @@ class RequestStore {
     
     @action.bound
     setMyAssetAPIError(error){
+         console.log("setmy -asset RequestAPIError-error",error);
         this.getAssetAPIError=error;
     }
     
@@ -138,7 +186,7 @@ class RequestStore {
                 .to(this.setAssetRequestAPIStatus,this.setAssetRequestAPIResponse)
                 .catch(this.setAssetRequestAPIError);
     }
-    @action.bound
+    @action.bound 
     onMyRideRequests(){
         const ridePromise = this.requestAPIService.getMyRideRequestAPI(this.rideLimit,this.rideOffset,this.rideStatus);
         return bindPromiseWithOnSuccess(ridePromise)
@@ -148,7 +196,7 @@ class RequestStore {
     
     @action.bound
     onMyAssetRequests(){
-        const assetPromise = this.requestAPIService.getMyAssetRequestAPI(this.rideLimit,this.rideOffset);
+        const assetPromise = this.requestAPIService.getMyAssetRequestAPI(this.assetLimit,this.assetOffset,this.assetStatus);
         return bindPromiseWithOnSuccess(assetPromise)
                 .to(this.setMyAssetAPIStatus,this.setMyAssetAPIResponse)
                 .catch(this.setMyAssetAPIError);

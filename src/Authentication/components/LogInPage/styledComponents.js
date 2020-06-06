@@ -28,10 +28,10 @@ const Account = styled.div `${tw
 }`;
 
 const SignUp = styled.button `${tw 
-`text-blue-500`
+`text-blue-500 focus:outline-none`
 }`;
 
-const ForSignUp = styled.button `${tw 
+const ForSignUp = styled.div `${tw 
 `flex items-center justify-between pt-4`
 }`;
 

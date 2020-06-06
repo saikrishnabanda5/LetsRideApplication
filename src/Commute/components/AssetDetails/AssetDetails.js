@@ -4,6 +4,7 @@ import {observer,inject} from 'mobx-react';
 import {action} from 'mobx';
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure';
 import data from '../../../i18n/strings.json';
+import Pagenator from '../../../Common/Pagenator';
 import {Requests,Tasks,Image,SortAndFilter,NoOfTasks,Details,MyDetails,Add,AddButton,Footer,PageRange} from './styledComponents';
 @inject('requestStore')
 @observer
@@ -21,13 +22,13 @@ class AssetDetails extends React.Component{
     })
     
     render(){
-        const {getAssetAPIStatus,getAssetAPIError} = this.props.requestStore;
+        const {getAssetAPIStatus,getAssetAPIError,noOfAssetRequests} = this.props.requestStore;
         const {assetHeadings,noOfAssetTasks,onAddRequest} = this.props;
         return(
             <Requests>
             
               <Tasks> 
-                  <NoOfTasks>{noOfAssetTasks} {data.task} </NoOfTasks>
+                  <NoOfTasks>{noOfAssetRequests} {data.task} </NoOfTasks>
                   <SortAndFilter>
                       <Image src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/dbb6969d-a0d8-4c04-a6e1-749c29dc399a.svg" />
                       {data.sort}
@@ -40,7 +41,7 @@ class AssetDetails extends React.Component{
                     <LoadingWrapperWithFailure
                         apiStatus={getAssetAPIStatus}
                         apiError={getAssetAPIError}
-                        onRetryClick={this.doNetworkCalls}
+                        onRetryClick={this.doNetworkCalls} 
                         renderSuccessUI={this.renderMyAssetRequests}
                     /> 
               </MyDetails>
@@ -51,15 +52,14 @@ class AssetDetails extends React.Component{
                       <img src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/6f392220-75d7-480c-8866-49c77b338ec3.svg" />
                       <Add> {data.addRequest}</Add>
                     </AddButton>
-                    <PageRange>PAGE 1 OF 5 </PageRange>
-                    <div
-                        boundaryRange={0}
-                        defaultActivePage={1}
-                        ellipsisItem={null}
-                        firstItem={null}
-                        lastItem={null}
-                        siblingRange={1}
-                        totalPages={10} /> 
+                     <PageRange>
+                        <Pagenator limit={this.props.requestStore.assetLimit} offset={this.props.requestStore.assetOffset}
+                        details={this.props.requestStore.assetDetails} onClickRightArrow={this.props.requestStore.onClickAssetRightArrow}
+                        onClickLeftArrow={this.props.requestStore.onClickAssetLeftArrow}
+                        total={this.props.requestStore.noOfRequests}
+                        pageNumber={this.props.requestStore.pageNumber}
+                        />
+                    </PageRange> 
                 </Footer>
             </Requests>
         );

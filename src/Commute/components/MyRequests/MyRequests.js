@@ -9,7 +9,7 @@ import {Navigation,HomePage,Results,Request,Details,MainPage} from './styledComp
 class MyRequests extends React.Component{
     
     render(){
-        const {OnMatchingResults,OnMyRequests,onSharedDetails,matchingResults,myRequests,sharedDetails}=this.props;
+        const {OnMatchingResults,OnMyRequests,onSharedDetails,matchingResults,myRequests,sharedDetails,}=this.props;
         return(
             <MainPage>
                 <HomePage>
@@ -19,7 +19,7 @@ class MyRequests extends React.Component{
                 </HomePage>
             <Navigation>
                 <div>{matchingResults?<MatchingResults onAddRequest={this.props.onAddRequest}/>:null}</div>
-                {myRequests?<MyRequestDetails onAddRequest={this.props.onAddRequest}/>:null}
+                {myRequests?<MyRequestDetails onAddRideRequest={this.props.onAddRideRequest}/>:null}
                 {/*{sharedDetails?<SharedDetails onAddRequest={this.props.onAddRequest}/>:null}*/}
             </Navigation>
             </MainPage>

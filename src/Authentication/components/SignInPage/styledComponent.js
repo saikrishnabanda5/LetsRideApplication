@@ -40,10 +40,10 @@ const SignInStyle = styled.div `${tw
 }`;
 
 const Login = styled.button `${tw 
-`text-blue-500`
+`text-blue-500 focus:outline-none`
 }`;
 
-const ForLogIn = styled.button `${tw 
+const ForLogIn = styled.div `${tw 
 `flex items-center justify-between pt-4`
 }`;
 

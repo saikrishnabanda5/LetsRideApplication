@@ -34,7 +34,8 @@ class MyRequestsRoute extends React.Component {
       this.myRequests = false;
       this.sharedDetails = true;
     }
-    onAddRequest=()=>{
+    onAddRideRequest=()=>{
+      alert()
       const {history}=this.props;
       history.push('/ride-app/request-ride/');
     }
@@ -47,7 +48,7 @@ class MyRequestsRoute extends React.Component {
        matchingResults={this.matchingResults}
        myRequests={this.myRequests}
        sharedDetails = {this.sharedDetails}
-       onAddRequest={this.onAddRequest}
+       onAddRideRequest={this.props.onAddRideRequest}
        />
     );
   }

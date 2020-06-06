@@ -21,6 +21,7 @@
     "asset":"ASSET",
     "myRequests":"My Requests",
     "requestButton":"REQUEST",
+    "shareButton":"SHARE",
     "required":"Required",
     "addRequest":"Add Request",
     "travel":{
@@ -59,7 +60,7 @@
             "assetTransportRequest":"ASSET TRANSPORT REQUEST",
             "assets":"NO.OF ASSETS",
             "assetType":"ASSET TYPE",
-            "from":"FROM",
+            "from":"FROM", 
             "to":"TO",
             "dateAndTime":"DATE AND TIME",
             "others":"OTHERS",
@@ -104,7 +105,7 @@
         },
         "sensitivity":{
             "sensitive":"Sensitive",
-            "highlySensitive":"Highly sensitive",
+            "highlySensitive":"Highly_Sensitive",
             "normal":"Normal"
         }
 }

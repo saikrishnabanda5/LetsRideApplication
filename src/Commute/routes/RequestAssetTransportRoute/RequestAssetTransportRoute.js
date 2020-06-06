@@ -31,7 +31,7 @@ class RequestAssetTransportRoute extends React.Component {
         this.dateAndTime=null;
         this.fromDate=null;
         this.toDate=null;
-        this.selectedAsset="Select asset";
+        this.selectedAsset="parcel";
         this.selectSensitivity="Sensitive";
         this.otherAssets ="";
         this.personDetails='';
@@ -84,7 +84,7 @@ class RequestAssetTransportRoute extends React.Component {
             this.onSubmitDetails();
         }
     }
-    onSubmitDetails=(event)=>{
+    onSubmitDetails=async(event)=>{
         if(this.source.length>0&&this.destination.length>0&&this.assetsCount>=1&&this.personDetails.length>0){
             const assetDetails ={
                       source: this.source,
@@ -99,29 +99,32 @@ class RequestAssetTransportRoute extends React.Component {
                       deliver_person:this.personDetails
                     };
                 
-            this.props.requestStore.onClickAssetRequest(assetDetails);
+            await this.props.requestStore.onClickAssetRequest(assetDetails);
+            this.toaster();
         }
         else if(this.source.length===0||this.destination.length===0||this.personDetails.length===0){
             this.errorMessage="Required";
         }
     }
+    toaster=()=>{
+     if(this.props.requestStore.getAssetRequestAPIStatus===200){
+           this.notify();
+      }
+     }
     notify = () =>{
         toast.success("Your Request has been accepted",{
             className: {
-              color: '#343a40',
+              color: '#4299e1',
               minHeight: '60px',
               borderRadius: '8px',
-              background: '#2FEDAD',
+              background: 'red',
               boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3)'
             },
-           position:toast.POSITION.BOTTOM_CENTER,
-                    type:toast.TYPE.WARNING
+           position:toast.POSITION.TOP_CENTER,
+                    type:toast.TYPE.SUCCESS
                 });
             };
   render() {
-      if(this.props.requestStore.getAssetRequestAPIStatus===200){
-           this.notify();
-      }
     return (
         <div>
       <RequestAssetTransport
@@ -151,7 +154,14 @@ class RequestAssetTransportRoute extends React.Component {
           onEnterKeyPress={this.onEnterKeyPress}
           onSubmitDetails={this.onSubmitDetails}
       />
-      <ToastContainer />
+      <ToastContainer
+        className='toast-container'
+  toastClassName="dark-toast"
+//   progressClassName={css({
+//     height: "2px"
+//   })}
+        
+      />
       </div>
     );
   }

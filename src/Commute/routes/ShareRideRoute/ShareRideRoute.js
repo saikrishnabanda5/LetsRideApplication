@@ -69,7 +69,7 @@ class ShareRideRoute extends React.Component {
         this.seatsAvailable = this.seatsAvailable - 1;
        }
     }
-    onSubmitDetails=(event)=>{
+    onSubmitDetails=async(event)=>{
         event.preventDefault();
         if(this.source.length>0&&this.destination.length>0&&this.seatsAvailable>=1&&this.assetsCount>=1){
             const shareRideDetails ={
@@ -82,14 +82,15 @@ class ShareRideRoute extends React.Component {
                       assets_quantity: this.assetsCount,
                       no_of_seats_available: this.seatsAvailable
                     };
-            this.props.shareStore.onShareRide(shareRideDetails);
+            await this.props.shareStore.onShareRide(shareRideDetails);
+            this.toaster();
         }
         else if(this.source.length===0||this.destination.length===0){
             this.errorMessage="Required";
         }
     }
     notify = () =>{
-        toast.success("Your Request has been accepted",{
+        toast.success("Success,You have shared a Ride",{
             className: {
               color: '#343a40',
               minHeight: '60px',
@@ -97,14 +98,18 @@ class ShareRideRoute extends React.Component {
               background: '#2FEDAD',
               boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3)'
             },
-           position:toast.POSITION.BOTTOM_CENTER,
-                    type:toast.TYPE.WARNING
+           position:toast.POSITION.TOP_CENTER,
+                    type:toast.TYPE.SUCCESS
                 });
             };
-  render() {
-      if(this.props.shareStore.getShareRideAPIStatus===200){
+    toaster=()=>{  
+        console.log("share - ride",this.props.shareStore.getShareRideAPIStatus)
+    if(this.props.shareStore.getShareRideAPIStatus===200){
            this.notify();
       }
+    }
+  render() {
+      
     return (<div>
       <ShareRide
           source={this.source}

@@ -23,7 +23,7 @@ class SignInPage extends React.Component{
           onChangePassword,
           onChangeConfirmPassword,
           onClickSignUp,
-          onClickLogIn,
+          onClickLogIn,error,
           onEnterKeyPress} = this.props;
         return(
         <SignUpView>
@@ -60,9 +60,8 @@ class SignInPage extends React.Component{
                   <Icon>{errorMessage===data.required &&confirmPassword===""?<Image src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a68ce0bc-26a7-4037-94f4-f8461b2efea8.svg"/>:""}</Icon>
                 </Field>
               <ErrorMessage>
-              {confirmPassword===""?
-              <div>{errorMessage}</div>:
-              confirmPassword!==password?<div>{errorMessage}</div>:""}
+              {confirmPassword===""?<div>{errorMessage}</div>:null}
+              {confirmPassword!==password?<div>{error}</div>:""}
               </ErrorMessage>
             </InputField>
           

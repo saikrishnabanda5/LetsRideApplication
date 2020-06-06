@@ -22,10 +22,12 @@ export const assetRequestAPIEndPoint = {
   endpoint: "asset_transport_request/v1/",
 };
 
-export const mySharedRideEndPoint={
-  endpoint:"my_requests/ride/v1/"
+export const matchingRide={
+  endpoint:"matching_requests/ride/v1/"
+};
+export const matchingAssets ={
+  endpoint:"matching_requests/asset/v1/"
 };
 export const myAssetRequestEndPoint={
   endpoint:"my_requests/asset/v1"
 };
-//?limit=${limit}&offset=${offset}

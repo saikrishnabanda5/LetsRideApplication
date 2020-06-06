@@ -1,24 +1,29 @@
 import {observable,action} from 'mobx';
 import {API_INITIAL} from '@ib/api-constants';
 import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
+import MatchingRideModel from '../models/MatchingRideModel';
+import MatchingAssetModel from '../models/MatchingAssetModel';
 class ShareStore {
     @observable getShareRideAPIStatus
     @observable getShareTravelInfoAPIStatus
-    @observable getMySharedRidesAPIStatus
+    @observable getMatchingRideAPIStatus
+    @observable getMatchingAssetAPIStatus
     
     @observable getShareRideAPIError
     @observable getShareTravelInfoAPIError
-    @observable getMySharedRidesAPIError
+    @observable getMatchingRideAPIError
+    @observable getMatchingAssetAPIError
     @observable response
     
-    @observable rideDetails
-    @observable travelDetails
-    @observable noOfSharedRides
+    @observable matchedRideDetails
+    @observable matchedAssetDetails
+    @observable noOfMatchedRides
     @observable noOfSharedTravelDetails
     
-    @observable sharedLimit
-    @observable sharedOffset
-    @observable sharedStatus
+    @observable matchingRideLimit
+    @observable matchingRideOffset
+    @observable matchingRideStatus
+    @observable pageNumber
     
     requestAPIService
     constructor(requestService){
@@ -29,20 +34,60 @@ class ShareStore {
     init(){
         this.getShareRideAPIStatus=API_INITIAL;
         this.getShareTravelInfoAPIStatus=API_INITIAL;
-        this.getMySharedRidesAPIStatus=API_INITIAL;
+        this.getMatchingRideAPIStatus=API_INITIAL;
+        this.getMatchingAssetAPIStatus =API_INITIAL;
         this.getShareRideAPIError=null;
         this.getShareTravelInfoAPIError=null;
-        this.getMySharedRidesAPIError=null;
+        this.getMatchingRideAPIError=null;
+        this.getMatchingAssetAPIError = null;
         this.response='';
         
-        this.rideDetails=[];
-        this.travelDetails=[];
+        this.matchedRideDetails=[];
+        this.matchedAssetDetails=[];
         
-        this.noOfSharedRides=0;
-        this.noOfSharedTravelDetails=0;
-        this.sharedLimit = 2;
-        this.sharedOffset =1; 
-        this.sharedStatus = "";
+        this.noOfMatchedRides=0;
+        this.noOfMatchedAssets=0; 
+        this.matchingRideLimit = 2;
+        this.matchingRideOffset =0; 
+        this.matchingRideStatus = "";
+        
+        this.matchingAssetLimit = 2;
+        this.matchingAssetOffset =0; 
+        this.matchingAssetStatus = "Confirmed";
+        this.pageNumber=1;
+    }
+    @action.bound
+    onClickRideLeftArrow(){
+        if(this.pageNumber>1){
+            this.pageNumber-=1;
+            this.matchingRideOffset =this.matchingRideOffset-this.matchingAssetLimit;
+            this.onMatchingRides();
+        }
+    }
+    @action.bound 
+    onClickRideRightArrow(){
+        if(this.pageNumber<Math.ceil(this.noOfMatchedRides/this.matchingAssetLimit)){
+            this.pageNumber+=1;
+            this.matchingRideOffset =this.matchingAssetLimit+this.matchingRideOffset;
+             this.onMatchingRides();
+        } 
+    } 
+    
+    @action.bound
+    onClickAssetLeftArrow(){ 
+        if(this.pageNumber>1){
+            this.pageNumber-=1;
+            this.matchingAssetOffset =this.matchingAssetOffset-this.matchingAssetLimit;
+            this.onMatchingAssets();
+        }
+    }
+    @action.bound 
+    onClickAssetRightArrow(){
+        if(this.pageNumber<Math.ceil(this.noOfMatchedAssets/this.matchingAssetLimit)){
+            this.pageNumber+=1;
+            this.matchingAssetOffset =this.matchingAssetLimit+this.matchingAssetOffset;
+             this.onMatchingAssets();
+        }
     }
     @action.bound
     setShareAPIResponse(shareRideresponse){
@@ -55,47 +100,49 @@ class ShareStore {
     }
     
     @action.bound 
-    setMySharedRidesAPIResponse(sharedResponse){
-        console.log("my - request - ride ",sharedResponse);
-        this.rideDetails=[];
-        this.noOfSharedRides = sharedResponse.total_no_of_requests;
-        sharedResponse.ride_requests.forEach((object)=>{
-            const requestModel = new RequestModel(object);
-            this.rideDetails.push(requestModel);
+    setMatchingRideAPIResponse(matchingResponse){
+        console.log("my - request - ride ",matchingResponse);
+        this.matchedRideDetails=[];
+        this.noOfMatchedRides =10;
+        // matchingResponse.total_no_of_requests;
+        matchingResponse.matching_ride_requests.forEach((object)=>{ 
+            const requestModel = new MatchingRideModel(object);
+            this.matchedRideDetails.push(requestModel);
         });
     }
-    
-    // @action.bound 
-    // setMyAssetAPIResponse(assetResponse){
-    //     console.log("my - asset - ride ",assetResponse)
-    //     this.assetDetails=[]; 
-    //     this.noOfAssetRequests =assetResponse.total_no_of_requests;
-    //     assetResponse.asset_requests.forEach((object)=>{
-    //         const assetModel = new AssetRequestModel(object);
-    //         this.assetDetails.push(assetModel);
-    //     });
-    // }
+
+    @action.bound 
+    setMatchingAssetAPIResponse(matchingResponse){
+        console.log("my - asset - ride ",matchingResponse);
+        this.matchedAssetDetails=[]; 
+        this.noOfMatchedAssets = 10;
+        matchingResponse.total_no_of_requests;
+        matchingResponse.asset_requests.forEach((object)=>{
+            const assetModel = new MatchingAssetModel(object);
+            this.matchedAssetDetails.push(assetModel);
+        });
+    }
     @action.bound
     setShareRideAPIStatus(apiStatus){
         console.log("setShareRideAPIStatus---apiStatus",apiStatus)
         this.getShareRideAPIStatus=apiStatus;
     }
     @action.bound
-    setShareTravelInfoAPIStatus(apiStatus){
+    setShareTravelInfoAPIStatus(apiStatus){ 
         console.log("setShareTravelInfo----APIStatus",apiStatus)
          this.getShareTravelInfoAPIStatus=apiStatus;
     }
     
      @action.bound
-    setMySharedRidesAPIStatus(apiStatus){
+    setMatchingRideAPIStatus(apiStatus){
         console.log("my - request - ride - apiStatus",apiStatus);
-        this.getMySharedRidesAPIStatus=apiStatus;
+        this.getMatchingRideAPIStatus=apiStatus;
     }
     
-    // @action.bound
-    // setMyAssetAPIStatus(apiStatus){
-    //     this.getAssetAPIStatus=apiStatus;
-    // }
+    @action.bound
+    setMatchingAssetAPIStatus(apiStatus){
+        this.getMatchingAssetAPIStatus=apiStatus;
+    }
     
     @action.bound
     setShareRidetAPIError(error){
@@ -108,14 +155,14 @@ class ShareStore {
     }
     
      @action.bound
-    setMySharedRidesAPIError(error){
-        this.getMySharedRidesAPIError=error;
+    setMatchingRideAPIError(error){
+        this.getMatchingRideAPIError=error;
     }
     
-    // @action.bound
-    // setMyAssetAPIError(error){
-    //     this.getAssetAPIError=error;
-    // }
+    @action.bound
+    setMatchingAssetAPIError(error){
+        this.getMatchingAssetAPIError=error;
+    }
     
     @action.bound
     onShareRide(shareRideDetails){
@@ -128,26 +175,26 @@ class ShareStore {
     
     @action.bound
     onShareTravelInfo(shareTravelDetails){
-        const travelInfoPromise =this.requestAPIService.getShareTravelInfoAPI(shareTravelDetails);
+        const travelInfoPromise =this.requestAPIService.getShareTravelInfoAPI(shareTravelDetails); 
         return bindPromiseWithOnSuccess(travelInfoPromise)
                 .to(this.setShareTravelInfoAPIStatus,this.setShareTravelInfoAPIResponse)
                 .catch(this.setShareTravelInfotAPIError);
     }
     
     @action.bound
-    onMyShareRide(){
-        const ridePromise = this.requestAPIService.getMyShareRideAPI(this.rideLimit,this.rideOffset,this.rideStatus);
+    onMatchingRides(){
+        const ridePromise = this.requestAPIService.getMatchingRides(this.matchingRideLimit,this.matchingRideOffset,this.matchingRideStatus);
         return bindPromiseWithOnSuccess(ridePromise)
-                .to(this.setMySharedRidesAPIStatus,this.setMySharedRidesAPIResponse)
-                .catch(this.setMySharedRidesAPIError);
+                .to(this.setMatchingRideAPIStatus,this.setMatchingRideAPIResponse)
+                .catch(this.setMatchingRideAPIError);
     }
     
     @action.bound
-    onMyTravelShare(){
-        const travelInfoPromise = this.requestAPIService.getMyAssetRequestAPI(this.rideLimit,this.rideOffset);
+    onMatchingAssets(){
+        const travelInfoPromise = this.requestAPIService.getMatchingAssets(this.rideLimit,this.rideOffset);
         return bindPromiseWithOnSuccess(travelInfoPromise)
-                .to(this.setMyAssetAPIStatus,this.setMyAssetAPIResponse)
-                .catch(this.setMyAssetAPIError);
+                .to(this.setMatchingAssetAPIStatus,this.setMatchingAssetAPIResponse) 
+                .catch(this.setMatchingAssetAPIError);
     }
     @action
     clearStore(){

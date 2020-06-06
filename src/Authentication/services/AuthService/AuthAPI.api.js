@@ -6,7 +6,7 @@ class AuthService{
   api
   constructor(){
      this.api=create({
-            baseURL:"https://d03007df0ee1.ngrok.io/api/lets_ride/"
+            baseURL:"https://b95f0a0506b5.ngrok.io/api/lets_ride/"
      });
  }
  LogInAPI(apiRequest){

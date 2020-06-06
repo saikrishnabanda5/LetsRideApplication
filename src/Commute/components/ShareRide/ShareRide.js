@@ -86,7 +86,7 @@ class ShareRide extends React.Component{
                 count={assetsCount}/>
             </Counter>
           </Operations>
-          <ButtonComponent text={data.requestButton} onSubmitForm={onSubmitDetails}/> 
+          <ButtonComponent text={data.shareButton} onSubmitForm={onSubmitDetails}/> 
          </RequestRideStyle>
         </PageView>
         

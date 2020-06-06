@@ -66,8 +66,7 @@ class ShareTravelInfoRoute extends React.Component {
         this.selectMedium=event.target.value;
     }
     
-    onSubmitDetails=(event)=>{
-        event.preventDefault();
+    onSubmitDetails=async(event)=>{
         if(this.source.length>0&&this.destination.length>0&&this.assetsCount>=1){
             const shareTravelDetails ={
                       source: this.source,
@@ -79,27 +78,37 @@ class ShareTravelInfoRoute extends React.Component {
                       assets_quantity: this.assetsCount,
                       medium: this.selectMedium
                      };
-            if(this.isChecked){
-                this.dateAndTime = "None";
-                if(this.fromDate!==null&&this.toDate!==null){
-                    this.props.shareStore.onShareTravelInfo(shareTravelDetails);
-                }
-            }
-            else{
-                this.fromDate = "None";
-                this.toDate = "None";
-                if(this.dateAndTime!==null){
-                         this.props.shareStore.onShareTravelInfo(shareTravelDetails);
-                }
-            }
-            
+                     await this.props.shareStore.onShareTravelInfo(shareTravelDetails);
+                     this.toaster();
         }
+            // if(this.isChecked){
+            //     this.dateAndTime = "None";
+            //     if(this.fromDate!==null&&this.toDate!==null){
+            //         this.props.shareStore.onShareTravelInfo(shareTravelDetails);
+            //         this.toaster();
+            //     }
+            // }
+            // else{
+            //     this.fromDate = "None";
+            //     this.toDate = "None";
+            //     if(this.dateAndTime!==null){
+            //              this.props.shareStore.onShareTravelInfo(shareTravelDetails);
+            //              this.toaster();
+            //     }
+            // }
+            
         else if(this.source.length===0||this.destination.length===0||this.dateAndTime===null){
             this.errorMessage="Required";
         }
     }
+    toaster=()=>{
+     if(this.props.shareStore.getShareTravelInfoAPIStatus===200){
+           this.notify();
+      }
+    }
+    
     notify = () =>{
-        toast.success("Your Request has been accepted",{
+        toast.success("Success,You have shared Travel details",{
             className: {
               color: '#343a40',
               minHeight: '60px',
@@ -107,14 +116,12 @@ class ShareTravelInfoRoute extends React.Component {
               background: '#2FEDAD',
               boxShadow: '2px 2px 20px 2px rgba(0,0,0,0.3)'
             },
-           position:toast.POSITION.BOTTOM_CENTER,
-                    type:toast.TYPE.WARNING
+           position:toast.POSITION.TOP_CENTER,
+                    type:toast.TYPE.SUCCESS
                 });
             };
   render() {
-      if(this.props.shareStore.getShareTravelInfoAPIStatus===200){
-           this.notify();
-      }
+     
     return (<div>
       <ShareTravelInfo
           source={this.source}

@@ -35,9 +35,15 @@ flex pt-4 focus:outline-none`}
 `;
 
 const Footer = styled.div `${tw`
-flex justify-between items-center  w-64`}
+flex justify-between items-center  `}
 `;
 
+const PageAlignment = styled.div `${tw 
+``};
+position:fixed;
+bottom:40px;
+right:10px;
+`
 
-export {Requests,Tasks,Image,SortAndFilter,NoOfTasks,Details,MyDetails,Add,AddButton,Footer,PageRange};
+export {Requests,Tasks,Image,SortAndFilter,NoOfTasks,Details,MyDetails,Add,AddButton,Footer,PageRange,PageAlignment};
 // Requests,Tasks,Image,SortAndFilter,NoOfTasks,Details,MyDetails,Add,AddButton,Footer,PageRange

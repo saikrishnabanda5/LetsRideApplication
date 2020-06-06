@@ -1,13 +1,13 @@
 import {create} from 'apisauce';
 import {networkCallWithApisauce} from '../../../Common/utils/APIUtils';
 import {apiMethods} from '../../constants/APIConstants';
-import {shareRideEndPoint,shareTravelEndPoint,mySharedRideEndPoint} from '../endpoints';
+import {shareRideEndPoint,shareTravelEndPoint,matchingRide,matchingAssets} from '../endpoints';
 
 class ShareRideService{
   api
   constructor(){
      this.api=create({
-            baseURL:"https://d03007df0ee1.ngrok.io/api/lets_ride"
+            baseURL:"https://b95f0a0506b5.ngrok.io/api/lets_ride"
      });
  }
  postShareRideAPI(shareRideDetails){
@@ -26,22 +26,21 @@ class ShareRideService{
             apiMethods.post
         );
  }
- getMyShareRideAPI=(limit,offset,status)=>{
+ getMatchingRides=(limit,offset,status)=>{
      return networkCallWithApisauce(
             this.api,
-            `${mySharedRideEndPoint.endpoint}?limit=${200}&offset=${0}&status=${status}`,
+            `${matchingRide.endpoint}?limit=${limit}&offset=${offset}&status=${status}`,
             {},
             apiMethods.get
         );
  }
-// getMyAssetRequestAPI=(limit,offset)=>{
-//   return networkCallWithApisauce(
-//             this.api,
-//             `${myAssetRequestEndPoint.endpoint}?limit=${limit}&offset=${offset}`,
-//             {},
-//             apiMethods.get
-//         );
-//   }
+getMatchingAssets=(limit,offset,status)=>{
+   return networkCallWithApisauce(
+             this.api,
+             `${matchingAssets.endpoint}?limit=${limit}&offset=${offset}&status=${status}`,
+             {},
+             apiMethods.get
+         );
+   }
 }
-
 export default ShareRideService;

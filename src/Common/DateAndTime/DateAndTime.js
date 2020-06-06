@@ -20,7 +20,7 @@ function DateAndTime(props){
            showTimeSelect
            timeIntervals={15}
            timeCaption="time"
-           dateFormat="yyyy-mm-dd HH:mm:ss" />:
+           dateFormat="MMMM d, yyyy h:mm aa" />:
           <div>
           <DatePicker 
            className="border border-gray-400 outline-none border-gray-500 w-40 p-1"
@@ -34,7 +34,7 @@ function DateAndTime(props){
            timeFormat="HH:mm:ss"
            timeIntervals={15}
            timeCaption="time"
-           dateFormat="yyyy-mm-dd HH:mm:ss"/>
+           dateFormat="MMMM d, yyyy h:mm aa" />
           </div>
        }
        </DateTimeStyle>
@@ -42,3 +42,6 @@ function DateAndTime(props){
   }
 export default DateAndTime;
 //timeFormat="HH:mm:ss"
+//      // timeFormat="HH:mm:ss"
+
+// dateFormat="yyyy-mm-dd HH:mm:ss"/>

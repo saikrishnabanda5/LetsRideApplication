@@ -3,7 +3,7 @@ import {SelectTag,SelectTagDetails,Option} from './styledComponent';
 class Select extends React.Component{
      selectAValue=()=>{
         const selectItem = this.props.listOfItems.map((item)=>{
-          return <Option key={item} value={item}> {item}</Option>;
+          return <option key={item} value={item}> {item}</option>;
         });
         return selectItem;
     }

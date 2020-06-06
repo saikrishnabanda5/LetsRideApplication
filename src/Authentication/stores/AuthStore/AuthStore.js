@@ -20,7 +20,7 @@ class AuthStore {
     }
     @action.bound
     setUserLogInAPIResponse(authResponse){
-        console.log("auth-----Response",authResponse.access_token)
+        console.log("auth-----Response",authResponse)
       setAccessToken(authResponse.access_token);
       this.accessToken=getAccessToken();
     } 

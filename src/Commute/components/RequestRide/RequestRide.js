@@ -52,7 +52,10 @@ class RequestRide extends React.Component{
                             <DateTime> {data.rideRequest.dateAndTime}</DateTime>
                             <Mandatory>*</Mandatory>
                             </Address>
-                <DateAndTime onChangeDateAndTime={onChangeDateAndTime} dateAndTime={dateAndTime} isChecked={isChecked}/> </div>:
+                <DateAndTime onChangeDateAndTime={onChangeDateAndTime} dateAndTime={dateAndTime} isChecked={isChecked}/>
+                <ErrorMessage>{dateAndTime===""?<div>{errorMessage}</div>:null}</ErrorMessage>
+                </div>:
+                
                 <DateStyle> 
                             <div><Address>
                                 <DateTime> {data.rideRequest.from}</DateTime>
@@ -78,7 +81,7 @@ class RequestRide extends React.Component{
             <Mandatory>*</Mandatory>
             <Counter>
                 <CounterPage incrementCounter={onIncrementSeatsCount} 
-                decrementCounter={onDecrementLuggageCount}
+                decrementCounter={onDecrementSeatsCount}
                 count={seatsAvailable}/>
             </Counter>
           </Operations>
@@ -89,7 +92,7 @@ class RequestRide extends React.Component{
              <Mandatory>*</Mandatory>
             <Counter>
                 <CounterPage incrementCounter={onIncrementLuggageCount} 
-                decrementCounter={onDecrementSeatsCount}
+                decrementCounter={onDecrementLuggageCount}
                 count={luggageQuantity}/>
             </Counter>
           </Operations>

@@ -3,7 +3,6 @@ import {observer,inject} from 'mobx-react';
 import {observable} from 'mobx';
 import {withRouter} from "react-router-dom";
 import LogInPage from '../../components/LogInPage';
-import { Redirect } from "react-router-dom";
 @inject('authStore')
 @observer
 class LogInRoute extends React.Component {
@@ -12,6 +11,7 @@ class LogInRoute extends React.Component {
     @observable errorMessage
     @observable isValid
     @observable status
+    @observable text
     constructor(props){
         super(props);
         this.mobileNumber="";
@@ -19,6 +19,7 @@ class LogInRoute extends React.Component {
         this.errorMessage="";
         this.isValid = false;
         this.status = null;
+        this.text = "Button";
     }
     onChangeMobileNumber=(event)=>{
         this.mobileNumber=event.target.value;
@@ -31,18 +32,6 @@ class LogInRoute extends React.Component {
             this.onClickLogIn();
         }
     }
-    // getSignInPage=()=>{
-    //     alert("login again")
-    //   return(<Redirect to={{ pathname:"/login/v1/" }}/>)
-    //   }
-    //   getLetsRidePage=()=>{
-    //       alert("lets_ride")
-    //       const {history}=this.props;
-    //       window.setTimeout(() => {
-    //               history.replace('/ride-app/'); 
-    //             }, 2000);
-    //     // return(<Redirect to={{ pathname:"/ride-app/" }}/>)
-    //   }
     onClickLogIn= async ()=>{
         const {history}=this.props;
         if(this.password.length>0&&this.mobileNumber.length>0 ){
@@ -56,12 +45,15 @@ class LogInRoute extends React.Component {
              await this.props.authStore.userLogIn(apiRequest);
              if(this.props.authStore.accessToken){
                 const {history}=this.props;
+                this.status = true
                   window.setTimeout(() => {
                   history.replace('/ride-app/'); 
-                }, 2000);
+                }, 3000);
             }
             else{
                  const {history}=this.props;
+                 this.text = "Retry";
+                 this.status = false;
                 history.replace('/login/v1/'); 
             }
             
@@ -80,10 +72,8 @@ class LogInRoute extends React.Component {
     
 
   render(){
-      const {getUserSignInAPIStatus}=this.props;
     return (
       <LogInPage
-          apiStatus={getUserSignInAPIStatus}
           mobileNumber={this.mobileNumber}
           password={this.password}
           errorMessage={this.errorMessage}
@@ -94,12 +84,10 @@ class LogInRoute extends React.Component {
           onEnterKeyPress={this.onEnterKeyPress}
           status={this.status}
           isValid ={this.isValid}
+          text = {this.text}
       />
     );
   }
 }
 
 export default withRouter(LogInRoute);
-//search(/^[0-9]{1}[0-9]{9}$/) === -1)
-
-///uer login = && this.mobileNumber.search(/^[5-9]{1}[0-9]{9}$/) === 0

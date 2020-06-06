@@ -15,7 +15,7 @@ class RequestModel{
         this.source=props.source;
         this.destination=props.destination;
         this.from_datetime=props.from_datetime;
-        this.fexible=props.fexible;
+        this.is_flexible=props.is_flexible;
         this.to_datetime=props.to_datetime;
         this.datetime=props.datetime;
         this.no_of_seats=props.no_of_seats;

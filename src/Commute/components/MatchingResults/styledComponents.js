@@ -1,43 +1,63 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
-import {Typo14SteelHKGroteskRegular} from '../../../Common/styleGuide/Typos';
 
-const Add =Typo14SteelHKGroteskRegular;
-const PageRange = styled.div `${tw``}`;
-const NoOfTasks = styled.div `${tw ``}`;
 const Requests = styled.div `${tw 
-` mb-auto`}
+` mb-auto `};
+width:80vw;
 `;
 
-const Tasks = styled.div `${tw 
-`flex justify-between pb-4 pl-2 pt-8 bg-gray-200`}
+const MainPage = styled.div `${tw` `}`;
+
+const HomePage = styled.div `${tw` flex justify-center items-center mt-auto `}
+top:20%;
+left:30%;
+right:30%;
 `;
 
-const Image = styled.img `${tw 
-`pr-2 pl-1`}
+const TypeOfRequest = styled.div `${tw 
+`flex border-b-2`}
+width:80vw;
+height: 25px;
 `;
 
-const SortAndFilter = styled.div `${tw 
-`flex`}
+const Button = styled.button `${tw 
+`pr-12 focus:outline-none`}
+font-size: 12px;
+font-weight: 600;
+height: 16px;
+color:${props=>props.rideButton?"black":props.assetButton?"black":"gray"};
+// border-bottom:${props=>props.rideButton?"2px solid blue":props.assetButton?"2px solid blue":"gray"};
 `;
 
-
-const MyDetails= styled.div `${tw `bg-white`};
-border: solid 2px #d7efd9;
+const Header = styled.div `${tw 
+` text-center`};
+width:10vw;
 `;
 
-const Details = styled.div `${tw `flex justify-center items-center`};
+const Heading = styled.div `${tw 
+` text-center `};
+width:10vw;
+`;
+
+const Headers = styled.div `${tw 
+`w-32 text-center `};
+`;
+
+const Headings = styled.div `${tw 
+`w-40 text-left`};
+`;
+
+const Details = styled.div `${tw `flex justify-center items-center `};
 border: solid 1px #d7efd9;
 `;
 
-const AddButton = styled.button `${tw`
-flex pt-4 focus:outline-none`}
+const Status = styled.div `${tw 
+`w-40 text-center `};
+width: 80px;
+border-radius: 100px;
+color:white;
+background-color:${props=>props.status==="Confirmed"?"#2dca73":props.status==="Pending"?"#ffb800":"#d7dfe9"};
 `;
 
-const Footer = styled.div `${tw`
-flex justify-between items-center  w-64`}
-`;
 
-
-export {Requests,Tasks,Image,SortAndFilter,NoOfTasks,Details,MyDetails,Add,AddButton,Footer,PageRange};
-// Requests,Tasks,Image,SortAndFilter,NoOfTasks,Details,MyDetails,Add,AddButton,Footer,PageRange
+export {Headers,Headings,Requests,TypeOfRequest,Button,HomePage,Details,MainPage,Header,Heading,Status};

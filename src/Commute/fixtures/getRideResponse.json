@@ -60,6 +60,21 @@
         "user_name": "pavan"
       },
       "status": "confirm"
+    },
+    {
+      "source": "bhimavaram ",
+      "destination": "banglore",
+      "from_datetime": "22/05/2020 , 10:30 PM",
+      "fexible": true,
+      "to_datetime":"25/05/2020 , 10:30 PM",
+      "datetime": "12/07/2020",
+      "no_of_seats": 4,
+      "luggage_quantity": 2,
+      "accepted_person": {
+        "mobile_number": "8989754826",
+        "user_name": "pavan"
+      },
+      "status": "confirm"
     }
   ],
   "offset": 0,

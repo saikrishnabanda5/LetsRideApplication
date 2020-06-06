@@ -10,12 +10,14 @@ class SignInRoute extends React.Component {
     @observable password  
     @observable errorMessage
     @observable confirmPassword
+    @observable error
     constructor(props){
         super(props);
         this.mobileNumber="";
         this.password="";
         this.confirmPassword="";
         this.errorMessage="";
+        this.error = "";
     }
     onChangeMobileNumber=(event)=>{
         this.mobileNumber=event.target.value;
@@ -28,7 +30,7 @@ class SignInRoute extends React.Component {
     }
     onEnterKeyPress=(event)=>{
         if(event.key==="Enter"){
-            this.onClickSignIn();
+            this.onClickSignUp();
         }
     }
     onClickLogIn=()=>{
@@ -40,12 +42,14 @@ class SignInRoute extends React.Component {
         console.log(this.password,this.mobileNumber,this.confirmPassword);
         if(this.password.length>0&&this.mobileNumber.length===10&&this.confirmPassword.length>0
         &&this.password===this.confirmPassword){
+             console.log(this.password,this.confirmPassword)
             this.errorMessage="";
-            this.props.authStore.userSignIn(this.mobileNumber,this.password,this.confirmPassword);         
+            // this.props.authStore.userSignIn(this.mobileNumber,this.password,this.confirmPassword);         
             history.replace('/login/v1');
         }
         else if(this.password!==this.confirmPassword){
-            this.errorMessage="Password didn't match";
+            console.log("no match",this.password,this.confirmPassword)
+            this.error="Password didn't match";
         }
         else if(this.mobileNumber.length===0||this.password.length==0||this.confirmPassword.length==0){
             this.errorMessage="Required";
@@ -66,6 +70,7 @@ class SignInRoute extends React.Component {
       onClickLogIn={this.onClickLogIn}
       onEnterKeyPress={this.onEnterKeyPress}
       onClickSignUp={this.onClickSignUp}
+      error={this.error}
       />
     );
   }

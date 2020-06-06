@@ -16,13 +16,14 @@ import ShareTravelInfoRoute from   '../routes/ShareTravelInfoRoute';
 import RequestAssetTransportRoute from '../routes/RequestAssetTransportRoute';
 
 const rideAppRoutes = [
-  <ProtectedRoute key={Math.random()}  path={RIDE_APP_PATH} component={RideAppRoute} />,
-  
-  <ProtectedRoute key={Math.random()}  path={RIDE_REQUEST_PATH} component={RequestRideRoute} />,
+    
+<ProtectedRoute key={Math.random()}  path={RIDE_APP_PATH} component={RideAppRoute} />,
   <ProtectedRoute key={Math.random()}  path={ASSET_REQUEST_PATH} component={RequestAssetTransportRoute} />,
-  
   <ProtectedRoute key={Math.random()}  path={SHARE_RIDE_PATH} component={ShareRideRoute} />,
   <ProtectedRoute key={Math.random()}  path={SHARE_TRAVEL_PATH} component={ShareTravelInfoRoute} />,
+  
+  <ProtectedRoute key={Math.random()}  path={RIDE_REQUEST_PATH} component={RequestRideRoute} />,  
+  
 ];
 
 export default rideAppRoutes;

@@ -4,7 +4,7 @@ import InputTag from '../../../Common/InputTag';
 import ButtonComponent from '../../../Common/ButtonComponent';
 import data from '../../../i18n/strings.json';
 import {ErrorMessage,Header,ClickLogIn,LogInStyle,LogInView,UserName,
-Password,SignUp,Account,ForSignUp,InputField,Image,Field,Icon,ImageIbhubs} from './styledComponent.js';
+Password,SignUp,Account,ForSignUp,InputField,Image,Field,Icon,ImageIbhubs} from './styledComponents.js';
 
 @observer
 class LogInPage extends React.Component{
@@ -19,7 +19,7 @@ class LogInPage extends React.Component{
           errorMessage,
           onChangeMobileNumber,
           onChangePassword,
-          onClickLogIn,
+          onClickLogIn,text,
           onEnterKeyPress,onClickSignUp,isValid,status} = this.props;
         return(
         <LogInView>
@@ -33,7 +33,7 @@ class LogInPage extends React.Component{
                   errorMessage={errorMessage} inputValue={mobileNumber}/>
                   <Icon>{errorMessage==data.required &&mobileNumber===""?<Image src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/a68ce0bc-26a7-4037-94f4-f8461b2efea8.svg"/>:""}</Icon>
                 </Field> 
-              <ErrorMessage>{mobileNumber===""?<div>{errorMessage}</div>:mobileNumber.length===10?null:"should contain only digits"}</ErrorMessage>
+              <ErrorMessage>{mobileNumber===""?<div>{errorMessage}</div>:mobileNumber.length===10?null:null}</ErrorMessage>
             </InputField>
             
             <Password>{data.password}</Password>
@@ -46,7 +46,8 @@ class LogInPage extends React.Component{
               <ErrorMessage>{password==""?<div>{errorMessage}</div>:null}</ErrorMessage>
             </InputField>
          
-            <ButtonComponent text={data.clickLogIn} onSubmitForm={onClickLogIn} isValid={isValid} status={status}/>
+            <ButtonComponent text={data.clickLogIn} onSubmitForm={onClickLogIn} isValid={isValid} status={status} text={text}/>
+            <ErrorMessage>{status===false?"Invalid Credentials":null} </ErrorMessage>
             <ClickLogIn>
               <ForSignUp>
                 <Account>{data.dontHaveAccount}</Account>

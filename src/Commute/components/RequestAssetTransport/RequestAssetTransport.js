@@ -17,7 +17,7 @@ class RequestAssetTransport extends React.Component{
     @observable listOfSensitiveItems
     constructor(props){
         super(props);
-        this.listOfAssets=[data.assests.select,data.assests.others,data.assests.parcel,data.assests.bag];
+        this.listOfAssets=[data.assests.parcel,data.assests.bag,data.assests.others];
         this.listOfSensitiveItems=[data.sensitivity.sensitive,data.sensitivity.highlySensitive,data.sensitivity.normal];
     }
     render(){
@@ -97,7 +97,7 @@ class RequestAssetTransport extends React.Component{
                <Select onSelect={onSelectAsset} listOfItems={this.listOfAssets}
               assetTransportRequest ={data.assetRequest.assetTransportRequest}/>
                <div>
-                   {selectedAsset==="Others"?
+                   {selectedAsset==="others"?
                    <Others>
                    <Heading>{data.assetRequest.others}</Heading>
                    <InputTag type={data.type.text} onChangeInput={onChangeUserValue}/>

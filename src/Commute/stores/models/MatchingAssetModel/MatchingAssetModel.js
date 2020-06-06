@@ -1,17 +1,17 @@
 import {observable} from 'mobx';
-class AssetRequestModel{
+class MatchingAssetModel{
     @observable source
     @observable destination
     @observable from_datetime
-    @observable fexible
+    @observable is_flexible
     @observable to_datetime
     @observable datetime
     @observable no_of_assets
     @observable asset_type
     @observable sensitivity
+    @observable deliver_person
     @observable mobile_number
     @observable user_name
-    @observable deliver_person
     @observable status
     constructor(props){
         this.source=props.source;
@@ -21,14 +21,12 @@ class AssetRequestModel{
         this.to_datetime=props.to_datetime;
         this.datetime=props.datetime;
         this.no_of_assets=props.no_of_assets;
-        this.asset_type=props.asset_type;
-        this.sensitivity =props.sensitivity;
+        this.asset_type = props.asset_type;
+        this.sensitivity = props.sensitivity;
+        this.deliver_person=props.deliver_person;
         this.mobile_number=props.accepted_person.mobile_number;
         this.user_name=props.accepted_person.user_name;
-        this.deliver_person =props.deliver_person;
         this.status=props.status;
     }
 }
-export default AssetRequestModel;
-
-
+export default MatchingAssetModel;

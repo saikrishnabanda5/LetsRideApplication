@@ -14,10 +14,12 @@ class MyRequestDetails extends React.Component{
   @observable listOfRideHeadings
   @observable listOfAssetHeadings
   @observable noOfAssetTasks
+  @observable initialScreen
     constructor(props){
         super(props);
         this.rideButton=false;
         this.assetButton=false;
+        this.initialScreen=true;
         this.noOfRideTasks = this.props.requestStore.noOfRequests;
         this.noOfAssetTasks = this.props.requestStore.noOfAssetRequests;
         this.listOfRideHeadings=[data.rideRequest.from,data.rideRequest.to,data.rideRequest.dateAndTime,
@@ -33,6 +35,7 @@ class MyRequestDetails extends React.Component{
     onClickAsset=()=>{
       this.rideButton=false;
       this.assetButton=true;
+      this.initialScreen = false;
     }
     headings=()=>{
         const values =this.listOfRideHeadings.map ((name)=>{
@@ -100,10 +103,10 @@ class MyRequestDetails extends React.Component{
             <Requests>
                <TypeOfRequest>
                  <Button rideButton={this.rideButton} onClick={this.onClickRide}>{data.ride} </Button>
-                 <Button assetButton={this.assetButton}onClick={this.onClickAsset}> {data.asset}</Button>
+                 <Button assetButton={this.assetButton} onClick={this.onClickAsset}> {data.asset}</Button>
                </TypeOfRequest>
-                   {this.rideButton?<RideDetails headings={this.headings()} rideRequestData={this.rideRequestData()}
-                   noOfRideTasks={this.noOfRideTasks} onAddRequest={this.props.onAddRequest}/> :null}
+                   {this.rideButton||this.initialScreen?<RideDetails headings={this.headings()} rideRequestData={this.rideRequestData()}
+                   noOfRideTasks={this.noOfRideTasks} onAddRideRequest={this.props.onAddRideRequest}/> :null}
                    {this.assetButton?<AssetDetails assetHeadings={this.assetHeadings()} assetRequestData={this.assetRequestData()}
                    noOfAssetTasks={this.noOfAssetTasks} onAddRequest={this.props.onAddRequest}/> :null}
             </Requests>
