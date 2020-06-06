@@ -1,5 +1,5 @@
 import  React from 'react';
-import {Input} from './styledComponent';
+import {Input} from './styledComponents';
 
 class CheckBox extends React.Component{
     render(){

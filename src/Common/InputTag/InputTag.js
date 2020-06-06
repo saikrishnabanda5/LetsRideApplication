@@ -1,6 +1,6 @@
 import  React from 'react';
 import {observer} from 'mobx-react';
-import {Input} from './styledComponent';
+import {Input} from './styledComponents';
 @observer 
 class InputTag extends React.Component{
     render(){

@@ -39,14 +39,14 @@ class MyRequestDetails extends React.Component{
     }
     headings=()=>{
         const values =this.listOfRideHeadings.map ((name)=>{
-            return ( <Header> {name}</Header>);
+            return ( <Header key={Math.random()}> {name}</Header>);
         });
         return values;
     }
     
     assetHeadings=()=>{
       const values =this.listOfAssetHeadings.map ((name)=>{
-            return ( <Headers> {name}</Headers>);
+            return ( <Headers key={Math.random()}> {name}</Headers>);
         });
         return values;
     }

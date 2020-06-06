@@ -1,6 +1,5 @@
 import React from 'react';
 import {observer,inject} from 'mobx-react';
-// import { Pagination } from 'semantic-ui-react'; 
 import {action} from 'mobx';
 import Pagenator from '../../../Common/Pagenator';
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure';
@@ -58,7 +57,7 @@ class MatchingAssetDetails extends React.Component{
                         onClickLeftArrow={this.props.shareStore.onClickAssetLeftArrow}
                         total={this.props.shareStore.noOfMatchedRides}
                         pageNumber={this.props.shareStore.pageNumber}
-                        />
+                     />
                     </PageRange> 
                 </Footer>
             </Requests>

@@ -20,7 +20,7 @@ class MatchingResults extends React.Component{
         this.assetButton=false;
         this.initialScreen = true;
         this.noOfMatchedRides = this.props.shareStore.noOfMatchedRides;
-        // this.noOfMatchedAssets = this.props.shareStore.noOfMatchedAssets;
+        this.noOfMatchedAssets = this.props.shareStore.noOfMatchedAssets;
         this.listOfMatchingRides=[data.rideRequest.acceptedDetails,data.rideRequest.from,data.rideRequest.to,data.rideRequest.dateAndTime,
         data.rideRequest.seats,data.rideRequest.luggageQunatity,data.rideRequest.status];
         
@@ -39,19 +39,20 @@ class MatchingResults extends React.Component{
     }
     headings=()=>{
         const values =this.listOfMatchingRides.map ((name)=>{
-            return ( <Header> {name}</Header>);
+            return ( <Header key={Math.random()}> {name}</Header>);
         });
         return values;
     }
     
     assetHeadings=()=>{
       const values =this.listOfMatchingAssets.map ((name)=>{
-            return ( <Headers> {name}</Headers>);
+            return ( <Headers key={Math.random()}> {name}</Headers>);
         });
         return values;
     }
     matchingAssetData=()=>{
       const values = this.props.shareStore.matchedAssetDetails.map((name,index)=>{
+        console.log("hiii-11",this.props.shareStore.matchedAssetDetails)
             return ( 
               <Details key={Math.random()}>
               

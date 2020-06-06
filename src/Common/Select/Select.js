@@ -1,5 +1,5 @@
 import React from 'react';
-import {SelectTag,SelectTagDetails,Option} from './styledComponent';
+import {SelectTag,SelectTagDetails,Option} from './styledComponents';
 class Select extends React.Component{
      selectAValue=()=>{
         const selectItem = this.props.listOfItems.map((item)=>{

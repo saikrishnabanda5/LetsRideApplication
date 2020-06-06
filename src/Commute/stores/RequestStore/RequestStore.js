@@ -49,9 +49,9 @@ class RequestStore {
         
         this.noOfRequests=0;
         this.noOfAssetRequests=0;
-        this.rideLimit = 4;
+        this.rideLimit = 3;
         this.rideOffset = 0; 
-        this.rideStatus = "Confirmed";
+        this.rideStatus = "Pending";
         
         this.assetLimit = 2;
         this.assetOffset =1; 
@@ -96,17 +96,17 @@ class RequestStore {
     
     @action.bound
     setRideRequestAPIResponse(rideRequestResponse){
-        console.log("rideRequestResponse",rideRequestResponse);
+        
     }
     
     @action.bound
     setAssetRequestAPIResponse(assetRequestResponse){
-        console.log("assetRequestResponse",assetRequestResponse);
+    
     }
     
     @action.bound 
     setMyRideRequestAPIResponse(rideResponse){
-        console.log("my - request - ride ",rideResponse)
+        console.log("assetResponse",rideResponse)
         this.rideDetails=[];
         this.noOfRequests = rideResponse.total_no_of_requests;
         rideResponse.ride_requests.forEach((object)=>{
@@ -117,7 +117,7 @@ class RequestStore {
     
     @action.bound 
     setMyAssetAPIResponse(assetResponse){
-        console.log("my - asset - ride ",assetResponse)
+        // console.log("assetResponse",assetResponse)
         this.assetDetails=[]; 
         this.noOfAssetRequests =assetResponse.total_no_of_requests;
         assetResponse.asset_requests.forEach((object)=>{
@@ -128,36 +128,36 @@ class RequestStore {
     
     @action.bound
     setRideRequestAPIStatus(apiStatus){
-        console.log("rideRequestResponse-apiStatus",apiStatus);
+        
         this.getRideRequestAPIStatus=apiStatus;
     }
     @action.bound
     setAssetRequestAPIStatus(apiStatus){
-        console.log("setAssetRequestAPIStatus-apiStatus",apiStatus);
+        
         this.getAssetRequestAPIStatus =apiStatus;
     }
     
     @action.bound
     setMyRideRequestAPIStatus(apiStatus){
-        console.log("my - request - ride - apiStatus",apiStatus);
+        
         this.getMyRideRequestAPIStatus=apiStatus;
     }
     
     @action.bound
     setMyAssetAPIStatus(apiStatus){
-        console.log("setMyAssetAPIStatus",apiStatus);
+        
         this.getAssetAPIStatus=apiStatus;
     }
     
     @action.bound
     setRideRequestAPIError(error){
-        console.log("rideRequestResponse-error",error);
+        
         this.getRideRequestAPIError=error;
     }
     
     @action.bound
     setAssetRequestAPIError(error){
-         console.log("setAssetRequestAPIError-error",error);
+        
         this.getAssetRequestAPIError=error;
     }
     @action.bound
@@ -167,7 +167,7 @@ class RequestStore {
     
     @action.bound
     setMyAssetAPIError(error){
-         console.log("setmy -asset RequestAPIError-error",error);
+        
         this.getAssetAPIError=error;
     }
     

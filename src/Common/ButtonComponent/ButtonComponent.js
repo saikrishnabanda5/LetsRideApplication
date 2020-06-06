@@ -1,5 +1,5 @@
 import  React from 'react';
-import {Button,StyledLoader} from './styledComponent';
+import {Button,StyledLoader} from './styledComponents';
 import {observer} from 'mobx-react';
 @observer
 class ButtonComponent extends React.Component{

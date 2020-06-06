@@ -28,12 +28,8 @@ class RideDetails extends React.Component{
     onAddRideRequest=()=>{
         const {history} = this.props;
         history.replace('/ride-app/request-ride/')
-        // console.log(history)
-                // return(<Redirect to={{ pathname:"/" }}/>)
-        // history.replace('/ride-app/request-ride/')
     }
     render(){
-        console.log("onAddRideRequest",this.props.history)
         const {getMyRideRequestAPIStatus,getMyRideRequestAPIError,noOfRequests} = this.props.requestStore;
         const {headings,rideRequestData,noOfRideTasks,onAddRideRequest,filterRide} = this.props;
         return(

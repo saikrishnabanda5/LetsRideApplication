@@ -7,7 +7,7 @@ class ShareRideService{
   api
   constructor(){
      this.api=create({
-            baseURL:"https://b95f0a0506b5.ngrok.io/api/lets_ride"
+            baseURL:"https://c0b321343071.ngrok.io/api/lets_ride"
      });
  }
  postShareRideAPI(shareRideDetails){
@@ -29,7 +29,7 @@ class ShareRideService{
  getMatchingRides=(limit,offset,status)=>{
      return networkCallWithApisauce(
             this.api,
-            `${matchingRide.endpoint}?limit=${limit}&offset=${offset}&status=${status}`,
+            `${matchingRide.endpoint}?limit=${3}&offset=${0}&status=${status}`,
             {},
             apiMethods.get
         );
@@ -37,7 +37,7 @@ class ShareRideService{
 getMatchingAssets=(limit,offset,status)=>{
    return networkCallWithApisauce(
              this.api,
-             `${matchingAssets.endpoint}?limit=${limit}&offset=${offset}&status=${status}`,
+             `${matchingAssets.endpoint}?limit=${3}&offset=${0}`,
              {},
              apiMethods.get
          );

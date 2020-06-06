@@ -33,7 +33,6 @@ class LogInRoute extends React.Component {
         }
     }
     onClickLogIn= async ()=>{
-        const {history}=this.props;
         if(this.password.length>0&&this.mobileNumber.length>0 ){
             this.errorMessage="";
             this.isValid = true;
@@ -45,7 +44,7 @@ class LogInRoute extends React.Component {
              await this.props.authStore.userLogIn(apiRequest);
              if(this.props.authStore.accessToken){
                 const {history}=this.props;
-                this.status = true
+                this.status = true;
                   window.setTimeout(() => {
                   history.replace('/ride-app/'); 
                 }, 3000);

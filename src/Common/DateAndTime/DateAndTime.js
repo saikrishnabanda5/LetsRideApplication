@@ -1,5 +1,4 @@
 import React,{useState} from "react";
-import {observer} from 'mobx-react';
 import DatePicker from "react-datepicker";
 import {DateTimeStyle} from './styledComponent';
 import "react-datepicker/dist/react-datepicker.css";
@@ -41,7 +40,3 @@ function DateAndTime(props){
     );
   }
 export default DateAndTime;
-//timeFormat="HH:mm:ss"
-//      // timeFormat="HH:mm:ss"
-
-// dateFormat="yyyy-mm-dd HH:mm:ss"/>

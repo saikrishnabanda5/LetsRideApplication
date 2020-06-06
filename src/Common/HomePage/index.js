@@ -1,14 +1,7 @@
 import React from "react";
 import logo from "../../logo.svg";
-import { Link,Redirect } from "react-router-dom";
+import { Link, } from "react-router-dom";
 class HomePage extends React.Component {
-  getSignInPage=()=>{
-      return(<Redirect to={{ pathname:"/login/v1" }}/>)
-  }
-  getLetsRidePage=()=>{
-    return(<Redirect to={{ pathname:"/ride-app/" }}/>)
-  }
-
   render(){
   
   return (

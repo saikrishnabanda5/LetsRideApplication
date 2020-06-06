@@ -91,20 +91,20 @@ class ShareStore {
     }
     @action.bound
     setShareAPIResponse(shareRideresponse){
-        console.log("shareRideresponse",shareRideresponse)
+    
         this.response=shareRideresponse;
     }
     @action.bound
     setShareTravelInfoAPIResponse(travelInfoResponse){
-         console.log("shareRideresponse",travelInfoResponse)
+         
     }
     
     @action.bound 
     setMatchingRideAPIResponse(matchingResponse){
-        console.log("my - request - ride ",matchingResponse);
+       console.log("matching ride response",matchingResponse)
         this.matchedRideDetails=[];
-        this.noOfMatchedRides =10;
-        // matchingResponse.total_no_of_requests;
+        this.noOfMatchedRides = 2;
+        matchingResponse.total_no_of_requests;
         matchingResponse.matching_ride_requests.forEach((object)=>{ 
             const requestModel = new MatchingRideModel(object);
             this.matchedRideDetails.push(requestModel);
@@ -113,29 +113,24 @@ class ShareStore {
 
     @action.bound 
     setMatchingAssetAPIResponse(matchingResponse){
-        console.log("my - asset - ride ",matchingResponse);
         this.matchedAssetDetails=[]; 
-        this.noOfMatchedAssets = 10;
-        matchingResponse.total_no_of_requests;
-        matchingResponse.asset_requests.forEach((object)=>{
+        this.noOfMatchedAssets = matchingResponse.total_no_of_requests;
+        matchingResponse.matching_asset_requests.forEach((object)=>{
             const assetModel = new MatchingAssetModel(object);
             this.matchedAssetDetails.push(assetModel);
         });
     }
     @action.bound
     setShareRideAPIStatus(apiStatus){
-        console.log("setShareRideAPIStatus---apiStatus",apiStatus)
         this.getShareRideAPIStatus=apiStatus;
     }
     @action.bound
     setShareTravelInfoAPIStatus(apiStatus){ 
-        console.log("setShareTravelInfo----APIStatus",apiStatus)
          this.getShareTravelInfoAPIStatus=apiStatus;
     }
     
      @action.bound
     setMatchingRideAPIStatus(apiStatus){
-        console.log("my - request - ride - apiStatus",apiStatus);
         this.getMatchingRideAPIStatus=apiStatus;
     }
     
@@ -146,7 +141,6 @@ class ShareStore {
     
     @action.bound
     setShareRidetAPIError(error){
-        console.log("setShareRideAPIStatus---error",error)
         this.getShareRideAPIError=error;
     }
     @action.bound
@@ -166,7 +160,6 @@ class ShareStore {
     
     @action.bound
     onShareRide(shareRideDetails){
-        alert("share-ride")
         const rideSharePromise =this.requestAPIService.postShareRideAPI(shareRideDetails);
         return bindPromiseWithOnSuccess(rideSharePromise)
                 .to(this.setShareRideAPIStatus,this.setShareAPIResponse)

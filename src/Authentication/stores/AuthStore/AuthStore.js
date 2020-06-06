@@ -20,18 +20,15 @@ class AuthStore {
     }
     @action.bound
     setUserLogInAPIResponse(authResponse){
-        console.log("auth-----Response",authResponse)
       setAccessToken(authResponse.access_token);
       this.accessToken=getAccessToken();
     } 
     @action.bound
     setGetUserLogInAPIStatus(apiStatus){
-        console.log("login-apiStatus",apiStatus)
         this.getUserLogInAPIStatus=apiStatus;
     }
     @action.bound
     setGetUserLogInAPIError(error){
-        console.log("error",error)
         this.getUserLogInAPIError=error;
     }
     @action.bound

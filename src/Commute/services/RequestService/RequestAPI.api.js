@@ -7,7 +7,7 @@ class RequestService{
   api
   constructor(){
      this.api=create({
-            baseURL:"https://b95f0a0506b5.ngrok.io/api/lets_ride/"
+            baseURL:"https://c0b321343071.ngrok.io/api/lets_ride/"
      });
  }
  postRequestARideAPI=(apiRequest)=>{
@@ -30,7 +30,7 @@ class RequestService{
   getMyAssetRequestAPI=(limit,offset,status)=>{
    return networkCallWithApisauce(
             this.api,
-            `${myAssetRequestEndPoint.endpoint}?limit=${100}&offset=${0}&status=${status}`,
+            `${myAssetRequestEndPoint.endpoint}?limit=${5}&offset=${0}`,
             {},
             apiMethods.get
         );
@@ -38,7 +38,7 @@ class RequestService{
     getMyRideRequestAPI=(limit,offset,status)=>{
      return networkCallWithApisauce(
             this.api,
-            `${myRideRequestEndPoint.endpoint}?limit=${limit}&offset=${offset}&status=${status}`,
+            `${myRideRequestEndPoint.endpoint}?limit=${15}&offset=${0}`,
             {},
             apiMethods.get
         );

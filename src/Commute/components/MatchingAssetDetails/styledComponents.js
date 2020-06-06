@@ -37,7 +37,7 @@ flex pt-4`}
 `;
 
 
-const PageRange = styled.button `${tw`
+const PageRange = styled.div `${tw`
 `}
 `;
 

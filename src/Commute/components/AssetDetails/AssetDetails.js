@@ -1,6 +1,5 @@
 import React from 'react';
 import {observer,inject} from 'mobx-react';
-// import { Pagination } from 'semantic-ui-react';
 import {action} from 'mobx';
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure';
 import data from '../../../i18n/strings.json';
@@ -56,7 +55,7 @@ class AssetDetails extends React.Component{
                         <Pagenator limit={this.props.requestStore.assetLimit} offset={this.props.requestStore.assetOffset}
                         details={this.props.requestStore.assetDetails} onClickRightArrow={this.props.requestStore.onClickAssetRightArrow}
                         onClickLeftArrow={this.props.requestStore.onClickAssetLeftArrow}
-                        total={this.props.requestStore.noOfRequests}
+                        total={this.props.requestStore.noOfAssetRequests}
                         pageNumber={this.props.requestStore.pageNumber}
                         />
                     </PageRange> 
