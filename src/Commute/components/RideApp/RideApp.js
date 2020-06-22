@@ -14,24 +14,25 @@ import ShareTravelInfoRoute from '../../routes/ShareTravelInfoRoute';
 class RideApp extends React.Component{
     
     render(){
+        const {selectedRequestValue,selectedValue,homeScreen,initialScreen,onSelectHomeScreen,onSelectShare,onSelectRequest} = this.props;
         return(
             <div>
             <HeaderPosition>
                 <Header>
                   <Image alt="iBhubsLogo" src="https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/3c68fdcd-f676-4971-b30c-0498c5dc880e.svg"/>
                   <RightComponent>
-                      <RequestComponent  onSelectRequest={this.props.onSelectRequest} />
-                      <ShareComponent  onSelectShare={this.props.onSelectShare}/>
-                      <HomeScreen onClick={this.props.onSelectHomeScreen}> {data.hs}</HomeScreen> 
+                      <RequestComponent  onSelectRequest={onSelectRequest} data-testid="custom-element"/>
+                      <ShareComponent  onSelectShare={onSelectShare}/>
+                      <HomeScreen onClick={onSelectHomeScreen}> {data.hs}</HomeScreen> 
                   </RightComponent>
                 </Header>
             </HeaderPosition>
             <Screen>
-                    {this.props.selectedRequestValue==="Ride"?<RequestRideRoute />: null}
-                    {this.props.selectedRequestValue===data.request.assetTransport?<RequestAssetTransportRoute />:null}
-                    {this.props.selectedValue==="Ride"?<ShareRideRoute />:null}
-                    {this.props.selectedValue==="Travel info"?<ShareTravelInfoRoute />:null}
-                    <HomePage>{this.props.homeScreen||this.props.initialScreen?<MyRequestRoute myScreen={this.myScreen}/>:null}</HomePage>
+                    {selectedRequestValue==="Ride"?<RequestRideRoute />: null}
+                    {selectedRequestValue===data.request.assetTransport?<RequestAssetTransportRoute />:null}
+                    {selectedValue==="Ride"?<ShareRideRoute />:null}
+                    {selectedValue==="Travel info"?<ShareTravelInfoRoute />:null}
+                    <HomePage>{homeScreen||initialScreen?<MyRequestRoute myScreen={this.myScreen}/>:null}</HomePage>
                     
              </Screen>
         </div>

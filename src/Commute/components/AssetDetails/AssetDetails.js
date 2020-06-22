@@ -1,6 +1,7 @@
 import React from 'react';
 import {observer,inject} from 'mobx-react';
-import {action} from 'mobx';
+import {action,computed} from 'mobx';
+import {getLoadingStatus} from '@ib/api-utils';
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure';
 import data from '../../../i18n/strings.json';
 import Pagenator from '../../../Common/Pagenator';
@@ -19,9 +20,14 @@ class AssetDetails extends React.Component{
     renderMyAssetRequests=observer(()=>{
         return this.props.assetRequestData;
     })
-    
+    @computed
+    get getBothAPIStatus(){
+         const {getMyRideRequestAPIStatus,getAssetAPIStatus}= this.props.requestStore;
+        return getLoadingStatus(getMyRideRequestAPIStatus,getAssetAPIStatus);
+    }
     render(){
         const {getAssetAPIStatus,getAssetAPIError,noOfAssetRequests} = this.props.requestStore;
+        const {getMyRideRequestAPIStatus} = this.props.requestStore;
         const {assetHeadings,noOfAssetTasks,onAddRequest} = this.props;
         return(
             <Requests>
@@ -38,7 +44,7 @@ class AssetDetails extends React.Component{
               <MyDetails>
                   <Details>{assetHeadings} </Details>
                     <LoadingWrapperWithFailure
-                        apiStatus={getAssetAPIStatus}
+                        apiStatus={this.getBothAPIStatus}
                         apiError={getAssetAPIError}
                         onRetryClick={this.doNetworkCalls} 
                         renderSuccessUI={this.renderMyAssetRequests}

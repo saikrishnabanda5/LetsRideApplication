@@ -8,7 +8,6 @@ import InputTag from '../../../Common/InputTag';
 import CheckBox from '../../../Common/CheckBox';
 import CounterPage from '../../../Common/CounterPage';
 import ButtonComponent from '../../../Common/ButtonComponent';
-@inject('requestStore')
 @observer
 class RequestRide extends React.Component{
     

@@ -10,6 +10,7 @@ import CheckBox from '../../../Common/CheckBox';
 import CounterPage from '../../../Common/CounterPage';
 import ButtonComponent from '../../../Common/ButtonComponent';
 import Select from '../../../Common/Select';
+import ReactSelect from '../../../Common/ReactSelect';
 
 @observer
 class RequestAssetTransport extends React.Component{
@@ -96,6 +97,7 @@ class RequestAssetTransport extends React.Component{
                </Address>
                <Select onSelect={onSelectAsset} listOfItems={this.listOfAssets}
               assetTransportRequest ={data.assetRequest.assetTransportRequest}/>
+              <ReactSelect listOfAssets={this.listOfAssets}/>
                <div>
                    {selectedAsset==="others"?
                    <Others>

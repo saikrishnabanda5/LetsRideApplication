@@ -22,7 +22,7 @@ class HomePage extends React.Component {
         <Link to="/ride-app/">RideApp </Link>
         <Link to="/signup/v1">SignUp Page</Link>
         <Link to="/login/v1">LogIn Page</Link>
-        <Link to="/page-1">Page 1</Link>
+        <Link to="/page-1">Button </Link>
       </header>
     </div>
   );

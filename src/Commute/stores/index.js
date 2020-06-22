@@ -1,9 +1,7 @@
-import RequestService from '../services/RequestService/RequestAPI.api';
-import ShareService from '../services/ShareService/ShareAPI.api';
+import RequestService from '../services/RequestService/RequestAPI.fixture';
+import ShareService from '../services/ShareService/ShareAPI.fixture';
 import RequestStore from './RequestStore';
 import ShareStore from './ShareStore';
-const requestService = new RequestService();
-const shareService = new ShareService();
-const requestStore = new RequestStore(requestService);
-const shareStore = new ShareStore(shareService);
+const requestStore = new RequestStore(new RequestService());
+const shareStore = new ShareStore(new ShareService());
 export default {requestStore,shareStore};

@@ -1,9 +1,9 @@
 import {observable} from 'mobx';
-class MatchingModel{
+class MatchingRideModel{
     @observable source
     @observable destination
     @observable from_datetime
-    @observable fexible
+    @observable is_flexible
     @observable to_datetime
     @observable datetime
     @observable no_of_seats
@@ -20,10 +20,10 @@ class MatchingModel{
         this.datetime=props.datetime;
         this.no_of_seats=props.no_of_seats;
         this.luggage_quantity=props.luggage_quantity;
-        this.mobile_number=props.accepted_person.mobile_number;
-        this.user_name=props.accepted_person.user_name;
+        this.mobile_number=props.matched_person.mobile_number;
+        this.user_name=props.matched_person.user_name;
         this.status=props.status;
     }
 }
-export default MatchingModel;
+export default MatchingRideModel;
 

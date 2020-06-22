@@ -1,11 +1,13 @@
 /* global expect jest*/
 import RequestService from '../../services/RequestService/RequestAPI.api';
 import {API_INITIAL,API_FETCHING,API_SUCCESS,API_FAILED} from '@ib/api-constants';
-import {render,fireEvent,waitFor} from '@testing-library/react';
-import { screen } from '@testing-library/dom'
+// import {render,fireEvent,waitFor} from '@testing-library/react';
+// import { screen } from '@testing-library/dom'
 import RequestStore from '.';
-import getResponse from "../../fixtures/getResponse.json";
-describe("ProductStore Test",()=>{
+import getResponse from "../../fixtures/postRideRequest.json";
+import getRideResponse from "../../fixtures/getRideResponse.json";
+import getAssetResponse from "../../fixtures/getAssetResponse.json";
+describe("RequestStore Test",()=>{
     let requestAPI;
     let requestStore; 
     beforeEach(()=>{
@@ -13,71 +15,163 @@ describe("ProductStore Test",()=>{
         requestStore = new RequestStore(requestAPI);
     });
     it("should initialize request store",()=>{
-        expect(requestStore.isChecked).toBe(false);
+        expect(requestStore.getRideRequestAPIStatus).toBe(API_INITIAL);
     });
-    it("should check request success state",async()=>{
+    it("should test RequestRide data fetching state", () => {
+    const mockLoadingPromise=new Promise(function(resolve,reject){});
+    const mockRequestRideAPI = jest.fn();
+    mockRequestRideAPI.mockReturnValue(mockLoadingPromise);
+    requestAPI.postRequestARideAPI = mockRequestRideAPI;
+    requestStore.onRideRequest();
+    expect(requestStore.getRideRequestAPIStatus).toBe(API_FETCHING);
+   });
+    it("should check RequestRide success state",async()=>{
         const mockLoadingPromise=new Promise(function(resolve,reject){
             resolve(getResponse);
         });
-        const mockProductsAPI = jest.fn();
-        mockProductsAPI.mockReturnValue(mockLoadingPromise);
-        requestAPI.getRequestAPI = mockProductsAPI;
-        await requestAPI.onClickRequest;
-        expect(requestAPI.getRequestAPIStatus).toEqual(undefined);
+        const mockRequestRideAPI = jest.fn();
+        mockRequestRideAPI.mockReturnValue(mockLoadingPromise);
+        requestAPI.postRequestARideAPI = mockRequestRideAPI;
+        await requestStore.onRideRequest();
+        expect(requestStore.getRideRequestAPIStatus).toEqual(API_SUCCESS);
     });
-    // it("should check products failure state",async()=>{
-    //     const mockLoadingPromise=new Promise(function(resolve,reject){
-    //         reject(new Error("error")); 
-    //     });
-    //     const mockProductsAPI = jest.fn();
-    //     mockProductsAPI.mockReturnValue(mockLoadingPromise);
-    //     productAPI.getProductsAPI = mockProductsAPI;
-    //     await productStore.getProductList();
-    //     expect(productStore.getProductListAPIStatus).toBe(API_FAILED);
-    //     expect(productStore.getProductListAPIError).toBe("error");
-    // });
-    // it("should test sorted and filtered products",()=>{
-    //     productStore.sortBy==="ASCENDING";
-    // });
-    it("should test incrementCounter and decrementCounter",()=>{
-        const mockincrement=1;
-        const mockdecrement=0;
-        requestStore.incrementCounter(mockincrement);
-        expect(requestStore.seatsAvailable).toBe(mockincrement);
-        
-        requestStore.decrementCounter(mockdecrement);
-        expect(requestStore.seatsAvailable).toBe(mockdecrement);
-        
-        requestStore.incrementLuggageCounter(mockincrement);
-        expect(requestStore.luggageCount).toBe(mockincrement);
-        
-        requestStore.decrementLuggageCounter(mockdecrement);
-        expect(requestStore.luggageCount).toBe(mockdecrement);
-        
-        requestStore.incrementAssetsCount(mockincrement);
-        expect(requestStore.assetsCount).toBe(mockincrement);
-        
-        requestStore.decrementAssetsCount(mockdecrement);
-        expect(requestStore.assetsCount).toBe(mockdecrement);
+    
+    it('should test RequestRide failure state',async ()=>{
+       const mockLoadingPromise = new Promise(function(resolve,reject){
+           reject(new Error("error"));
+       });
+       const mockRequestRideAPI = jest.fn();
+       mockRequestRideAPI.mockReturnValue(mockLoadingPromise); 
+         requestAPI.postRequestARideAPI=mockRequestRideAPI;
+      await requestStore.onRideRequest();
+       expect(requestStore.getRideRequestAPIStatus).toBe(API_FAILED);
+   });
+   
+   
+      it("should test RequestAssetTransport  fetching state", () => {
+        const mockLoadingPromise=new Promise(function(resolve,reject){});
+        const mockRequestRideAPI = jest.fn();
+        mockRequestRideAPI.mockReturnValue(mockLoadingPromise);
+        requestAPI.postRequestAssetAPI = mockRequestRideAPI;
+        requestStore.onClickAssetRequest();
+        expect(requestStore.getAssetRequestAPIStatus).toBe(API_FETCHING);
+      });
+    it("should check RequestAssetTransport success state",async()=>{
+        const mockLoadingPromise=new Promise(function(resolve,reject){
+            resolve(getResponse);
+        });
+        const mockRequestAssetAPI = jest.fn();
+        mockRequestAssetAPI.mockReturnValue(mockLoadingPromise);
+        requestAPI.postRequestAssetAPI = mockRequestAssetAPI;
+        await requestStore.onClickAssetRequest();
+        expect(requestStore.getAssetRequestAPIStatus).toEqual(API_SUCCESS);
     });
-    it("should test selecting type of request",()=>{
-        // const mockvalue="Request";
-        // const selectElement = screen.getByDisplayValue(mockvalue);
-        // requestStore.onSelectRequest(selectElement);
-        // expect(requestStore.selectedValue).toBe(selectElement);
+    
+    it('should test RequestAssetTransport failure state',async ()=>{
+       const mockLoadingPromise = new Promise(function(resolve,reject){
+           reject(new Error("error"));
+       });
+       const mockRequestAssetAPI = jest.fn();
+       mockRequestAssetAPI.mockReturnValue(mockLoadingPromise); 
+         requestAPI.postRequestAssetAPI=mockRequestAssetAPI;
+      await requestStore.onClickAssetRequest();
+       expect(requestStore.getAssetRequestAPIStatus).toBe(API_FAILED);
+   });
+   
+   
+    it("should test my ride requests  fetching state", () => {
+        const mockLoadingPromise=new Promise(function(resolve,reject){});
+        const mockRequestRideAPI = jest.fn();
+        mockRequestRideAPI.mockReturnValue(mockLoadingPromise);
+        requestAPI.getMyRideRequestAPI = mockRequestRideAPI;
+        requestStore.onMyRideRequests();
+        expect(requestStore.getMyRideRequestAPIStatus).toBe(API_FETCHING);
+      });
+    it("should check my ride requests success state",async()=>{
+        const mockLoadingPromise=new Promise(function(resolve,reject){
+            resolve(getRideResponse);
+        });
+        const mockRequestAssetAPI = jest.fn();
+        mockRequestAssetAPI.mockReturnValue(mockLoadingPromise);
+        requestAPI.getMyRideRequestAPI = mockRequestAssetAPI;
+        await requestStore.onMyRideRequests();
+        expect(requestStore.getMyRideRequestAPIStatus).toEqual(API_SUCCESS);
+    });
+    
+    it('should test my ride requests failure state',async   ()=>{
+       const mockLoadingPromise = new Promise(function(resolve,reject){
+           reject(new Error("error"));
+       });
+       const mockRequestAssetAPI = jest.fn();
+       mockRequestAssetAPI.mockReturnValue(mockLoadingPromise); 
+         requestAPI.getMyRideRequestAPI=mockRequestAssetAPI;
+      await requestStore.onMyRideRequests();
+       expect(requestStore.getMyRideRequestAPIStatus).toBe(API_FAILED);
+   });
+   
+   
+   it("should test my asset requests  fetching state", () => {
+        const mockLoadingPromise=new Promise(function(resolve,reject){});
+        const mockRequestRideAPI = jest.fn();
+        mockRequestRideAPI.mockReturnValue(mockLoadingPromise);
+        requestAPI.getMyAssetRequestAPI = mockRequestRideAPI;
+        requestStore.onMyAssetRequests();
+        expect(requestStore.getAssetAPIStatus).toBe(API_FETCHING);
+      });
+    it("should check my asset requests success state",async()=>{
+        const mockLoadingPromise=new Promise(function(resolve,reject){
+            resolve(getAssetResponse);
+        });
+        const mockRequestAssetAPI = jest.fn();
+        mockRequestAssetAPI.mockReturnValue(mockLoadingPromise);
+        requestAPI.getMyAssetRequestAPI = mockRequestAssetAPI;
+        await requestStore.onMyAssetRequests();
+        expect(requestStore.getAssetAPIStatus).toEqual(API_SUCCESS);
+    });
+    
+    it('should test my asset requests failure state',async   ()=>{
+       const mockLoadingPromise = new Promise(function(resolve,reject){
+           reject(new Error("error"));
+       });
+       const mockRequestAssetAPI = jest.fn();
+       mockRequestAssetAPI.mockReturnValue(mockLoadingPromise); 
+         requestAPI.getMyAssetRequestAPI=mockRequestAssetAPI;
+      await requestStore.onMyAssetRequests();
+       expect(requestStore.getAssetAPIStatus).toBe(API_FAILED);
+   });
+    
+    it("should check left button for ride",()=>{
+        requestStore.pageNumber = 5;
+        requestStore.onClickLeftArrow();
+        expect(requestStore.pageNumber).toBe(4);
         
+    });
+    
+    it("should check right button for ride",()=>{
+        requestStore.noOfRequests =5;
+        requestStore.rideLimit = 2;
+        requestStore.onClickRightArrow();
         
+        expect(requestStore.pageNumber).toBe(2);
+    });
+    
+    it("should check left button for asset",()=>{
+        requestStore.pageNumber = 5;
+        requestStore.onClickAssetLeftArrow();
+        expect(requestStore.pageNumber).toBe(4);
+        
+    });
+    
+    it("should check right button for asset",()=>{
+        requestStore.noOfAssetRequests =5;
+        requestStore.assetLimit = 2;
+        requestStore.onClickAssetRightArrow();
+        
+        expect(requestStore.pageNumber).toBe(2);
     });
     
     it("should clear the store",()=>{
         requestStore.clearStore();
-        expect(requestStore.isChecked).toBe(false);
+        expect(requestStore.isChecked).toBe(undefined);
     });
 }); 
-
-// const username = "sai-krishna";
-            // const usernameField = getByPlaceholderText("Username");
-            // const signInButton = getByRole("button",{name:"Sign"});
-            // fireEvent.change(usernameField,{target:{value:username}});
-            // fireEvent.click(signInButton);
-            // getByText(/Please enter password/i);

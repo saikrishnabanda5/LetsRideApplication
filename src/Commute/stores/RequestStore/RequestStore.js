@@ -62,7 +62,7 @@ class RequestStore {
     }
     @action.bound
     onClickLeftArrow(){
-        if(this.pageNumber>1){
+        if(this.pageNumber>1){ 
             this.pageNumber-=1;
             this.rideOffset =this.rideOffset-this.rideLimit;
             this.onMyRideRequests();
@@ -106,11 +106,12 @@ class RequestStore {
     
     @action.bound 
     setMyRideRequestAPIResponse(rideResponse){
-        console.log("assetResponse",rideResponse)
+        // console.log("assetResponse",rideResponse)
         this.rideDetails=[];
         this.noOfRequests = rideResponse.total_no_of_requests;
         rideResponse.ride_requests.forEach((object)=>{
             const requestModel = new RequestModel(object);
+            // console.log("requestModel",requestModel)
             this.rideDetails.push(requestModel);
         });
     }

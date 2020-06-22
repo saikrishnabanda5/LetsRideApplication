@@ -11,7 +11,7 @@ import CheckBox from '../../../Common/CheckBox'
 import CounterPage from '../../../Common/CounterPage'
 import ButtonComponent from '../../../Common/ButtonComponent';
 import Select from '../../../Common/Select';
-@inject('shareStore')
+
 @observer
 class ShareTravelInfo extends React.Component{
     @observable listOfMediums

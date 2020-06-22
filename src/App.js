@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Provider } from 'mobx-react'
 import HomePage from './Common/HomePage'
-import Page1 from './Common/Page1'
+import BaseButtonComponent from './Common/Button'
 import routes from './Authentication/routes'
 import rideAppRoutes from './Commute/routes'
 import CommuteStore from './Commute/stores/index.js'
@@ -25,7 +25,7 @@ class App extends React.Component {
                   {routes} {rideAppRoutes}
                   {/*{commenceRoutes}*/}
                   <Route exact path='/page-1'>
-                     <Page1 />
+                     <BaseButtonComponent />
                   </Route>
                   <Route path='/'>
                      <HomePage />

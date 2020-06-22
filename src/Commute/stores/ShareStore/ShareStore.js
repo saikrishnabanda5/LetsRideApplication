@@ -3,6 +3,7 @@ import {API_INITIAL} from '@ib/api-constants';
 import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
 import MatchingRideModel from '../models/MatchingRideModel';
 import MatchingAssetModel from '../models/MatchingAssetModel';
+import PagenationStore from '../../../Common/Stores/PagenationStore';
 class ShareStore {
     @observable getShareRideAPIStatus
     @observable getShareTravelInfoAPIStatus
@@ -26,8 +27,13 @@ class ShareStore {
     @observable pageNumber
     
     requestAPIService
+    pagenationstore
     constructor(requestService){
+        // console.log("requestService",requestService)
         this.requestAPIService=requestService;
+        this.matchingRideLimit = 2;
+        this.matchingRideOffset =0; 
+        this.pagenationstore = new PagenationStore(MatchingRideModel,requestService.getMatchingRides,this.matchingRideLimit);
         this.init();
     }
     @action
@@ -47,8 +53,6 @@ class ShareStore {
         
         this.noOfMatchedRides=0;
         this.noOfMatchedAssets=0; 
-        this.matchingRideLimit = 2;
-        this.matchingRideOffset =0; 
         this.matchingRideStatus = "";
         
         this.matchingAssetLimit = 2;
@@ -56,22 +60,6 @@ class ShareStore {
         this.matchingAssetStatus = "Confirmed";
         this.pageNumber=1;
     }
-    @action.bound
-    onClickRideLeftArrow(){
-        if(this.pageNumber>1){
-            this.pageNumber-=1;
-            this.matchingRideOffset =this.matchingRideOffset-this.matchingAssetLimit;
-            this.onMatchingRides();
-        }
-    }
-    @action.bound 
-    onClickRideRightArrow(){
-        if(this.pageNumber<Math.ceil(this.noOfMatchedRides/this.matchingAssetLimit)){
-            this.pageNumber+=1;
-            this.matchingRideOffset =this.matchingAssetLimit+this.matchingRideOffset;
-             this.onMatchingRides();
-        } 
-    } 
     
     @action.bound
     onClickAssetLeftArrow(){ 
@@ -96,25 +84,13 @@ class ShareStore {
     }
     @action.bound
     setShareTravelInfoAPIResponse(travelInfoResponse){
-         
-    }
-    
-    @action.bound 
-    setMatchingRideAPIResponse(matchingResponse){
-       console.log("matching ride response",matchingResponse)
-        this.matchedRideDetails=[];
-        this.noOfMatchedRides = 2;
-        matchingResponse.total_no_of_requests;
-        matchingResponse.matching_ride_requests.forEach((object)=>{ 
-            const requestModel = new MatchingRideModel(object);
-            this.matchedRideDetails.push(requestModel);
-        });
     }
 
     @action.bound 
     setMatchingAssetAPIResponse(matchingResponse){
+        // console.log("matching asset response",matchingResponse)
         this.matchedAssetDetails=[]; 
-        this.noOfMatchedAssets = matchingResponse.total_no_of_requests;
+        this.noOfMatchedAssets =  matchingResponse.matching_asset_requests.length;
         matchingResponse.matching_asset_requests.forEach((object)=>{
             const assetModel = new MatchingAssetModel(object);
             this.matchedAssetDetails.push(assetModel);
@@ -127,11 +103,6 @@ class ShareStore {
     @action.bound
     setShareTravelInfoAPIStatus(apiStatus){ 
          this.getShareTravelInfoAPIStatus=apiStatus;
-    }
-    
-     @action.bound
-    setMatchingRideAPIStatus(apiStatus){
-        this.getMatchingRideAPIStatus=apiStatus;
     }
     
     @action.bound
@@ -147,12 +118,7 @@ class ShareStore {
     setShareTravelInfotAPIError(error){
         this.getShareTravelInfoAPIError =error;
     }
-    
-     @action.bound
-    setMatchingRideAPIError(error){
-        this.getMatchingRideAPIError=error;
-    }
-    
+   
     @action.bound
     setMatchingAssetAPIError(error){
         this.getMatchingAssetAPIError=error;
@@ -176,16 +142,14 @@ class ShareStore {
     
     @action.bound
     onMatchingRides(){
-        const ridePromise = this.requestAPIService.getMatchingRides(this.matchingRideLimit,this.matchingRideOffset,this.matchingRideStatus);
-        return bindPromiseWithOnSuccess(ridePromise)
-                .to(this.setMatchingRideAPIStatus,this.setMatchingRideAPIResponse)
-                .catch(this.setMatchingRideAPIError);
-    }
+          this.pagenationstore.getTheData();
+          }
     
     @action.bound
     onMatchingAssets(){
-        const travelInfoPromise = this.requestAPIService.getMatchingAssets(this.rideLimit,this.rideOffset);
-        return bindPromiseWithOnSuccess(travelInfoPromise)
+        
+        const assetPromise = this.requestAPIService.getMatchingAssets(this.matchingAssetLimit,this.matchingAssetOffset);
+        return bindPromiseWithOnSuccess(assetPromise)
                 .to(this.setMatchingAssetAPIStatus,this.setMatchingAssetAPIResponse) 
                 .catch(this.setMatchingAssetAPIError);
     }

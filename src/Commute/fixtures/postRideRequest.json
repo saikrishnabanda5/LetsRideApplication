@@ -1,0 +1,10 @@
+{
+  "source": "hyderabad",
+  "destination": "vijayawada",
+  "from_datetime": "25/05/2020 , 10:30 PM",
+  "is_flexible": false,
+  "to_datetime": "string",
+  "datetime": "string",
+  "no_of_seats": 3,
+  "luggage_quantity": 2
+}

@@ -1,9 +1,7 @@
 import {create} from 'apisauce';
-import {networkCallWithApisauce} from '../../../Common/utils/APIUtils';
-import {apiMethods} from '../../constants/APIConstants';
 import credentials from '../../fixtures/getRideResponse.json';
 import assetCredentials from '../../fixtures/getAssetResponse.json';
-import rideRequestCredentials from '../../fixtures/getRideRequestCredentials.json';
+import rideRequestCredentials from '../../fixtures/postRideRequest.json';
 import assetRequestCredentials from '../../fixtures/getAssetRequestCredentials.json';
 
 class RequestService{
@@ -15,23 +13,23 @@ class RequestService{
  }
  postRequestARideAPI=()=>{
     return new Promise((res)=>{
-         setTimeout(()=>{res(rideRequestCredentials),5000});
+         setTimeout(()=>res(rideRequestCredentials),500);
      });
  }
  getAssetRequestAPI=()=>{
      return new Promise((res)=>{
-         setTimeout(()=>{res(assetCredentials),5000});
+         setTimeout(()=>res(assetCredentials),500);
      });
  }
   getMyRideRequestAPI=()=>{
    return new Promise((res)=>{
-         setTimeout(()=>{res(credentials),5000});
+         setTimeout(()=>res(credentials),500);
      });
      }
      
   getMyAssetRequestAPI=()=>{
    return new Promise((res)=>{
-         setTimeout(()=>{res(assetRequestCredentials),5000});
+         setTimeout(()=>res(assetRequestCredentials),500);
      });
      }
 }

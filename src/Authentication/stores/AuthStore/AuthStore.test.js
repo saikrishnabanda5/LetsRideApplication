@@ -1,5 +1,4 @@
 /* global expect jest*/
-import Cookie from 'js-cookie';
 import { API_SUCCESS, API_FAILED, API_FETCHING,API_INITIAL} from "@ib/api-constants";
 import AuthService from '../../services/AuthService/AuthAPI.api';
 import getUserSignInResponse from "../../fixtures/userLogin.json";
@@ -13,7 +12,7 @@ describe('AuthStore Test',()=>{
         authStore = new AuthStore(authAPI);
     });
     
-   it("should test initialising auth store", () => {
+  it("should test initialising auth store", () => {
         expect(authStore.getUserLogInAPIStatus).toBe(API_INITIAL);
         expect(authStore.getUserLogInAPIError).toBe(null);
   });

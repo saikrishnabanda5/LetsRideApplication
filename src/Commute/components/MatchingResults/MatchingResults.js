@@ -29,6 +29,7 @@ class MatchingResults extends React.Component{
         data.assetRequest.whomToDeliver,data.assetRequest.status];
     }
     onClickRide=()=>{
+      console.log(11)
       this.rideButton=true;
       this.assetButton=false;
     }
@@ -52,8 +53,7 @@ class MatchingResults extends React.Component{
     }
     matchingAssetData=()=>{
       const values = this.props.shareStore.matchedAssetDetails.map((name,index)=>{
-        console.log("hiii-11",this.props.shareStore.matchedAssetDetails)
-            return ( 
+        return ( 
               <Details key={Math.random()}>
               
                     <Headings> {name.source}</Headings>
@@ -77,7 +77,7 @@ class MatchingResults extends React.Component{
       return values;
     }
     matchingData=()=>{
-      const values = this.props.shareStore.matchedRideDetails.map((name)=>{
+      const values = this.props.shareStore.pagenationstore.matchedRideDetails.map((name)=>{
             return ( 
               <Details key={Math.random()}>
                     <div>

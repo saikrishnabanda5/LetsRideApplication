@@ -34,6 +34,7 @@ class LogInRoute extends React.Component {
     }
     onClickLogIn= async ()=>{
         if(this.password.length>0&&this.mobileNumber.length>0 ){
+            console.log("login-1")
             this.errorMessage="";
             this.isValid = true;
             
@@ -42,7 +43,9 @@ class LogInRoute extends React.Component {
               password: this.password
             };
              await this.props.authStore.userLogIn(apiRequest);
-             if(this.props.authStore.accessToken){
+             //this.props.authStore.accessToken
+             if(this.props.authStore.accessToken)
+             {
                 const {history}=this.props;
                 this.status = true;
                   window.setTimeout(() => {
@@ -57,12 +60,12 @@ class LogInRoute extends React.Component {
             }
             
         }
-        else if(this.mobileNumber.length===0 || this.mobileNumber.length==0){
+        else if(this.mobileNumber.length===0 || this.password.length==0){
             this.errorMessage="Required";
         }
-        else if(this.password.length==0){
-            this.errorMessage="Required";
-        }
+        // else if(this.password.length==0){
+        //     this.errorMessage="Required";
+        // }
     }
     onClickSignUp=()=>{
         const {history}=this.props;

@@ -103,7 +103,7 @@ class ShareRideRoute extends React.Component {
                 });
             };
     toaster=()=>{  
-        console.log("share - ride",this.props.shareStore.getShareRideAPIStatus)
+        // console.log("share - ride",this.props.shareStore.getShareRideAPIStatus)
     if(this.props.shareStore.getShareRideAPIStatus===200){
            this.notify();
       }

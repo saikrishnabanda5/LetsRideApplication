@@ -24,8 +24,8 @@ class MatchingAssetModel{
         this.asset_type = props.asset_type;
         this.sensitivity = props.sensitivity;
         this.deliver_person=props.deliver_person;
-        this.mobile_number=props.accepted_person.mobile_number;
-        this.user_name=props.accepted_person.user_name;
+        this.mobile_number=props.matched_person.mobile_number;
+        this.user_name=props.matched_person.user_name;
     }
 }
 export default MatchingAssetModel;

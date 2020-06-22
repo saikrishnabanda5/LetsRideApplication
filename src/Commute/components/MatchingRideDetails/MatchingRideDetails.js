@@ -23,7 +23,7 @@ class MatchingRideDetails extends React.Component{
     })
     
     render(){
-        const {getMatchingRideAPIStatus,getMatchingRideAPIError,noOfMatchedRides} = this.props.shareStore;
+        const {getAPIStatus,getAPIError,noOfMatchedRides,limit,offset,onClickLeftArrow,onClickRightArrow,selectedPage} = this.props.shareStore.pagenationstore;
         const {headings,matchingData,onAddRequest,filterRide} = this.props;
         return(
             <Requests>
@@ -43,8 +43,8 @@ class MatchingRideDetails extends React.Component{
                <MyDetails>
                    <Details>{headings} </Details>
                     <LoadingWrapperWithFailure
-                        apiStatus={getMatchingRideAPIStatus}
-                        apiError={getMatchingRideAPIError}
+                        apiStatus={getAPIStatus}
+                        apiError={getAPIError}
                         onRetryClick={this.doNetworkCalls}
                         renderSuccessUI={this.renderMatchingData}
                     /> 
@@ -56,11 +56,11 @@ class MatchingRideDetails extends React.Component{
                        <Add> {data.addRequest}</Add>
                     </AddButton>
                      <PageRange>
-                        <Pagenator limit={this.props.shareStore.matchingRideLimit} offset={this.props.shareStore.matchingRideOffset}
-                        details={this.props.shareStore.matchedRideDetails} onClickRightArrow={this.props.shareStore.onClickRideRightArrow}
-                        onClickLeftArrow={this.props.shareStore.onClickRideLeftArrow}
-                        total={this.props.shareStore.noOfMatchedRides}
-                        pageNumber={this.props.shareStore.pageNumber}
+                        <Pagenator limit={limit} offset={offset}
+                        details={this.props.shareStore.matchedRideDetails} onClickRightArrow={onClickRightArrow}
+                        onClickLeftArrow={onClickLeftArrow}
+                        total={noOfMatchedRides}
+                        pageNumber={selectedPage}
                         />
                     </PageRange> 
                 </Footer>

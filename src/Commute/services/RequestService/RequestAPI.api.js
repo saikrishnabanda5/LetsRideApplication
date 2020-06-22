@@ -38,7 +38,7 @@ class RequestService{
     getMyRideRequestAPI=(limit,offset,status)=>{
      return networkCallWithApisauce(
             this.api,
-            `${myRideRequestEndPoint.endpoint}?limit=${15}&offset=${0}`,
+            `${myRideRequestEndPoint.endpoint}?limit=${1}&offset=${0}`,
             {},
             apiMethods.get
         );

@@ -86,7 +86,7 @@ class RequestAssetTransportRoute extends React.Component {
     }
     onSubmitDetails=async(event)=>{
         if(this.source.length>0&&this.destination.length>0&&this.assetsCount>=1&&this.personDetails.length>0){
-            const assetDetails ={
+            const assetDetails = {
                       source: this.source,
                       destination: this.destination,
                       from_datetime: this.fromDate,

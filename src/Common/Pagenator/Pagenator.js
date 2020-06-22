@@ -7,10 +7,9 @@ class Pagenator extends React.Component{
     render(){
         
         const {limit,onClickLeftArrow,onClickRightArrow,total,pageNumber} =this.props;
-        console.log("total",total,"limit",limit);
         return(
             <Pages >
-                <LeftArrow onClick={onClickLeftArrow}>
+                <LeftArrow onClick={onClickLeftArrow} >
                         {<AiOutlineArrowLeft/>}              
                 </LeftArrow>
                 <CurrentPageNumber>{pageNumber}</CurrentPageNumber>
