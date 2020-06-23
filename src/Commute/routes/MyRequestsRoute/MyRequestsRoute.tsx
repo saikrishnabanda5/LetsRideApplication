@@ -1,17 +1,22 @@
 import React from "react";
 import {observer,inject} from 'mobx-react';
 import {observable} from 'mobx';
-import data from '../../../i18n/strings.json';
 import {withRouter} from "react-router-dom";
 import MyRequests from '../../components/MyRequests';
-import {Header,Heading,Details,Status,Headings,Headers} from './styledComponent';
+import { type } from "os";
+
+type MyRequestsRouteProps ={
+  history: {
+    push(url: string): void;
+}
+}
+
 @inject('requestStore')
 @observer
-class MyRequestsRoute extends React.Component {
-  @observable noOfRideTasks
-  @observable matchingResults
-  @observable myRequests
-  @observable sharedDetails
+class MyRequestsRoute extends React.Component<MyRequestsRouteProps> {
+  @observable matchingResults: boolean
+  @observable myRequests: boolean
+  @observable sharedDetails: boolean
   
   constructor(props){
         super(props);

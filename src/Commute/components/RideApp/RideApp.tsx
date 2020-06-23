@@ -17,8 +17,8 @@ type RideAppProps = {
     homeScreen: boolean
     initialScreen:boolean
     onSelectHomeScreen:()=>void
-    onSelectShare:Function
-    onSelectRequest:Function
+    onSelectShare:()=>any
+    onSelectRequest:()=>any
 }
 
 @observer
