@@ -3,16 +3,24 @@ import {observer,inject} from 'mobx-react';
 import {observable} from 'mobx';
 import {withRouter} from "react-router-dom";
 import LogInPage from '../../components/LogInPage';
+import AuthStore from '../../stores/AuthStore'
+    type Props={
+        authStore: AuthStore
+        history: {
+            replace(url: string): void;
+        }
+    }
+
 @inject('authStore')
 @observer
-class LogInRoute extends React.Component {
-    @observable mobileNumber
-    @observable password 
-    @observable errorMessage
-    @observable isValid
-    @observable status
-    @observable text
-    constructor(props){
+class LogInRoute extends React.Component<Props>{
+    @observable mobileNumber:string
+    @observable password:string   
+    @observable errorMessage: string
+    @observable isValid: boolean
+    @observable status: boolean | null
+    @observable text: string
+    constructor(props: Readonly<Props>){
         super(props);
         this.mobileNumber="";
         this.password="";
@@ -20,19 +28,20 @@ class LogInRoute extends React.Component {
         this.isValid = false;
         this.status = null;
         this.text = "Button";
+        
     }
-    onChangeMobileNumber=(event)=>{
+    onChangeMobileNumber=(event: React.ChangeEvent<HTMLInputElement>):void=>{
         this.mobileNumber=event.target.value;
-    }    
-    onChangePassword=(event)=>{
+    }       
+    onChangePassword=(event: React.ChangeEvent<HTMLInputElement>)=>{
         this.password=event.target.value;
     }
-    onEnterKeyPress=(event)=>{
+    onEnterKeyPress=(event: KeyboardEvent):any=>{
         if(event.key==="Enter"){
             this.onClickLogIn();
         }
     }
-    onClickLogIn= async ()=>{
+    onClickLogIn = async ()=>{
         if(this.password.length>0&&this.mobileNumber.length>0 ){
             console.log("login-1")
             this.errorMessage="";
@@ -48,6 +57,7 @@ class LogInRoute extends React.Component {
              {
                 const {history}=this.props;
                 this.status = true;
+
                   window.setTimeout(() => {
                   history.replace('/ride-app/'); 
                 }, 3000);

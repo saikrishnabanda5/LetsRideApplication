@@ -4,13 +4,30 @@ import InputTag from '../../../Common/InputTag';
 import ButtonComponent from '../../../Common/ButtonComponent';
 import data from '../../../i18n/strings.json';
 import {ErrorMessage,Header,ClickLogIn,LogInStyle,LogInView,UserName,
-Password,SignUp,Account,ForSignUp,InputField,Image,Field,Icon,ImageIbhubs} from './styledComponents.js';
+Password,SignUp,Account,ForSignUp,InputField,Image,Field,Icon,ImageIbhubs} from './styledComponents';
+
+type LogInProps = {
+  mobileNumber:string | number,
+  password:string,
+  errorMessage:string,
+  onChangeMobileNumber:Function
+  onChangePassword: Function
+  onClickLogIn:  () => void,
+  text:string,
+  onEnterKeyPress: () => any
+  onClickSignUp: () => void,
+  isValid: boolean
+  status:boolean | null
+}
 
 @observer
-class LogInPage extends React.Component{
-    usernameRef = React.createRef()
+class LogInPage extends React.Component<LogInProps>{
+    //  usernameRef = React.createRef()
+    // const usernameRef = React.useRef<HTMLInputElement>(null);
+    private usernameRef= React.createRef<HTMLDivElement>()
+
     componentDidMount(){
-      this.usernameRef.current.focus();
+      this.usernameRef.current!.focus();
     }
     render(){
           const {
@@ -46,7 +63,7 @@ class LogInPage extends React.Component{
               <ErrorMessage>{password==""?<div>{errorMessage}</div>:null}</ErrorMessage>
             </InputField>
          
-            <ButtonComponent text={data.clickLogIn} onSubmitForm={onClickLogIn} isValid={isValid} status={status} text={text}/>
+            <ButtonComponent  text={text} onSubmitForm={onClickLogIn} isValid={isValid} status={status} />
             <ErrorMessage>{status===false?"Invalid Credentials":null} </ErrorMessage>
             <ClickLogIn>
               <ForSignUp>
@@ -61,3 +78,7 @@ class LogInPage extends React.Component{
     }
 }
 export default LogInPage;
+
+//text={text}
+
+//text={data.clickLogIn}

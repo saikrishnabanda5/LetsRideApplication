@@ -3,15 +3,23 @@ import {observer,inject} from 'mobx-react';
 import {observable} from 'mobx';
 import {withRouter} from "react-router-dom";
 import SignInPage from '../../components/SignInPage';
+import AuthStore from '../../stores/AuthStore'
+type SignInRouteProps={
+    authStore: AuthStore
+    history: {
+        replace(url: string): void;
+    }
+}
+
 @inject('authStore')
 @observer
-class SignInRoute extends React.Component {
-    @observable mobileNumber
-    @observable password  
-    @observable errorMessage
-    @observable confirmPassword
-    @observable error
-    constructor(props){
+class SignInRoute extends React.Component<SignInRouteProps> {
+    @observable mobileNumber: string | any
+    @observable password: string 
+    @observable errorMessage: string
+    @observable confirmPassword: string 
+    @observable error: string
+    constructor(props: Readonly<SignInRouteProps>){
         super(props);
         this.mobileNumber="";
         this.password="";
@@ -19,16 +27,16 @@ class SignInRoute extends React.Component {
         this.errorMessage="";
         this.error = "";
     }
-    onChangeMobileNumber=(event)=>{
+    onChangeMobileNumber=(event: React.ChangeEvent<HTMLInputElement>)=>{
         this.mobileNumber=event.target.value;
     }    
-    onChangePassword=(event)=>{
+    onChangePassword=(event: React.ChangeEvent<HTMLInputElement>)=>{
         this.password=event.target.value;
     }
-    onChangeConfirmPassword=(event)=>{
+    onChangeConfirmPassword=(event: React.ChangeEvent<HTMLInputElement>)=>{
         this.confirmPassword=event.target.value;
     }
-    onEnterKeyPress=(event)=>{
+    onEnterKeyPress=(event: KeyboardEvent)=>{
         if(event.key==="Enter"){
             this.onClickSignUp();
         }
@@ -56,10 +64,9 @@ class SignInRoute extends React.Component {
         }
     }
   render() {
-      const {getUserSignInAPIStatus}=this.props;
+      
     return (
       <SignInPage
-      apiStatus={getUserSignInAPIStatus}
       mobileNumber={this.mobileNumber}
       password={this.password}
       confirmPassword={this.confirmPassword}

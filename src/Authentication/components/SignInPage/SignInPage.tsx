@@ -1,20 +1,34 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {ErrorMessage,SignInStyle,Header,
-ClickLogIn,Account,Login,ForLogIn,SignUpView,Heading,InputField,Image,Field,Icon,ImageIbhubs} from '../SignInPage/styledComponent.js';
 import InputTag from '../../../Common/InputTag';
 import ButtonComponent from '../../../Common/ButtonComponent';
 import data from '../../../i18n/strings.json';
+import {ErrorMessage,SignInStyle,Header,ClickLogIn,Account,Login,ForLogIn,
+  SignUpView,Heading,InputField,Image,Field,Icon,ImageIbhubs} from '../SignInPage/styledComponents';
+
+type SignUpProps = {
+  mobileNumber:string|any,
+  password:string,
+  confirmPassword:string
+  errorMessage:string,
+  onChangeMobileNumber:Function
+  onChangePassword: Function
+  onChangeConfirmPassword: Function
+  onClickLogIn: () => void
+  onEnterKeyPress: Function
+  onClickSignUp: () => void,
+  error:string
+}
 
 @observer
-class SignInPage extends React.Component{
-    mobileNumberRef = React.createRef()
+class SignInPage extends React.Component<SignUpProps>{
+    // mobileNumberRef = React.createRef()
+    private mobileNumberRef= React.createRef<HTMLDivElement>()
     componentDidMount(){
-      this.mobileNumberRef.current.focus();
+      this.mobileNumberRef.current!.focus();
     }
     render(){
           const {
-          apiStatus,
           mobileNumber,
           password,
           confirmPassword,

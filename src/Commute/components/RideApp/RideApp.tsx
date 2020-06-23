@@ -1,7 +1,7 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import {Header,HeaderPosition,Image,RightComponent,HomeScreen,Screen,HomePage} from '../RideApp/styledComponent';
+import {Header,HeaderPosition,Image,RightComponent,HomeScreen,Screen,HomePage} from '../RideApp/styledComponents';
 import RequestComponent from '../RequestComponent';
 import ShareComponent from '../ShareComponent';
 import data from '../../../i18n/strings.json';
@@ -10,10 +10,22 @@ import RequestRideRoute from '../../routes/RequestRideRoute';
 import RequestAssetTransportRoute from '../../routes/RequestAssetTransportRoute';
 import ShareRideRoute from '../../routes/ShareRideRoute';
 import ShareTravelInfoRoute from '../../routes/ShareTravelInfoRoute';
+
+type RideAppProps = {
+    selectedRequestValue: string
+    selectedValue: string
+    homeScreen: boolean
+    initialScreen:boolean
+    onSelectHomeScreen:()=>void
+    onSelectShare:Function
+    onSelectRequest:Function
+}
+
 @observer
-class RideApp extends React.Component{
+class RideApp extends React.Component<RideAppProps>{ 
     
     render(){
+        
         const {selectedRequestValue,selectedValue,homeScreen,initialScreen,onSelectHomeScreen,onSelectShare,onSelectRequest} = this.props;
         return(
             <div>
@@ -32,7 +44,7 @@ class RideApp extends React.Component{
                     {selectedRequestValue===data.request.assetTransport?<RequestAssetTransportRoute />:null}
                     {selectedValue==="Ride"?<ShareRideRoute />:null}
                     {selectedValue==="Travel info"?<ShareTravelInfoRoute />:null}
-                    <HomePage>{homeScreen||initialScreen?<MyRequestRoute myScreen={this.myScreen}/>:null}</HomePage>
+                    <HomePage>{homeScreen||initialScreen?<MyRequestRoute />:null}</HomePage>
                     
              </Screen>
         </div>

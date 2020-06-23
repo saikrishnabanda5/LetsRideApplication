@@ -10,19 +10,10 @@ import { createMemoryHistory } from "history";
 import AuthAPI from "../../services/AuthService/AuthAPI.api";
 import AuthStore from "../../stores/AuthStore";
 
-// describe('LogInRoute', () => {
-// configure({adapter: new Adapter()});
-//   it('should pass', () => {
-//     const wrapper = shallow(<LogInRoute></LogInRoute>);
-//     const instance = wrapper.instance();
-//     expect(wrapper.exists()).toBeTruthy();
-//     // expect(instance.text).toBe('Button');
-//   });
-// });
 
 describe("LogInRoute Tests", () => {
-  let authAPI;
-  let authStore;
+  let authAPI: AuthAPI | import("../../services/AuthService/AuthAPI.fixture").default;
+  let authStore: AuthStore;
 
   beforeEach(() => {
     authAPI = new AuthAPI();

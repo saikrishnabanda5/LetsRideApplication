@@ -4,13 +4,20 @@ import {observable} from 'mobx';
 import {withRouter} from "react-router-dom";
 import RideApp from '../../components/RideApp';
 import RequestRideRoute from '../../components/RequestRide';
+
+type RideAppRouteProps={
+  history:{
+    push(url: string): void;
+  }
+}
+
 @observer
-class RideAppRoute extends React.Component {
-  @observable selectedValue
-  @observable selectedRequestValue
-  @observable homeScreen
-  @observable initialScreen
-    constructor(props){
+class RideAppRoute extends React.Component<RideAppRouteProps> {
+  @observable selectedValue: string
+  @observable selectedRequestValue: string
+  @observable homeScreen: boolean
+  @observable initialScreen: boolean
+    constructor(props: Readonly<RideAppRouteProps>){
         super(props);
         this.selectedValue="Share";
         this.selectedRequestValue="Request";
@@ -18,7 +25,7 @@ class RideAppRoute extends React.Component {
         this.initialScreen = true;
     }
     
-   onSelectShare=(event)=>{
+   onSelectShare=(event: React.ChangeEvent<HTMLSelectElement>)=>{
      const {history}=this.props;
         this.selectedRequestValue="";
         this.homeScreen=false;
@@ -31,7 +38,7 @@ class RideAppRoute extends React.Component {
             history.push('/ride-app/share-info/');
         }
     }
-    onSelectRequest=(event)=>{
+    onSelectRequest=(event: React.ChangeEvent<HTMLSelectElement>)=>{
       const {history}=this.props;
         this.selectedValue="";
         this.homeScreen=false;
@@ -53,6 +60,7 @@ class RideAppRoute extends React.Component {
           history.push('/ride-app/home-page/');
       }
   render() {
+    
     return (
       <RideApp onSelectShare={this.onSelectShare} onSelectRequest={this.onSelectRequest}
       selectedValue={this.selectedValue} selectedRequestValue={this.selectedRequestValue}

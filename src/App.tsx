@@ -6,27 +6,27 @@ import BaseButtonComponent from './Common/Button'
 import routes from './Authentication/routes'
 import rideAppRoutes from './Commute/routes'
 import CommuteStore from './Commute/stores/index.js'
-import AuthenticationStore from './Authentication/stores/index.js'
+import AuthenticationStore from './Authentication/stores'
 import './App.css'
 import { observer } from 'mobx-react'
-import { observable } from 'mobx'
 import RideApp from './Commute/components/RideApp'
+
 @observer
 class App extends React.Component {
-   constructor(props) {
+   constructor(props: Readonly<{}>) {
       super(props)
    }
    render() {
       return (
-         //{...CommuteStore}
          <Provider {...AuthenticationStore} {...CommuteStore}>
             <Router basename={process.env.PUBLIC_URL}>
                <Switch>
-                  {routes} {rideAppRoutes}
-                  {/*{commenceRoutes}*/}
+                  {routes}
+                  {rideAppRoutes}
+                  {/*
                   <Route exact path='/page-1'>
-                     <BaseButtonComponent />
-                  </Route>
+                     <BaseButtonComponent /> 
+                  </Route>*/}
                   <Route path='/'>
                      <HomePage />
                   </Route>

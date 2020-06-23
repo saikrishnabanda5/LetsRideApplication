@@ -5,8 +5,8 @@ import {
   LOG_IN_PATH,
 } from "../constants/RouteConstants";
 
-import SignInRoute from '../routes/SignInRoute/'; 
-import LogInRoute from '../routes/LogInRoute/'; 
+import SignInRoute from '../routes/SignInRoute'; 
+import LogInRoute from '../routes/LogInRoute'; 
 
 const routes = [
   <Route key={Math.random()}  path={SIGN_UP_PATH} component={SignInRoute} />,
