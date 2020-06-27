@@ -37,3 +37,6 @@ changes to devtools
 5.  WHEN WE USE .THEN  OR await then only we use async otherwise no need.
 we dont used async for n/w function
 
+6.vscode setup
+
+7.chrome divtools
