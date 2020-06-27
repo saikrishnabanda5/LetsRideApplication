@@ -2,12 +2,13 @@ import {create} from 'apisauce';
 import {networkCallWithApisauce} from '../../../Common/utils/APIUtils';
 import {apiMethods} from '../../constants/APIConstants';
 import {shareRideEndPoint,shareTravelEndPoint,matchingRide,matchingAssets} from '../endpoints';
+import config from "../../../Common/constants/EnviromentConstants";
 
 class ShareRideService{
   api
   constructor(){
      this.api=create({
-            baseURL:"https://c0b321343071.ngrok.io/api/lets_ride"
+      baseURL : config.BASE_URL
      });
  }
  postShareRideAPI(shareRideDetails){
@@ -15,7 +16,7 @@ class ShareRideService{
             this.api,
             shareRideEndPoint.endpoint,
             shareRideDetails,
-            apiMethods.post
+            apiMethods.post 
         );
  }
  getShareTravelInfoAPI(sharedInfo){
@@ -26,7 +27,7 @@ class ShareRideService{
             apiMethods.post
         );
  }
- getMatchingRides=(limit,offset,status)=>{
+ getMatchingRides=(requestObject)=>{
      return networkCallWithApisauce(
             this.api,
             `${matchingRide.endpoint}?limit=${3}&offset=${0}&status=${status}`,
@@ -34,7 +35,7 @@ class ShareRideService{
             apiMethods.get
         );
  }
-getMatchingAssets=(limit,offset,status)=>{
+getMatchingAssets=(requestObject)=>{
    return networkCallWithApisauce(
              this.api,
              `${matchingAssets.endpoint}?limit=${3}&offset=${0}`,

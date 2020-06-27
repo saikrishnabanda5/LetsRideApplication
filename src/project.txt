@@ -1,0 +1,39 @@
+1. writing  types for app
+2. writing index files for both services
+3.
+
+
+1.sharestore types
+2.pagenation store types
+
+
+svg files svgr. react svgr
+validate function - text input , shouldShowError,errorMessage - stories.js
+check the tory book 
+chrome devtools
+
+
+1.removing auth error for input field
+
+
+changes to devtools
+1.matching results
+2.MatchingRideDetails.tsx
+3.Pagenator.js
+4.ShareStore.js
+5.PagenationStore.ts
+6.ShareAPI.api.js
+
+
+
+1. .env for dev environment
+
+2.we dont use git merge
+
+3. pull requests
+
+4.  dont use math.random() for key
+
+5.  WHEN WE USE .THEN  OR await then only we use async otherwise no need.
+we dont used async for n/w function
+

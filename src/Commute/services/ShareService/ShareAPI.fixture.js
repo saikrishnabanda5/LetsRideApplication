@@ -2,12 +2,13 @@ import {create} from 'apisauce';
 import credentials from '../../fixtures/getRideResponse.json';
 import matchingRides from '../../fixtures/getMatchingRides.json';
 import matchingAssets from '../../fixtures/getMatchingAssets.json';
+import config from "../../../Common/constants/EnviromentConstants";
 class ShareRideService{
   api;
   
   constructor(){
      this.api=create({
-            baseURL:"https://virtserver.swaggerhub.com/IB-HUBS2/lets_ride/1.0.0/"
+            baseURL:config.BASE_URL
      });
  }
  getMatchingRides=(limit,offset)=>{

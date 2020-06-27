@@ -19,3 +19,6 @@ class AuthService{
 }
 
 export default AuthService;
+// return new Promise(resolve => {
+//   setTimeout(() => resolve(response), timeOut)
+// })

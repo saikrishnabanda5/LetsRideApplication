@@ -5,9 +5,11 @@ Flexibility,UserFlexibility,Operations,Availability,Counter,PageView,Mandatory,A
 import DateAndTime from '../../../Common/DateAndTime';
 import data from '../../../i18n/strings.json';
 import InputTag from '../../../Common/InputTag';
+import Validation from '../../../Common/Validation'
 import CheckBox from '../../../Common/CheckBox';
 import CounterPage from '../../../Common/CounterPage';
 import ButtonComponent from '../../../Common/ButtonComponent';
+import ValidationInput from '../../../Common/utils/ValidationUtils'
 @observer
 class RequestRide extends React.Component{
     
@@ -31,8 +33,10 @@ class RequestRide extends React.Component{
                   <InputTag type={data.type.text} placeholder={data.travel.source}  onChangeInput={onChangeSource}
                   errorMessage={errorMessage} inputValue={source}/>
                 </Field>
-              <ErrorMessage>{source==""?<div>{errorMessage}</div>:null}</ErrorMessage>
+              <ErrorMessage>{source==""?<div>{errorMessage}</div>:null}</ErrorMessage> 
             </InputField>
+
+            <Validation type={data.type.text} placeholder={data.travel.source} ValidationInput={ValidationInput}/>
            
            <Address>
                <ToAddress>{data.rideRequest.to}</ToAddress>

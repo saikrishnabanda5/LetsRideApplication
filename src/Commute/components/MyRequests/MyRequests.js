@@ -5,25 +5,38 @@ import MatchingResults from '../MatchingResults';
 import MyRequestDetails from '../MyRequestDetails';
 // import SharedDetails from '../SharedDetails';
 import {Navigation,HomePage,Results,Request,Details,MainPage} from './styledComponent';
+
+// interface MyRequestsProps{
+//     OnMatchingResults:()=>void
+//     OnMyRequests:()=>void
+//     onSharedDetails:()=>void
+//     matchingResults:boolean 
+//     myRequests:boolean
+//     sharedDetails:boolean
+//     onAddRequest:()=>void
+//     onAddRideRequest:()=>void
+// }
 @observer
 class MyRequests extends React.Component{
+    //<MyRequestsProps>
     
-    render(){
-        const {OnMatchingResults,OnMyRequests,onSharedDetails,matchingResults,myRequests,sharedDetails,}=this.props;
+      render(){
+        const {OnMatchingResults,OnMyRequests,onSharedDetails,matchingResults,myRequests,sharedDetails,onAddRequest,onAddRideRequest}=this.props;
         return(
             <MainPage>
                 <HomePage>
-                   <Results onClick={OnMatchingResults} matchingResults={matchingResults}> Matching Results </Results>
-                   <Request onClick={OnMyRequests} myRequests={myRequests}>My Requests </Request>
-                   <Details onClick={onSharedDetails} sharedDetails={sharedDetails}>Shared Details</Details>
+                   <Results matchingResults= {matchingResults} onClick={OnMatchingResults}> Matching Results </Results>
+                    <Request myRequests={myRequests} onClick={OnMyRequests} >My Requests </Request>
+                   <Details sharedDetails={sharedDetails} onClick={onSharedDetails} >Shared Details</Details>
                 </HomePage>
             <Navigation>
-                <div>{matchingResults?<MatchingResults onAddRequest={this.props.onAddRequest}/>:null}</div>
-                {myRequests?<MyRequestDetails onAddRideRequest={this.props.onAddRideRequest}/>:null}
+                <div>{matchingResults?<MatchingResults  />:null}</div>
+                {myRequests?<MyRequestDetails onAddRideRequest={onAddRideRequest}/>:null}
                 {/*{sharedDetails?<SharedDetails onAddRequest={this.props.onAddRequest}/>:null}*/}
             </Navigation>
             </MainPage>
         );
+
     }
 }
 export default MyRequests;

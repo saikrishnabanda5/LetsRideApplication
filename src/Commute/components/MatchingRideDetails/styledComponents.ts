@@ -13,12 +13,12 @@ const Tasks = styled.div `${tw
 `flex justify-between pb-4 pl-2 pt-8 bg-gray-200`}
 `;
 
-const Image = styled.img `${tw 
-`pr-2 pl-1`}
+const Image = styled.div `${tw 
+`pr-2 pl-1 `}
 `;
 
 const SortAndFilter = styled.div `${tw 
-`flex`}
+`flex items-center`}
 `;
 
 

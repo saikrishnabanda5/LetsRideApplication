@@ -1,22 +1,23 @@
 import React from "react";
 import {observer,inject} from 'mobx-react';
 import {observable} from 'mobx';
-import {withRouter} from "react-router-dom";
+import {withRouter, RouteComponentProps} from "react-router-dom";
 import MyRequests from '../../components/MyRequests';
 import { type } from "os";
+import RequestStore from "../../stores/RequestStore";
 
-type MyRequestsRouteProps ={
-  history: {
-    push(url: string): void;
-}
+interface MyRequestsRouteProps extends RouteComponentProps{}
+
+interface  InjectedProps extends MyRequestsRouteProps {
+     requestStore:RequestStore
 }
 
 @inject('requestStore')
 @observer
 class MyRequestsRoute extends React.Component<MyRequestsRouteProps> {
-  @observable matchingResults: boolean
-  @observable myRequests: boolean
-  @observable sharedDetails: boolean
+  @observable matchingResults!: boolean
+  @observable myRequests!: boolean
+  @observable sharedDetails!: boolean
   
   constructor(props){
         super(props);
@@ -40,9 +41,13 @@ class MyRequestsRoute extends React.Component<MyRequestsRouteProps> {
       this.sharedDetails = true;
     }
     onAddRideRequest=()=>{
-      alert()
       const {history}=this.props;
       history.push('/ride-app/request-ride/');
+    }
+
+    onAddRequest=()=>{
+      const {history}=this.props;
+      history.push('/ride-app/');
     }
   render() {
     return (
@@ -53,7 +58,8 @@ class MyRequestsRoute extends React.Component<MyRequestsRouteProps> {
        matchingResults={this.matchingResults}
        myRequests={this.myRequests}
        sharedDetails = {this.sharedDetails}
-       onAddRideRequest={this.props.onAddRideRequest}
+       onAddRideRequest={this.onAddRideRequest}
+       onAddRequest = {this.onAddRequest}
        />
     );
   }

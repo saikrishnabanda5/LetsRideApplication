@@ -1,6 +1,14 @@
 import styled from '@emotion/styled';
 import tw from 'tailwind.macro';
+import { boolean } from "@storybook/addon-knobs";
 
+interface StatusProps{
+    status:string
+}
+interface ButtonProps{
+    rideButton:boolean
+    assetButton:boolean
+}
 const Requests = styled.div `${tw 
 ` mb-auto `};
 width:80vw;
@@ -20,7 +28,7 @@ width:80vw;
 height: 25px;
 `;
 
-const Button = styled.button `${tw 
+const Button = styled.button<ButtonProps> `${tw 
 `pr-12 focus:outline-none`}
 font-size: 12px;
 font-weight: 600;
@@ -51,7 +59,7 @@ const Details = styled.div `${tw `flex justify-center items-center `};
 border: solid 1px #d7efd9;
 `;
 
-const Status = styled.div `${tw 
+const Status = styled.div<StatusProps> `${tw 
 `w-40 text-center `};
 width: 80px;
 border-radius: 100px;

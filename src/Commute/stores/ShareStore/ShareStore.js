@@ -4,6 +4,7 @@ import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
 import MatchingRideModel from '../models/MatchingRideModel';
 import MatchingAssetModel from '../models/MatchingAssetModel';
 import PagenationStore from '../../../Common/Stores/PagenationStore';
+import RequestService from "../../services/RequestService/RequestAPI.fixture";
 class ShareStore {
     @observable getShareRideAPIStatus
     @observable getShareTravelInfoAPIStatus
@@ -14,29 +15,33 @@ class ShareStore {
     @observable getShareTravelInfoAPIError
     @observable getMatchingRideAPIError
     @observable getMatchingAssetAPIError
-    @observable response
+    // @observable response
     
     @observable matchedRideDetails
     @observable matchedAssetDetails
-    @observable noOfMatchedRides
     @observable noOfSharedTravelDetails
+    @observable noOfMatchedRides
     
     @observable matchingRideLimit
     @observable matchingRideOffset
     @observable matchingRideStatus
     @observable pageNumber
     
+    @observable noOfMatchedAssets
+    @observable matchingAssetLimit 
+    @observable matchingAssetOffset
+    @observable matchingAssetStatus
+    
     requestAPIService
     pagenationstore
     constructor(requestService){
-        // console.log("requestService",requestService)
-        this.requestAPIService=requestService;
+        //:RequestService
+        this.requestAPIService=requestService; 
         this.matchingRideLimit = 2;
-        this.matchingRideOffset =0; 
         this.pagenationstore = new PagenationStore(MatchingRideModel,requestService.getMatchingRides,this.matchingRideLimit);
         this.init();
     }
-    @action
+    @action.bound
     init(){
         this.getShareRideAPIStatus=API_INITIAL;
         this.getShareTravelInfoAPIStatus=API_INITIAL;
@@ -46,14 +51,16 @@ class ShareStore {
         this.getShareTravelInfoAPIError=null;
         this.getMatchingRideAPIError=null;
         this.getMatchingAssetAPIError = null;
-        this.response='';
+        // this.response='';
         
         this.matchedRideDetails=[];
         this.matchedAssetDetails=[];
-        
+        this.matchingRideOffset =0;
+        this.matchingRideStatus = "Confirmed";
+
         this.noOfMatchedRides=0;
         this.noOfMatchedAssets=0; 
-        this.matchingRideStatus = "";
+        
         
         this.matchingAssetLimit = 2;
         this.matchingAssetOffset =0; 
@@ -80,7 +87,7 @@ class ShareStore {
     @action.bound
     setShareAPIResponse(shareRideresponse){
     
-        this.response=shareRideresponse;
+        // this.response=shareRideresponse;
     }
     @action.bound
     setShareTravelInfoAPIResponse(travelInfoResponse){
@@ -142,7 +149,7 @@ class ShareStore {
     
     @action.bound
     onMatchingRides(){
-          this.pagenationstore.getTheData();
+         return this.pagenationstore.getTheData();
           }
     
     @action.bound
