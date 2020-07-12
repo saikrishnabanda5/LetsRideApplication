@@ -1,36 +1,36 @@
 import {observable,action} from 'mobx';
-import {API_INITIAL} from '@ib/api-constants';
+import {API_INITIAL, APIStatus} from '@ib/api-constants';
 import {bindPromiseWithOnSuccess} from '@ib/mobx-promise';
 import MatchingRideModel from '../models/MatchingRideModel';
 import MatchingAssetModel from '../models/MatchingAssetModel';
 import PagenationStore from '../../../Common/Stores/PagenationStore';
 import RequestService from "../../services/RequestService/RequestAPI.fixture";
 class ShareStore {
-    @observable getShareRideAPIStatus
-    @observable getShareTravelInfoAPIStatus
-    @observable getMatchingRideAPIStatus
-    @observable getMatchingAssetAPIStatus
+    @observable getShareRideAPIStatus!: APIStatus
+    @observable getShareTravelInfoAPIStatus!: APIStatus
+    @observable getMatchingRideAPIStatus!: APIStatus
+    @observable getMatchingAssetAPIStatus!: APIStatus
     
-    @observable getShareRideAPIError
-    @observable getShareTravelInfoAPIError
-    @observable getMatchingRideAPIError
-    @observable getMatchingAssetAPIError
+    @observable getShareRideAPIError!: Error | null
+    @observable getShareTravelInfoAPIError!: Error | null
+    @observable getMatchingRideAPIError!: Error | null
+    @observable getMatchingAssetAPIError!: Error | null
     // @observable response
     
-    @observable matchedRideDetails
-    @observable matchedAssetDetails
+    @observable matchedAssetDetails!:Array<object>
     @observable noOfSharedTravelDetails
     @observable noOfMatchedRides
+    @observable noOfMatchedAssets!:number
+
     
-    @observable matchingRideLimit
-    @observable matchingRideOffset
-    @observable matchingRideStatus
-    @observable pageNumber
+    @observable matchingRideLimit!:number
+    @observable matchingRideOffset!:number
+    @observable matchingRideStatus!:string
+    @observable pageNumber!:number
     
-    @observable noOfMatchedAssets
-    @observable matchingAssetLimit 
-    @observable matchingAssetOffset
-    @observable matchingAssetStatus
+    @observable matchingAssetLimit!:number
+    @observable matchingAssetOffset!:number
+    @observable matchingAssetStatus!:string
     
     requestAPIService
     pagenationstore
@@ -53,7 +53,6 @@ class ShareStore {
         this.getMatchingAssetAPIError = null;
         // this.response='';
         
-        this.matchedRideDetails=[];
         this.matchedAssetDetails=[];
         this.matchingRideOffset =0;
         this.matchingRideStatus = "Confirmed";

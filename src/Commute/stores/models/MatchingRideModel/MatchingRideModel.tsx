@@ -1,7 +1,5 @@
 import {observable} from 'mobx';
 
-
-
 class MatchingRideModel{
     @observable source: string 
     @observable destination: string
@@ -13,7 +11,7 @@ class MatchingRideModel{
     @observable luggage_quantity:number
     @observable mobile_number:string
     @observable user_name:string
-    // @observable status
+    @observable status:string
     constructor(props){
         this.source=props.source;
         this.destination=props.destination;
@@ -25,7 +23,7 @@ class MatchingRideModel{
         this.luggage_quantity=props.luggage_quantity;
         this.mobile_number=props.matched_person.mobile_number;
         this.user_name=props.matched_person.user_name;
-        // this.status=props.status;
+        this.status=props.status;
     }
 }
 export default MatchingRideModel;

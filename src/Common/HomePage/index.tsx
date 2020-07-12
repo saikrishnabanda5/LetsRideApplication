@@ -23,6 +23,7 @@ class HomePage extends React.Component {
         <Link to="/signup/v1">SignUp Page</Link>
         <Link to="/login/v1">LogIn Page</Link>
         <Link to="/page-1">Button </Link>
+        <Link to="/Carousel">Carousel</Link>
       </header>
     </div>
   );

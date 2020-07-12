@@ -5,38 +5,34 @@ import {Requests,TypeOfRequest,Button,Details,Header,Heading,Headings,Status,Hea
 import data from '../../../i18n/strings.json';
 import MatchingRideDetails from '../MatchingRideDetails';
 import MatchingAssetDetails from '../MatchingAssetDetails';
-// import ShareStore from "../../stores/ShareStore";
+import ShareStore from "../../stores/ShareStore";
 
-// interface MatchingResultsProps {}
+interface MatchingResultsProps {
 
-// interface InjectedProps extends MatchingResultsProps {
-//     shareStore:ShareStore
-// }    
+}
+
+interface InjectedProps extends MatchingResultsProps {
+    shareStore:ShareStore
+}    
 @inject('shareStore')
 @observer
-class MatchingResults extends React.Component{
-    // <MatchingResultsProps>
-    // @observable rideButton: boolean 
-    // @observable assetButton: boolean 
-    // @observable initialScreen: boolean 
-    // @observable noOfMatchedRides: number
-    // @observable noOfMatchedAssets: number
-    // @observable listOfMatchingRides:Array<string>
-    // @observable listOfMatchingAssets:Array<string>
-    @observable rideButton
-        @observable assetButton
-        @observable initialScreen
-        @observable noOfMatchedRides
-      @observable noOfMatchedAssets
-      @observable listOfMatchingRides
-    @observable listOfMatchingAssets
+class MatchingResults extends React.Component<MatchingResultsProps>{
+    
+    @observable rideButton: boolean 
+    @observable assetButton: boolean 
+    @observable initialScreen: boolean 
+    @observable noOfMatchedRides: number
+    @observable noOfMatchedAssets: number
+    @observable listOfMatchingRides:Array<string>
+    @observable listOfMatchingAssets:Array<string>
+  
     constructor(props) {
         super(props);
         this.rideButton = false;
         this.assetButton = false;
         this.initialScreen = true;
-        this.noOfMatchedRides = this.props.shareStore.noOfMatchedRides;
-        this.noOfMatchedAssets = this.props.shareStore.noOfMatchedAssets;
+        this.noOfMatchedRides = this.getShareStore().noOfMatchedRides;
+        this.noOfMatchedAssets = this.getShareStore().noOfMatchedAssets;
         this.listOfMatchingRides = [
             data.rideRequest.acceptedDetails,
             data.rideRequest.from,
@@ -59,14 +55,13 @@ class MatchingResults extends React.Component{
             data.assetRequest.status
         ];
     }
-    // getInjectedProps = (): InjectedProps => this.props as InjectedProps 
+    getInjectedProps = (): InjectedProps => this.props as InjectedProps 
     
-    // getShareStore = () => {
-    //     return this.getInjectedProps().shareStore
-    // }
+    getShareStore = () => {
+        return this.getInjectedProps().shareStore
+    }
 
     onClickRide = () => {
-        console.log(11)
         this.rideButton = true;
         this.assetButton = false;
     }
@@ -93,10 +88,9 @@ class MatchingResults extends React.Component{
         return values;
     }
     matchingAssetData = () => {
-        const values = this.props.shareStore.matchedAssetDetails.map((name) => {
+        const values = this.getShareStore().matchedAssetDetails.map((name) => {
             return ( 
                 <Details key={Math.random()}>
-                
                       <Headings> {name.source}</Headings>
                       <Headers> {name.destination}</Headers>
                       {name.is_flexible?<div>
@@ -118,7 +112,7 @@ class MatchingResults extends React.Component{
         return values;
     }
     matchingData = () => {
-        const values = this.props.shareStore.pagenationstore.matchedRideDetails.map((name) => {
+        const values = this.getShareStore().pagenationstore.matchedRideDetails.map((name) => {
             return ( 
                 <Details key={Math.random()}>
                       <div>
@@ -149,8 +143,8 @@ class MatchingResults extends React.Component{
                  <Button rideButton={this.rideButton} assetButton={this.assetButton} onClick={this.onClickRide}>{data.ride} </Button>
                  <Button assetButton={this.assetButton} rideButton={this.rideButton} onClick={this.onClickAsset}> {data.asset}</Button>
                </TypeOfRequest>
-                  {this.rideButton||this.initialScreen?<MatchingRideDetails headings={this.headings()} matchingData={this.matchingData()}
-                   noOfMatchedRides={this.noOfMatchedRides} /> :null}  
+                  {this.rideButton||this.initialScreen?<MatchingRideDetails  matchingData={this.matchingData()} headings={this.headings()}
+                   /> :null}  
                    {this.assetButton?<MatchingAssetDetails assetHeadings={this.assetHeadings()} matchingAssetData={this.matchingAssetData()}
                    noOfMatchedAssets={this.noOfMatchedAssets} /> :null}
             </Requests>

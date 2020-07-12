@@ -6,14 +6,16 @@ import {ButtonComponent,ButtonText,BaseButtonStyle} from './styledComponents';
 class BaseButtonComponent extends Component{
     static defaultProps = {
         shape:"oval",
-        type:"filled",
+        variant:"filled",
         className:"",
     }
     render(){
         const {onClick,isDisabled,textTypo,className } = this.props;
         let  onClickButton = {};
         if(!isDisabled){
-            onClickButton:{onClick:onClick}
+            onClickButton:{
+                onClick:onClick
+            }
         }
         
         return(

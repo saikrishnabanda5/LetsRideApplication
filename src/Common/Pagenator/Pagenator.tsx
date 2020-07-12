@@ -3,18 +3,19 @@ import {observer} from 'mobx-react';
 import { AiOutlineArrowLeft,AiOutlineArrowRight } from "react-icons/ai";
 import {Pages,LeftArrow,CurrentPageNumber,TotalNumberOfPages,RightArrow} from './styledComponents';
 
-// interface PagenatorProps {
-//     onClickLeftArrow:
-//     onClickRightArrow:
-
-// }
+interface PagenatorProps {
+    onClickLeftArrow:()=>void
+    onClickRightArrow:()=>void
+    limit: number
+    total:number
+    pageNumber:number
+}
 
 @observer
-class Pagenator extends React.Component{
-    //<PagenatorProps>
+class Pagenator extends React.Component<PagenatorProps>{
     render(){
         
-        const {limit,onClickLeftArrow,onClickRightArrow,total,pageNumber} =this.props;
+        const {limit,onClickLeftArrow,onClickRightArrow,total,pageNumber} = this.props;
         return(
             <Pages>
                 <LeftArrow onClick={onClickLeftArrow} >

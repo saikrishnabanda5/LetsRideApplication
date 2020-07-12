@@ -1,0 +1,18 @@
+GET http://jsonplaceholder.typicode.com/todos
+
+###
+POST  http://jsonplaceholder.typicode.com/todos
+
+{
+    "userId": 201,
+    "id": 201,
+    "title": "totam quia non",
+    "completed": false
+}
+
+
+###
+
+GET http://jsonplaceholder.typicode.com/todos/201
+
+//REST CLIENT EXTENSION

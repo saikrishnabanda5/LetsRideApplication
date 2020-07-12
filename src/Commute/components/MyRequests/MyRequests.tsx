@@ -6,19 +6,19 @@ import MyRequestDetails from '../MyRequestDetails';
 // import SharedDetails from '../SharedDetails';
 import {Navigation,HomePage,Results,Request,Details,MainPage} from './styledComponent';
 
-// interface MyRequestsProps{
-//     OnMatchingResults:()=>void
-//     OnMyRequests:()=>void
-//     onSharedDetails:()=>void
-//     matchingResults:boolean 
-//     myRequests:boolean
-//     sharedDetails:boolean
-//     onAddRequest:()=>void
-//     onAddRideRequest:()=>void
-// }
+interface MyRequestsProps{
+    OnMatchingResults:()=>void
+    OnMyRequests:()=>void
+    onSharedDetails:()=>void
+    matchingResults:boolean 
+    myRequests:boolean
+    sharedDetails:boolean
+    onAddRequest:()=>void
+    onAddRideRequest:()=>void
+}
 @observer
-class MyRequests extends React.Component{
-    //<MyRequestsProps>
+class MyRequests extends React.Component<MyRequestsProps>{
+    
     
       render(){
         const {OnMatchingResults,OnMyRequests,onSharedDetails,matchingResults,myRequests,sharedDetails,onAddRequest,onAddRideRequest}=this.props;

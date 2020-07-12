@@ -7,7 +7,7 @@ import assetRequestCredentials from '../../fixtures/getAssetRequestCredentials.j
 class RequestService{
   api
   constructor(){
-     this.api=create({
+     this.api=create({                                 
             baseURL:"https://virtserver.swaggerhub.com/IB-HUBS2/lets_ride/1.0.0/"
      });
  }

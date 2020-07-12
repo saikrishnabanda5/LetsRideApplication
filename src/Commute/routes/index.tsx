@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy } from "react";
 import {Route} from "react-router-dom";
 import ProtectedRoute from '../../Authentication/routes/authenticationRoute';
 import {
@@ -9,11 +9,12 @@ import {
   ASSET_REQUEST_PATH
 } from "../constants/RouteConstants";
 
-import RideAppRoute from   '../routes/RideAppRoute';
-import RequestRideRoute from '../routes/RequestRideRoute';
-import ShareRideRoute from   '../routes/ShareRideRoute';
-import ShareTravelInfoRoute from   '../routes/ShareTravelInfoRoute';
-import RequestAssetTransportRoute from '../routes/RequestAssetTransportRoute';
+
+const RideAppRoute  = lazy(() => import ('../routes/RideAppRoute'))
+const RequestRideRoute =lazy(() => import('../routes/RequestRideRoute'))
+const ShareRideRoute  =lazy(() => import('../routes/ShareRideRoute'))
+const ShareTravelInfoRoute  =lazy(() => import('../routes/ShareTravelInfoRoute'))
+const RequestAssetTransportRoute =lazy(() => import('../routes/RequestAssetTransportRoute'))
 
 const rideAppRoutes = [
     

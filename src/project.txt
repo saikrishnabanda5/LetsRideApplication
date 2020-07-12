@@ -7,7 +7,7 @@
 2.pagenation store types
 
 
-svg files svgr. react svgr
+svg files svgr. react svgr website
 validate function - text input , shouldShowError,errorMessage - stories.js
 check the tory book 
 chrome devtools
@@ -31,7 +31,7 @@ changes to devtools
 2.we dont use git merge
 
 3. pull requests
-
+ 
 4.  dont use math.random() for key
 
 5.  WHEN WE USE .THEN  OR await then only we use async otherwise no need.
